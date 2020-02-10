@@ -1,0 +1,12 @@
+package tv_user_info_protos;
+
+option java_package = "com.tencent.protocol.tga.chatMsg";
+option java_outer_classname = "tv_user_info_protos";
+
+//用户资料
+message TVUserInfo
+{
+    required bytes user_id        = 1; // 用户id
+    optional bytes nick           = 2; // 昵称
+    optional bytes face_url       = 3; // 用户头像
+}

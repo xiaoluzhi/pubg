@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tencent.tga.liveplugin.live.common.views.ResizeLinerlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pop_chat_tainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#00FFFFFF" />
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="36dip"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/live_fullscreen_chat_msg_ed_bg"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:hint="@string/hint_live_chat"
+        android:imeOptions="actionSend|flagNoExtractUi"
+        android:singleLine="true"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:textColor="@color/white"
+        android:textSize="13dp"
+        android:visibility="visible"
+        android:textCursorDrawable="@drawable/mycursor"/>
+</com.tencent.tga.liveplugin.live.common.views.ResizeLinerlayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.tencent.tga.liveplugin.webview.GameCenterWebView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/webview_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="top"
+        android:background="#FF293F55"
+        android:gravity="center_vertical|right"
+        android:paddingRight="40dp"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/webview_back_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="6dp"
+        android:scaleType="center"
+        android:background="@drawable/back_icon_bg"
+        android:src="@drawable/icon_video_back"
+        android:visibility="gone" />
+</com.tencent.tga.liveplugin.webview.GameCenterWebView>

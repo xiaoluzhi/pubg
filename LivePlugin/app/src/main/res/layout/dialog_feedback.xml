@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:clickable="true"
+             android:paddingLeft="95dp"
+             android:paddingRight="95dp"
+             android:paddingTop="43dp"
+             android:paddingBottom="42dp"
+        >
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/feedback_bg"
+            >
+
+        <RelativeLayout
+                android:id="@+id/mRlyTop"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                >
+            <ImageView
+                    android:id="@+id/mTvFeedBackTitle"
+                    android:layout_width="108dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/feedback_title"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"/>
+            <ImageView
+                    android:id="@+id/mIvClose"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_video_back"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="fitXY"
+                    />
+        </RelativeLayout>
+
+        <Button
+                android:id="@+id/mBtnEnsure"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/icon_know"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/mTvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:textColor="#333333"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_marginRight="10dp"
+                android:text=""
+                />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="26dp"
+                android:paddingRight="26dp"
+                android:paddingTop="25dp"
+                android:layout_below="@id/mRlyTop"
+                android:layout_above="@id/mBtnEnsure"
+                >
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_marginBottom="5dp"
+                    >
+                <TextView
+                        android:id="@+id/mTvQuestion"
+                        android:text="常见问题"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                <GridView
+                        android:id="@+id/mGvQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        android:layout_toRightOf="@id/mTvQuestion"
+                        android:layout_marginLeft="10dp"
+                        android:numColumns="3"
+                        android:listSelector="@android:color/transparent"
+                        android:verticalSpacing="17dp"
+                        android:horizontalSpacing="25dp"
+                        ></GridView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    >
+                <TextView
+                        android:id="@+id/mTvDescription"
+                        android:text="具体描述"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        />
+
+                <EditText
+                        android:id="@+id/mEtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_toRightOf="@id/mTvDescription"
+                        android:layout_marginLeft="10dp"
+                        android:hint="欢迎留下更详细的描述或吐槽"
+                        android:textColorHint="#313234"
+                        android:gravity="left|top"
+                        android:textSize="11dp"
+                        android:background="@drawable/feedback_inputbg"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:textColor="@color/white"
+                        android:maxLength="200"
+                        android:imeOptions="actionDone"
+                        android:textCursorDrawable="@drawable/mycursor"
+                        />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    >
+                <TextView
+                        android:id="@+id/mTvContacts"
+                        android:text="联系方式"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                <EditText
+                        android:id="@+id/mEtContacts"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/mTvContacts"
+                        android:layout_marginLeft="10dp"
+                        android:hint="建议填写QQ号，仅工作人员可见"
+                        android:textColorHint="#313234"
+                        android:singleLine="true"
+                        android:gravity="center_vertical"
+                        android:textSize="11dp"
+                        android:background="@drawable/feedback_inputbg"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="@color/white"
+                        android:imeOptions="actionDone"
+                        android:textCursorDrawable="@drawable/mycursor"
+                        />
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

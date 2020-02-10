@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
+
+    <TextView
+            android:id="@+id/mIvGiftItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#333333"
+            android:layout_centerHorizontal="true"
+            android:lines="1"
+            android:maxEms="6"
+            android:ellipsize="end"
+            android:textSize="9dp"
+            android:text=""/>
+    <ImageView
+            android:id="@+id/mIvGiftItemPrize"
+            android:layout_width="40dp"
+            android:layout_height="43dp"
+            android:layout_below="@id/mIvGiftItemName"
+            android:layout_marginTop="3dp"
+            android:layout_centerHorizontal="true"
+            />
+
+    <ImageView
+            android:id="@+id/mIvGiftItemState"
+            android:layout_width="40dp"
+            android:layout_height="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="9dp"
+            />
+    <TextView
+            android:id="@+id/mTvGiftItemRemainTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:textSize="11dp"
+            android:textColor="#874811"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+</RelativeLayout>

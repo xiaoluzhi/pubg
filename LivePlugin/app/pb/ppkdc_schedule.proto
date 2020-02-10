@@ -1,0 +1,95 @@
+package ppkdc_schedule_protos;
+
+option java_package = "com.tencent.protocol.tga.ppkdc_schedule";
+option java_outer_classname= "ppkdc_schedule_protos";
+
+enum CMD
+{
+    CMD_PPKDC_SCHEDULE = 0x1042;
+}
+
+enum SUBCMD
+{
+    SUBCMD_GET_CHANNEL_LIST = 0x01; // 获取频道列表
+}
+
+enum ChannelSourceType
+{
+	E_CHANNEL_SOURCE_TYPE_PPKDC_SL	= 400;//跑跑卡丁车电视台
+}
+
+enum MatchState
+{
+    E_MATCH_STATE_NOT_START         = 1; // 赛事未开始
+    E_MATCH_STATE_CANCELED          = 2; // 赛事已取消
+    E_MATCH_STATE_RUNNING           = 3; // 赛事进行中
+    E_MATCH_STATE_FINISHED          = 4; // 赛事已结束
+}
+
+enum VideoPlayType
+{
+    VIDEO_PLAY_TYPE_LIVE            = 0; // 直播
+    VIDEO_PLAY_TYPE_RECORD          = 1; // 回看
+    VIDEO_PLAY_TYPE_PROGRAM         = 2; // 节目
+}
+
+message MatchItem
+{
+    required bytes match_id             = 1; // 赛事id
+    required uint32 match_state         = 2; // 赛事状态,参见 MatchState
+    required bytes match_time           = 3; // 比赛时间
+    required bytes match_main_title     = 4; // 赛事名称——主标题
+    required bytes match_sub_title      = 5; // 赛事名称——副标题
+    required bytes host_team_name       = 6; // 主队名称
+    required bytes host_team_logo       = 7; // 主队logo
+    required bytes guest_team_name      = 8; // 客队名称
+    required bytes guest_team_logo      = 9; // 客队logo
+    optional uint32 host_team_score     = 10; // 主队得分
+    optional uint32 guest_team_score    = 11; // 客队得分
+    optional bytes room_id              = 12; // 房间id[注意:多赛事请勿使用!]
+    optional bytes vid                  = 13; // 频道id[注意:多赛事请勿使用!]
+    optional uint32 online_num          = 14; // 在线人数,不要使用[注意:多赛事请勿使用!]
+    optional uint32 subcribe_state      = 15; // 订阅状态, 0未订阅,1已订阅
+    optional uint32 room_type           = 16; // 房间类型,0: 腾讯视频, 1:鹅掌TV视频流[注意:多赛事请勿使用!]
+    repeated bytes record_vid_list      = 17; // 回访视频id列表
+    optional bytes host_team_id         = 18; // 主队id
+    optional bytes guest_team_id        = 19; // 客队id
+    optional bytes host_vote_num        = 20; // 主队得票数
+    optional bytes guest_vote_num       = 21; // 客队得票数
+    optional bool has_cheer             = 22; // 是否配置助威
+}
+
+message ChannelInfo
+{
+    required uint32 source_id           = 1; // 频道id
+    required bytes  source_name         = 2; // 赛事名
+    required bytes  room_id             = 3; // 房间id
+    required bytes  vid                 = 4; // 频道id
+    optional uint32 online_num          = 5; // 在线人数
+    optional uint32 room_type           = 6; // 房间类型,0: 腾讯视频
+    optional uint32 current_play_type   = 7; // 当前播放类型,参见 VideoPlayType 0: 直播, 1: 回放, 2：节目
+    optional bytes current_title        = 9; // 当前播放标题
+    optional bytes record_url           = 10;// 频道图片的url
+    optional bytes record_title         = 11;// 频道图片的标题,已废弃
+    optional MatchItem running_match    = 12;// 正在进行中的比赛信息
+}
+
+
+
+/////////////////////////////////////////////////////////////
+//0x1 获取频道列表-请求
+message GetPpkdcChannelListReq
+{
+    required bytes  user_id          = 1; //用户id
+    required bytes  game_id          = 2; //游戏id
+    optional uint32 account_type     = 3; //账号类型, 1:qq, 2:微信
+    optional uint32 source_id        = 4; //source id, 参见 ChannelSourceType
+}
+
+//0x1 获取频道列表-响应
+message GetPpkdcChannelListRsp
+{
+    required uint32 result              = 1;
+    repeated ChannelInfo channel_list   = 2;
+}
+

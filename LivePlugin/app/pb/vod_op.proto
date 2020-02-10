@@ -1,0 +1,61 @@
+package vod_op_protos;
+
+option java_package = "com.tencent.protocol.tga.vod_op";
+option java_outer_classname= "vod_op_protos";
+
+option go_package = "vod_op";
+
+enum CMD
+{
+	CMD_VOD_OP  = 0x1046;
+}
+
+enum SUBCMD
+{
+    SUBCMD_SEND_DANMU = 0x1;  // 发送弹幕
+    SUBCMD_DIAN_ZAN = 0x2;  // 发送弹幕
+}
+
+// SUBCMD_SEND_DANMU = 0x1;  // 发送弹幕
+message SendDanmuReq
+{
+    optional bytes userid = 1;
+    optional bytes openid = 2;
+    optional bytes vid = 3;  // 视频vid
+    optional bytes nick = 4;
+    optional bytes avatar = 5; // 头像
+    optional uint32 offset_ms = 6;  // 时间偏移, 毫秒
+    optional bytes msg = 7;  // 消息内容
+    optional bytes gameid = 8;  // 游戏id, "smoba"
+    optional uint32 game_level = 9;  // 游戏等级
+}
+
+message SendDanmuRsp
+{
+    required uint32 result = 1;
+    optional bytes err_msg = 2;
+}
+
+enum DianZanOp
+{
+    kZan = 1;  // 点赞操作
+    kUnZan = 2;  // 取消点赞
+}
+
+message DianZanReq
+{
+    optional bytes userid = 1;
+    optional bytes openid = 2;
+    optional bytes vid = 3;  // 视频vid
+    optional bytes nick = 4;
+    optional uint32 op = 5;  // 建DianZanOp枚举
+    optional bytes gameid = 6;  // 游戏id, "smoba"
+    optional uint32 game_level = 7;  // 游戏等级
+}
+
+message DianZanRsp
+{
+    required uint32 result = 1;
+    optional bytes err_msg = 2;
+}
+ 

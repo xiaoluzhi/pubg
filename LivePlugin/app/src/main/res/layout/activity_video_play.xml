@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tencent.tga.liveplugin.video.VideoPlayView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pop_video_play_tainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <FrameLayout
+            android:id="@+id/layout_videolayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/black"
+            android:visibility="visible">
+        <master.flame.danmaku.tga.ui.widget.DanmakuSurfaceView
+                android:id="@+id/video_danmaku"
+                android:layout_marginBottom="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <RelativeLayout
+            android:id="@+id/top_container"
+            android:layout_width="match_parent"
+            android:layout_height="30dip"
+            android:background="@drawable/live_top_bg"
+            android:padding="0dp"
+            android:visibility="gone">
+
+        <ImageView
+                android:id="@+id/video_close"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:paddingRight="8dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:scaleType="center"
+                android:src="@drawable/video_back" />
+
+        <TextView
+                android:id="@+id/window_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_gravity="right"
+                android:layout_toRightOf="@+id/video_close"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+        <ImageView
+                android:id="@+id/play_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/window_title"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+                android:src="@drawable/video_play_num" />
+       <TextView
+                android:id="@+id/play_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@id/play_icon"
+                android:layout_marginLeft="3dp"
+                android:textSize="10dp"
+                android:layout_centerVertical="true"
+                android:includeFontPadding="false"/>
+    </RelativeLayout>
+
+    <com.tencent.tga.liveplugin.video.ui.VideoPlayerController
+            android:id="@+id/bottom_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="bottom"/>
+
+    <ImageView
+            android:id="@+id/anim_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            />
+
+    <RelativeLayout
+            android:id="@+id/mLlyMobileNet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#66000000"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <ImageView
+                android:id="@+id/mIvMobileNet"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/mIvMobileNetText"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/not_wifi_play_btn" />
+
+        <TextView
+                android:id="@+id/mIvMobileNetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="3dp"
+                android:text="当前非WIFI网络环境，继续观看需要消耗流量"
+                android:textColor="@color/white"
+                android:textSize="11dip"
+                android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="150dip"
+            android:layout_height="150dip"
+            android:visibility="gone"
+            android:id="@+id/setting_root"
+            android:layout_gravity="center"
+            android:background="@drawable/voice_bg"
+            >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:id="@+id/title"
+                android:textSize="18.5dp"
+                android:textColor="#FF000000"
+                android:layout_centerHorizontal="true"
+                />
+
+        <ImageView
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                android:id="@+id/iv_center"
+                android:layout_centerInParent="true"
+                />
+
+        <ProgressBar
+                android:layout_width="135dp"
+                android:layout_height="6dp"
+                style="@style/tallerBarStyle"
+                android:max="100"
+                android:progress="0"
+                android:layout_marginTop="4dp"
+                android:id="@+id/pb"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15dip"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:id="@+id/tips"
+                android:text="静音"
+                android:visibility="gone"
+                android:textSize="18.5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:textColor="#FF000000"
+                android:layout_marginBottom="6dip"
+                />
+    </RelativeLayout>
+    <FrameLayout
+            android:id="@+id/add_zan_entry"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dip"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="gone"
+            android:background="@drawable/video_add_zan_entry">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bubble"/>
+        <ImageView
+                android:id="@+id/zan_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center_horizontal" />
+        <TextView
+                android:id="@+id/zan_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7dp"
+                android:layout_marginBottom="4dp"
+                android:text="0"
+                android:layout_gravity="bottom|center_horizontal"
+                android:textColor="#F5AF49"/>
+    </FrameLayout>
+
+
+</com.tencent.tga.liveplugin.video.VideoPlayView>

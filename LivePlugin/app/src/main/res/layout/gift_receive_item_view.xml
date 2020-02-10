@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="59dp"
+                android:layout_height="80dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+        >
+
+    <ImageView
+            android:id="@+id/mIvGiftReceiveIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/gift_bg"
+            />
+
+    <TextView
+            android:id="@+id/mTvIvGiftReceiveName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mIvGiftReceiveIcon"
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="9dp"
+            android:lines="1"
+            android:textColor="#D7D7D7"
+            android:maxEms="6"
+            android:ellipsize="end"
+            android:text=""
+            />
+</RelativeLayout>

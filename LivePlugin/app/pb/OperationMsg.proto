@@ -1,0 +1,16 @@
+package OperationMsg_protos;
+
+option java_package = "com.tencent.protocol.tga.OperationMsg";
+option java_outer_classname = "OperationMsg_protos";
+
+//运营消息
+message OperationMsg
+{
+    required bytes  nick        = 1;    // 昵称
+    required bytes  text_msg    = 2;    // 文本消息
+    optional uint32 seq         = 3;    // 消息序列号，唯一标识一条消息，可以用来去重
+    optional uint32 msg_type    = 4;    // 消息类型,4:系统消息,1:房管消息,2:男解说消息,3:男嘉宾消息,5:女解说消息,6:女嘉宾消息
+    optional bytes  face_url    = 5;    // 玩家头像url
+    optional uint32 show_type	= 6;    // 显示类型 1:只在大厅展示,2:在大厅和包厢展示
+    optional bytes color        = 7;   	// 颜色
+}

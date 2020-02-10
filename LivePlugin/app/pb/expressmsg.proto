@@ -1,0 +1,100 @@
+//for c++ namespace
+package expressmsg_protos;
+option go_package="pb/expressmsg";
+
+//for Java package and class name
+option java_package = "com.tencent.protocol.tga.expressmsg";
+option java_outer_classname = "expressmsg";
+
+/////////////////////类型定义///////////////////////
+//分配原则:
+
+//快递类型
+enum BusinessType {
+	//消息通知业务类型
+    BUSINESS_TYPE_KICK_OFF_USER_NOTIFY                = 1;  //踢人通知
+    BUSINESS_TYPE_ROOM_CHAT_NOTIFY                    = 2;  //房间公屏聊天通知
+    BUSINESS_TYPE_ROOM_FORBIDDEN                      = 3;  //房间被封禁
+    BUSINESS_TYPE_RELOGIN_NOTIFY                      = 4;  //通知客户端重新建立长链接
+    BUSINESS_TYPE_NOTIFY_OTHER_PLAYER_CARD_SEND       = 5;  //通知房间中的其他玩家卡牌赠送消息
+    BUSINESS_TYPE_NOTIFY_OTHER_PLAYER_GIFT_SEND       = 6;  //通知房间中的其他玩家礼物赠送消息
+    BUSINESS_TYPE_SDK_FRIEND_INVITE_FIGHT             = 7;  //SDK游戏好友邀请对战消息
+    BUSINESS_TYPE_ROOM_USERNUM_NOTIFY                 = 8;  //房间人数广播
+    BUSINESS_TYPE_ROOM_UPDATE_LIVE_INFO               = 9;  //房间定时更新直播数据
+    BUSINESS_TYPE_ROOM_ADMINISTRATOR_MSG              = 10; //房间管理员消息
+    BUSINESS_TYPE_ROOM_SYSTEM_MSG                     = 11; //房间系统消息
+    BUSINESS_TYPE_GUESS_PUSH_MSG                      = 12; //竞猜推送消息
+    BUSINESS_TYPE_UPDATE_LIVE_INFO                    = 13; //更新直播信息-多赛事房间广播
+    BUSINESS_TYPE_NOTIFY_LIVE_OFFLINE                 = 14; //通知直播下线-多赛事房间广播
+    BUSINESS_TYPE_BOX_CRITICAL_MSG                    = 15; //暴击宝箱消息
+    BUSINESS_TYPE_BALCONY_MEMBERS_NOTIFY              = 16; //包厢成员信息广播
+    BUSINESS_TYPE_ROOM_OPERATION_MSG                  = 17; //房间运营消息
+    BUSINESS_TYPE_INVITE_JOIN_BALCONY                 = 19; //邀请加入包厢
+
+    BUSINESS_TYPE_TEAM_SUPPORT_MSG                    = 20; //助威广播消息
+    BUSINESS_TYPE_BALCONY_1V1_NOTIFY                  = 21; //包厢1v1互动消息通知
+    BUSINESS_TYPE_ACTIVITY_ENTRY_NOTIFY               = 22; // 活动入口通知
+    BUSINESS_TYPE_EQUIPMENT_ENTRY_NOTIFY              = 23; // 出装入口通知
+    BUSINESS_TYPE_ACTIVITY_PROMOTE_NOTITY             = 24; // 活动推广通知
+    BUSINESS_TYPE_GUESS_PUSH_MSG_NEW                  = 25; // 竞猜推送消息-多选项
+	BUSINESS_TYPE_SUBSCRIBE_TEAM_NOTITY               = 26; // 战队订阅推送
+    BUSINESS_TYPE_LOTTERY_ACTIVITY_BEGIN_NOTIFY       = 27; // 王者抽奖活动开始通知
+    BUSINESS_TYPE_LOTTERY_ACTIVITY_RESULT_NOTIFY      = 28; // 王者抽奖活动结果通知
+	BUSINESS_TYPE_WONDERFUL_MOMENT_PUSH_MSG           = 29; // 王者精彩时刻推送消息
+    BUSINESS_TYPE_MSPEED_LOTTERY_ACTIVITY_BEGIN_NOTIFY = 30; // 飞车抽奖活动开始通知
+    BUSINESS_TYPE_MSPEED_LOTTERY_ACTIVITY_RESULT_NOTIFY = 31; // 飞车抽奖活动结果通知
+    BUSINESS_TYPE_WZRY_GIFT_BROADCAST                 = 32; // 王者礼物广播横幅
+    BUSINESS_TYPE_WZRY_VIP_ENTERROOM_NOTIFY           = 33; // 王者VIP进房通知
+    BUSINESS_TYPE_WZRY_GIFT_WORDDING_BROADCAST        = 34; // 王者礼物弹幕广播
+    BUSINESS_TYPE_WZRY_HONGBAO_ACTIVITY_BROADCAST     = 35; // 王者红包活动广播
+    BUSINESS_TYPE_WZRY_GIFT_GLOBAL_EFFECT_BROADCAST   = 36; // 王者礼物全局特效广播
+    BUSINESS_TYPE_WZRY_MILESTONE_BROADCAST            = 37; // 王者里程碑推送
+    BUSINESS_TYPE_WZRY_DUILEI_EFFECT                  = 38; // 王者对垒条光效
+    BUSINESS_TYPE_WZRY_LEAD_OVERLAY_NOTIFY            = 39; // 王者引导浮层广播
+
+    // 助手直播
+    BUSINESS_TYPE_SMH_CURRENT_MATCH_INFO_NOTIFY       = 40; // 助手当前赛事信息广播 
+    BUSINESS_TYPE_SMH_GIFT_NOTIFY                     = 41; // 助手付费礼物广播 
+    BUSINESS_TYPE_SMH_FREE_GIFT_NOTIFY                = 42; // 助手免费礼物广播
+    BUSINESS_TYPE_SMH_VIP_ENTERROOM_NOTIFY            = 43; // VIP进房通知
+    BUSINESS_TYPE_SMH_LOTTERY_ACTIVITY_BEGIN_NOTIFY   = 44; // 助手抽奖活动开始通知 
+    BUSINESS_TYPE_SMH_LOTTERY_ACTIVITY_RESULT_NOTIFY  = 45; // 助手抽奖活动结果通知 
+    BUSINESS_TYPE_SMH_HONGBAO_ACTIVITY_BROADCAST      = 47; // 助手红包活动广播
+    BUSINESS_TYPE_SMH_DUILEI_EFFECT                   = 48; // 助手垒条光效
+    BUSINESS_TYPE_SMH_MILESTONE_BROADCAST             = 49; // 助手里程碑推送
+    
+    // 业务信箱（公共基础）
+    BUSINESS_TYPE_MESSAGE_BOX_NOTIFY                  = 46; // 业务信箱新消息通知
+
+    // 欢乐斗地主
+    BUSINESS_TYPE_HLDDZ_UPDATE_ROOM_INFO              = 80; // 斗地主更新房间信息  
+    
+    // 飞车助威、礼物
+    BUSINESS_TYPE_MSPEED_DUILEI_INFO                  = 100; // 飞车对垒条信息广播
+    BUSINESS_TYPE_MSPEED_GIFT_BROADCAST               = 101; // 飞车礼物广播横幅
+    BUSINESS_TYPE_MSPEED_GIFT_WORDDING_BROADCAST      = 102; // 飞车礼物广播弹幕
+    BUSINESS_TYPE_MSPEED_HONGBAO_ACTIVITY_BROADCAST   = 103; // 飞车红包活动广播
+    BUSINESS_TYPE_MSPEED_GIFT_ENTRANCE_ACTIVE         = 104; // 飞车送礼入口跳动
+
+    // 和平精英
+    BUSINESS_TYPE_HPJY_UPDATE_ROOM_INFO              = 200; // 和平精英更新房间信息
+    BUSINESS_TYPE_HPJY_UPDATE_LIVE_INFO              = 213; //更新直播信息-多赛事房间广播
+    BUSINESS_TYPE_HPJY_NOTIFY_LIVE_OFFLINE           = 214; //通知直播下线-多赛事房间广播
+
+    BUSINESS_TYPE_WZRY_HONOR_CARD_NOTIFY             = 500; // 王者荣耀纪念卡推送
+}
+
+/////////////////////////////////////////////////////////
+message PushNotify
+{
+	repeated bytes body = 1;
+}
+
+message ExpressMsg {
+	required uint32 business_type   = 1; //业务类型
+	optional bytes  title           = 2; //标题
+	required bytes  content         = 3; //内容
+    required uint32 msg_seq         = 4; //消息序列号,方便跟踪消息流向(业务自身填写)
+    optional bytes  roomid          = 5; //房间ID
+}
+

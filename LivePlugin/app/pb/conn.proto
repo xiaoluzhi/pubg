@@ -1,0 +1,116 @@
+// See README.txt for information and build instructions.
+
+package conn_protos;
+
+option java_package = "com.tencent.protocol.tga.conn";
+option java_outer_classname= "conn_protos";
+
+enum conn_cmd_types {
+	CMD_CONN = 0x1000;
+}
+
+enum conn_subcmd
+{
+	SUBCMD_CONN_LOGIN		= 0x1;		//登录请求。
+	SUBCMD_CONN_LOGOUT		= 0x2;		//退出请求。
+	SUBCMD_CONN_HELLO 		= 0x3;		//长连接心跳
+	SUBCMD_CONN_PUSH		= 0x4;      //消息push
+	
+	SUBCMD_CONN_ROOM_ENTER	= 0x11;		//进房请求。
+	SUBCMD_CONN_ROOM_LEAVE	= 0x12;		//退房请求。
+	SUBCMD_CONN_ROOM_HELLO	= 0x13;		//房间心跳。
+}
+
+enum room_type
+{
+    ROOM_TYPE_MATCH_ROOM    = 0x0;      // 赛事房间
+    ROOM_TYPE_BALCONY_ROOM  = 0x1;      // 包厢房间
+}
+
+//SUBCMD_CONN_QTLOGIN 0x1票据登录
+message LoginReq
+{
+	optional bytes openid		= 1;
+	optional bytes uuid			= 2;
+	optional bytes access_token	= 3;
+	optional bytes machine_code = 4;
+	optional uint32 network_type = 5; //0：wifi，1：移动网络
+    optional bytes jfgameid = 6;  // 经分上报用，和经分同事协定
+    optional bytes gameid = 7;  
+}
+message LoginRsp
+{
+	required uint32 result = 1; //请求结果， 0 鉴权成功，1 鉴权失败, 2 票据过期, 3 服务器已满载重新登录其他服务器
+    optional string errMsg = 2; //错误信息
+    repeated uint32 connsvr_ip = 3; //接入服务器IP列表
+}
+
+message LogoutReq
+{
+	optional bytes openid		= 1;
+	optional bytes uuid			= 2;
+	optional bytes access_token	= 3;
+	optional bytes machine_code = 4;
+	
+}
+message LogoutRsp
+{
+	required uint32 result = 1; //请求结果
+    optional string errMsg = 2; //错误信息
+}
+
+//SUBCMD_CONN_HELLO = 0x3;	//长连接心跳
+message HelloReq
+{
+	required uint32 cur_time = 1;
+}
+
+message HelloRsp
+{
+	required uint32 result = 1; //0表成功，1表示失败
+	optional uint32 hello_time = 2;
+	optional uint32 close_tcp = 3;
+}
+
+// SUBCMD_CONN_ROOM_ENTER	= 0x11	进房请求。
+message Room_EnterReq
+{
+	required bytes roomid = 1;
+	required bytes userid = 2;
+	optional bytes nick	  = 3;
+}
+message Room_EnterRsp
+{
+	required uint32 result = 1; //请求结果， 0：进房成功， 1：进房失败，2：房间人数满，3：没有权限进房
+    optional string errMsg = 2; //错误信息
+	optional bytes  roomid = 3;
+}
+
+// SUBCMD_CONN_ROOM_LEAVE	= 0x12	退房请求。
+message Room_LeaveReq
+{
+	required bytes roomid		= 1; // 大厅id
+    repeated bytes  balcony_list= 2; // 包厢id列表
+    optional uint32 leave_type  = 3; // 包厢退房类型,0暂时退房-同时退大厅和包厢,1永久退房-只退包厢,2暂时退房-只退大厅
+    optional bytes user_nick    = 4; // 用户昵称
+}
+message Room_LeaveRsp
+{
+	required uint32 result = 1; //请求结果
+    optional string errMsg = 2; //错误信息
+}
+
+// SUBCMD_CONN_ROOM_HELLO	= 0x13	房间心跳。
+message Room_HelloReq
+{
+	required bytes  roomid		= 1;
+	required uint32 cur_time    = 2;
+    repeated bytes  balcony_list= 3; // 包厢id列表
+    optional uint32 room_push_flag = 4; // 房间推送标志,0:推送roomid的消息,1:屏蔽roomid的消息
+    optional bytes jf_gameid    = 5;  // 经分gameid, 经分统计数据用， 和经分同事协定
+}
+message Room_HelloRsp
+{
+	required uint32 result = 1; //请求结果， 0：成功，1：重新进房
+	optional uint32 hello_timespan = 2; //hello时间间隔，单位毫秒
+}

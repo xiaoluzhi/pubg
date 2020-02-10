@@ -1,0 +1,81 @@
+package chat_protos;
+
+option java_package = "com.tencent.protocol.tga.chat";
+option java_outer_classname = "chat_protos";
+
+enum chat_cmd_types {
+	CMD_CHAT = 0x1010;
+}
+
+enum chat_subcmd
+{
+	SUBCMD_ROOM_CHAT		= 0x1; //直播房间聊天
+    SUBCMD_GET_POPUP_WORD_LIST    = 0x2; //获取弹幕列表
+    SUBCMD_ZHUSHOU_ROOM_CHAT = 0x03;  // 助手聊天消息, 请求包内容和0x1一样
+	SUBCMD_MSPEED_ROOM_CHAT = 0x04;  // 移动飞车电视台, 请求包内容和0x1一样
+	SUBCMD_HLDDZ_ROOM_CHAT = 0x05;  // 欢乐斗地主, 请求包内容和0x1一样
+	SUBCMD_PPKDC_ROOM_CHAT = 0x06;  // 跑跑卡丁车, 请求包内容和0x1一样
+    SUBCMD_HPJY_ROOM_CHAT = 0x07;  // 和平精英, 请求包内容和0x1一样
+}
+
+//错误类型
+enum ChatErrCode
+{
+    ChatErrCode_Success         = 0; //成功
+    ChatErrCode_SYSRERR         = 1; //服务器内部错误
+    ChatErrCode_AUTHFAILD       = 2; //没有聊天权限
+    ChatErrCode_Forbidden       = 3; //已被禁言
+    ChatErrCode_Dirty           = 4; //聊天内容包含敏感词
+}
+
+// 聊天运营类型
+enum ChatOperationType
+{
+    ChatOperationType_Common    = 0; // 普通消息
+    ChatOperationType_Lottery   = 1; // 抽奖消息
+}
+
+//直播房间聊天 请求
+message RoomChatReq
+{
+	required bytes  userid      = 1; //QQ号
+	optional bytes  roomid      = 2; //
+	optional bytes  nick_name   = 3; //用户昵称
+    optional bytes  chat_msg    = 4; //文字消息（ChatMsg序列化后的数据）
+    optional bytes openid       = 5; // openid
+    optional bytes mcode        = 6;   
+    optional uint32 gamelevel   = 7;
+	optional int32 op_type      = 8; // 运营类型，详见enum ChatOperationType
+    optional int32 sourceid     = 9; // sourceid
+}
+
+//直播房间聊天 回包
+message RoomChatRsp
+{
+	required uint32 result          = 1; //
+	optional bytes  errmsg          = 2; //错误信息
+    optional uint32 unforbid_timestamp = 3; //解除禁言时间
+}
+
+//////////////////////////////////////////
+// 0x1010 0x2 获取弹幕列表 请求
+message GetPopupWordListReq
+{
+    required bytes uid      = 1; // 游戏uid
+    required bytes areaid   = 2; // 区服id
+}
+
+// 0x1010 0x2 获取弹幕列表 响应
+message GetPopupWordListRsp
+{
+    required int32 result       = 1; // 结果
+    repeated bytes word_list    = 2; // 弹幕列表
+}
+
+
+message HitDirtyWordInfo
+{
+    optional bytes userid = 1;
+    optional uint32 first_hit_time = 2;
+    optional uint32 hit_cnt = 3;
+}

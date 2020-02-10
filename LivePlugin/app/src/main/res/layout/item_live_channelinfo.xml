@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dip">
+
+    <ImageView
+            android:id="@+id/live_line_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="80dip"
+            android:layout_height="45dip"
+            android:layout_marginLeft="10dip"/>
+    <TextView
+            android:id="@+id/live_line_tips"
+            android:layout_width="22dip"
+            android:layout_height="10dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="8dip"
+            android:text="LIVE"
+            android:background="#FFEDB32F"
+            android:layout_alignTop="@id/live_line_icon"
+            android:layout_alignEnd="@id/live_line_icon"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:singleLine="true"/>
+    <TextView
+            android:id="@+id/live_line_title"
+            android:layout_alignTop="@id/live_line_icon"
+            android:layout_alignBottom="@id/live_line_icon"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/live_line_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textSize="10dip"
+            android:textColor="@color/white"
+            android:layout_marginRight="18dp"
+            />
+    <GridView
+            android:id="@+id/live_line_roomlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/live_line_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="4dp"
+            android:horizontalSpacing="3dp"
+            android:verticalSpacing="4dp"
+            android:scrollbars="none"
+            android:numColumns="3"
+            android:dividerHeight="0dp"
+            android:divider="@null"/>
+</RelativeLayout>
+

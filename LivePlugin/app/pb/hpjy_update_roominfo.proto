@@ -1,0 +1,27 @@
+package hpjy_update_roominfo_protos;
+option go_package="pb/hpjy_update_roominfo";
+
+option java_package = "com.tencent.protocol.tga.hpjy_update_roominfo";
+option java_outer_classname = "hpjy_update_roominfo_protos";
+
+// BUSINESS_TYPE_HPJY_UPDATE_ROOM_INFO = 200; 和平精英更新房间信息
+message UpdateRoomInfo
+{
+    required bytes roomid       = 1; // 房间id
+    required bytes sourceid     = 2; 
+    required bytes live_title   = 3; // 直播标题
+    required bytes live_type    = 4; // 直播状态
+    required bytes vid          = 5;
+}
+
+//BUSINESS_TYPE_HPJY_UPDATE_LIVE_INFO              = 213; //更新直播信息-多赛事房间广播
+message UpdateRoomInfoList
+{
+    repeated UpdateRoomInfo room_list = 1;
+}
+
+//BUSINESS_TYPE_HPJY_NOTIFY_LIVE_OFFLINE           = 214; //通知直播下线-多赛事房间广播
+message NotifyLiveOffline
+{
+    required uint32 source_id       = 1; // 下线频道id
+}

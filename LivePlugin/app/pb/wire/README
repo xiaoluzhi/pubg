@@ -1,0 +1,3 @@
+
+在上一级PB目录执行下面命令
+java -jar wire/wire-compiler-1.5.1-jar-with-dependencies.jar --proto_path=.\ --java_out=src profilesvr_gamecycle.proto

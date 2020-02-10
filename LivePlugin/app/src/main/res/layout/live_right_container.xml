@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <RadioGroup
+        android:id="@+id/title_container"
+        android:layout_width="@dimen/live_left_container_width"
+        android:layout_height="25dip"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/chat_control"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="25dip"
+            android:background="@drawable/right_tab_background"
+            android:src="@drawable/dating"
+            android:scaleType="center"
+            />
+
+        <ImageView
+            android:id="@+id/schedule_control"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="25dip"
+            android:src="@drawable/schedule"
+            android:checked="false"
+            android:scaleType="center"
+            />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@id/title_container"
+        android:background="#1C2530"
+        />
+
+    <FrameLayout
+        android:id="@+id/left_viewPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_container"
+        />
+
+</merge>

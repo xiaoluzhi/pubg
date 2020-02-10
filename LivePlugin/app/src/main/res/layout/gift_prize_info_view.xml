@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gift_gloat_bg"
+    >
+    
+    <ImageView
+            android:id="@+id/mTvGiftFloatIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/gift_gloat_icon_bg"/>
+    <TextView
+        android:id="@+id/mTvGiftFloatName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/mTvGiftFloatIcon"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="13dp"
+        android:textSize="11dp"
+        android:textColor="#E6E6E9"
+        android:lines="1"
+        android:maxEms="6"
+        android:ellipsize="end"
+        android:text=""
+        />
+
+    <TextView
+        android:id="@+id/mTvGiftFloatTips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mTvGiftFloatIcon"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="10dp"
+        android:textColor="#999999"
+        android:text=""
+        />
+
+</RelativeLayout>

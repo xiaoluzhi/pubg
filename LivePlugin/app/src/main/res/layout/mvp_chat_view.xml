@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_marginBottom="5dip"
+    >
+
+    <LinearLayout
+        android:id="@+id/chat_container"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+        <!--FF1c2a3b-->
+        <RelativeLayout
+            android:layout_width="42dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/edit_hot"
+                android:layout_width="42dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="1dp"
+                android:text="热词"
+                android:textColor="#FFC951"
+                android:textSize="10dp" />
+            <ImageView
+                android:id="@+id/edit_hot_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hotworld_notfullscreen_up"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="6.5dp"
+                android:layout_marginEnd="6.5dp"/>
+        </RelativeLayout>
+
+        <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#3C3138"/>
+        <TextView
+            android:id="@+id/edit_text"
+            android:layout_marginLeft="-1dp"
+            android:layout_width="match_parent"
+            android:layout_height="25dip"
+            android:layout_gravity="center_vertical"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:paddingTop="1dp"
+            android:gravity="center_vertical"
+            android:hint="@string/hint_live_chat"
+            android:imeOptions="actionSend"
+            android:paddingLeft="7dp"
+            android:singleLine="true"
+            android:textColor="#FFC951"
+            android:textColorHint="#B9A560"
+            android:textSize="10dp"
+            android:visibility="visible" />
+    </LinearLayout>
+    <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/chat_container"
+            android:background="#3C3138"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pull_refresh_chatlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/divider"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="5dp"
+        android:listSelector="@android:color/transparent"
+        android:paddingTop="5dip"
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderBackground="#00000000"
+        ptr:ptrHeaderSubTextColor="#999999"
+        ptr:ptrHeaderTextColor="#333333"
+        ptr:ptrListViewExtrasEnabled="false"
+        ptr:ptrMode="both"
+        ptr:ptrRefreshableViewBackground="#00000000"
+        ptr:ptrScrollingWhileRefreshingEnabled="true"
+        ptr:ptrShowIndicator="false" />
+
+    <TextView
+            android:id="@+id/mRlyGoLatest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/chat_container"
+            android:layout_centerHorizontal="true"
+            android:background="#b2000000"
+            android:gravity="center"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="回到最新"
+            android:textColor="#ffFA9B0A"
+            android:textSize="11dp"
+            android:visibility="visible" />
+</RelativeLayout>
+

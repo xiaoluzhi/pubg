@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LivePlugin</string>
+    <string name="hint_live_chat">输入聊天内容</string>
+    <item type="id" name="hotword_tag"/>
+    <string name="sys_chat_tips">请各位特种兵文明观战，传播任何违法、低俗等不良信息将被禁言。祝您观赛愉快！</string>
+
+</resources>

@@ -1,0 +1,10 @@
+package room_usernum_notify_protos;
+
+option java_package = "com.tencent.protocol.tga.room_usernum_notify";
+option java_outer_classname = "room_usernum_notify_protos";
+
+message RoomUsernumNotify
+{
+	required bytes  roomid     = 1 ; //房间ID
+    optional uint32 user_num   = 2 ; //在线人数
+}

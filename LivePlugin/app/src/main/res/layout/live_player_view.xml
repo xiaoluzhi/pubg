@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.tencent.tga.liveplugin.base.view.RootRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/live_player_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/root_bg"
+    android:keepScreenOn="true"
+>
+
+    <com.tencent.tga.liveplugin.live.title.TitleView
+        android:id="@+id/live_player_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4c0F121C"
+            >
+
+            <ImageView
+                android:id="@+id/back_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:scaleType="center"
+                android:background="@drawable/back_icon_bg"
+                android:src="@drawable/icon_video_back" />
+
+
+            <ImageView
+                android:id="@+id/feedback_layout"
+                android:layout_width="20dp"
+                android:layout_height="52dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/feedback_icon">
+            </ImageView>
+
+
+            <LinearLayout
+                android:id="@+id/mLlyTagContent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/back_icon"
+                android:layout_marginRight="7dp"
+                android:orientation="horizontal" />
+
+        </RelativeLayout>
+    </com.tencent.tga.liveplugin.live.title.TitleView>
+
+    <!--layout_marginTop layout_marginLeft layout_marginRight 跟video相关-->
+    <RelativeLayout
+        android:id="@+id/live_player_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/video_scrollow_view_margin_left"
+        android:layout_marginTop="@dimen/video_scrollow_view_margin_top">
+
+        <com.tencent.tga.liveplugin.live.right.LiveRightContainer
+            android:id="@+id/layout_right_content"
+            android:layout_width="@dimen/live_left_container_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="5dp"
+            android:background="#590F121C"
+            />
+
+        <com.tencent.tga.liveplugin.live.player.PlayView
+            android:id="@+id/live_player_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        </com.tencent.tga.liveplugin.live.player.PlayView>
+
+    </RelativeLayout>
+
+</com.tencent.tga.liveplugin.base.view.RootRelativeLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tencent.tga.liveplugin.live.player.ui.video.view.PlayerTitleView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/video_top_height"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:id="@+id/match_title_icon"
+        android:layout_width="32dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:id="@+id/match_title"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@+id/match_title_icon"
+        android:paddingTop="1dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="#FFFFFFFF"
+        android:textStyle="bold"
+        android:textSize="12dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginRight="10dip"
+        >
+
+        <ImageView
+            android:id="@+id/online_num_im"
+            android:layout_width="15dp"
+            android:layout_height="11dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/online_num_not_fullscreen_icon"/>
+
+        <TextView
+            android:id="@+id/online_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="3dip"
+            android:singleLine="true"
+            android:textColor="#BDBDBD"
+            android:textSize="11dp" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/live_line_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/live_line_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="频道"
+                android:textColor="#FFFFFFFF"
+                android:layout_marginRight="4dp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                android:textSize="9dp"/>
+
+        <com.tencent.tga.liveplugin.live.common.views.RedPotView
+                android:id="@+id/live_line_select"
+                android:layout_marginTop="9dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:visibility="gone"
+                android:layout_marginRight="10dp"
+                android:scaleType="center"
+                android:src="@drawable/tile_live_line_select_unshow"/>
+    </LinearLayout>
+</com.tencent.tga.liveplugin.live.player.ui.video.view.PlayerTitleView>

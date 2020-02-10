@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/halftransparent"
+    android:id="@+id/root_view"
+    >
+
+    <RelativeLayout
+        android:id="@+id/parent_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/poptv_bg"
+        android:layout_centerInParent="true"
+        >
+        <RelativeLayout
+            android:id="@+id/mLayoutBg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="45dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:background="@drawable/poptv_player_tv"
+            >
+            <FrameLayout
+                android:id="@+id/layout_videolayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/mRlyStateCtr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
+            </FrameLayout>
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/imageview_colse"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/mLayoutBg"
+            android:layout_toRightOf="@id/mLayoutBg"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/dialog_player_close"
+            />
+
+        <RelativeLayout
+            android:id="@+id/mRlyBottomOperation"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

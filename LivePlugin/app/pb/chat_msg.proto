@@ -1,0 +1,141 @@
+package chat_msg_protos;
+
+option java_package = "com.tencent.protocol.tga.chatMsg";
+option java_outer_classname = "chat_msg_protos";
+
+import "tv_user_info.proto";
+
+//聊天消息
+message ChatMsg
+{
+    required bytes  text_msg    = 1;    //文本消息
+    optional uint32 seq         = 2;    //消息序列号，唯一标识一条消息，可以用来去重
+    optional uint32 date_time   = 3;    //发送消息的时间
+    required bytes  uid         = 4;    //uid
+    optional bytes  nick        = 5;    //用户昵称
+    optional bytes  game_id     = 6;    //sdk的gameid
+    optional uint32 area_id     = 7;    //大区id
+    optional uint32 msg_type    = 8;   // 消息类型,0:普通消息,1:热词
+    optional uint32 support_team_flag    = 9; // 战队支持标志,0:主队,1:客队,2:无支持状态
+    optional uint32 hot_word_id = 10;   // 带上热词id
+    optional bytes  face        = 11;   // 头像
+    optional bytes  badge_id    = 12;   // 徽章id
+    optional bytes  room_id     = 13;   // 房间id
+}
+
+// 房间封禁消息
+message RoomForbiddenMsg
+{
+    required bytes roomid           = 1;    // 封禁房间id
+    required bytes userid           = 2;    // 封禁主播id
+    optional bytes forbidden_reason = 3;    // 封禁原因
+    optional bytes forbidden_time  = 4;    // 封禁时间
+}
+
+// 玩家赠送消息
+message PlayerGiveCardMsg
+{
+    required bytes user_id          = 1; // 玩家id
+    required bytes user_name        = 2; // 玩家名称
+    required bytes anchor_id        = 3; // 主播id
+    required bytes room_id          = 4; // 主播房间id
+    optional uint32 id              = 5; // 卡牌id
+    optional uint32 card_type       = 6; // 卡牌类型,参见cards.proto中的ENUM_CARD_TYPE
+    optional int32 consume_energy   = 7; // 消耗的能量值,普通卡为负值,充能卡为正值
+    optional int32 charge_energy    = 8; // 卡的充能值
+    optional uint32 scale           = 9; // 卡的倍率
+    optional bytes  name            = 10; // 卡命名
+    optional bytes  picture         = 11; // 图片url
+    optional bytes user_face        = 12; // 玩家头像url
+    optional uint32 seq             = 13; // 消息序列号，唯一标识一条消息，可以用来去重
+}
+
+// 玩家赠送礼物消息
+message PlayerGiveGiftMsg
+{
+    required bytes user_id          = 1; // 玩家id
+    required bytes user_name        = 2; // 玩家名称
+    required bytes anchor_id        = 3; // 主播id
+    required bytes room_id          = 4; // 主播房间id
+    optional uint32 id              = 5; // 礼物id
+    optional int32 charge_energy    = 6; // 礼物的充能值
+    optional bytes  name            = 7; // 礼物命名
+    optional bytes  picture         = 8; // 礼物图片url
+    optional bytes user_face        = 9; // 玩家头像url
+    optional uint32 seq             = 10; // 消息序列号，唯一标识一条消息，可以用来去重
+}
+
+// SDK游戏玩家邀请游戏好友参与对战
+message SDKPlayerInviteFriendFightMsg
+{
+    required bytes user_id          = 1; // 玩家id
+    required bytes user_name        = 2; // 玩家名称
+    required bytes friend_id        = 3; // 好友id
+    required bytes friend_name      = 4; // 好友名称
+    required bytes game_id          = 5; // 游戏id
+    optional bytes room_id          = 6; // 房间id
+    optional uint32 seq             = 7; // 消息序列号，唯一标识一条消息，可以用来去重
+    optional bytes battle_mode      = 8; // 对战类型
+}
+
+// sdk直播定时更新消息
+message SDKLiveUpdateMsg
+{
+    required bytes  current_live_info = 1;    //当前直播信息,是match.proto中GetCurrentMatchRsp序列化的字符串
+    optional uint32 seq               = 2;    //消息序列号，唯一标识一条消息，可以用来去重
+    optional uint32 date_time         = 3;    //发送消息的时间
+}
+
+// sdk多赛事直播下线通知
+message SDKNotifyLiveOffline
+{
+    required uint32 source_id       = 1; // 下线频道id
+}
+
+message SDKReceiveBoxCriticalMsg
+{
+    required bytes user_id          = 1; // 暴击的用户id
+    optional bytes user_name        = 2; // 暴击的用户名
+    optional bytes content          = 3; // 暴击消息的提示文本
+    optional uint32 seq             = 4; // 消息序列号，唯一标识一条消息，可以用来去重
+}
+
+// 包厢邀请消息
+message BalconyInviteMsg
+{
+    required bytes inviter_id                   = 1; // 用户id
+    required bytes inviter_nick                 = 2; // 用户昵称
+    required bytes inviter_face                 = 3; // 用户头像
+    required bytes guest_id                     = 4; // 被邀请人id
+    optional bytes match_main_title             = 5; // 赛事主标题
+    optional bytes match_sub_title              = 6; // 赛事副标题
+    optional uint32 relation_type               = 7; // 关系类型,0好友,1战队
+    optional uint32 rank_class                  = 8; // 排位等级 
+    optional bytes inviter_frame                = 9; // 用户头像框
+    optional bytes inviter_gender               = 10; // 邀请者性别
+    optional bytes balcony_id                   = 11; // 包厢id
+}
+
+enum BalconyTipsType
+{
+    E_TIPS_TYPE_NORMAL_TIPS = 1000; // 普通tips，用户进退房间
+    E_TIPS_TYPE_INVITE_TIPS = 1001; // 邀请tips, 被邀请的用户进入房间
+}
+
+// 包厢成员列表和邀请信息列表
+message BalconyMemberNotify
+{
+    required bytes balcony_id       = 1; // 包厢id
+    repeated tv_user_info_protos.TVUserInfo user_list     = 2; // 在线成员id列表
+    optional uint32 tips_type       = 3; // tips类型,参见BalconyTipsType
+    optional bytes tips             = 4; // tips内容
+    optional bytes enter_id         = 5; // 进房者id
+}
+
+// 包厢用户1v1互动消息通知
+message Balcony1V1Msg
+{
+    required bytes msg          = 1; // 消息内容
+    required uint32 msg_type    = 2; // 消息类型,0:拒绝邀请,1对方已经在包厢,其它:暂未使用
+    required uint32 seq         = 3; // 序列号,用于客户端对消息去重
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/feedback_unselect"
+            />
+
+    <ImageView
+            android:id="@+id/mIvSelected"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/feedback_selected"
+            />
+
+    <TextView
+        android:id="@+id/mQuestionName"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:textSize="12dp"
+        android:text=""
+        android:singleLine="true"
+        android:layout_marginLeft="30dp"
+        android:maxLength="5"
+        android:textColor="#CECFE1"
+        />
+
+
+</RelativeLayout>

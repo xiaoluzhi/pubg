@@ -1,0 +1,25 @@
+buildscript {
+    ext.kotlin_version = '1.3.41'
+    repositories {
+       mavenLocal()
+        maven { url "http://mirrors.devops.oa.com/maven-snapshots/" } 
+        maven { url "http://mirrors.devops.oa.com/maven/" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url "http://mirrors.devops.oa.com/maven-snapshots/" } 
+        maven { url "http://mirrors.devops.oa.com/maven/" }
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

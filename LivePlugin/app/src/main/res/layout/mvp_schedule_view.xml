@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121d2c"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:id="@+id/mRlyMatchRank"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        android:background="@color/color14">
+
+        <ImageView
+            android:id="@+id/mIvRankEntranceIcon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:id="@+id/mTvRankEntranceName"
+            android:text="积分榜"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/mIvRankEntranceIcon"
+            android:textSize="17dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/mIvRankEnteranceIcon"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_toRightOf="@id/mTvRankEntranceName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/red_pot"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mRlyGoToday"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/match_gotoday"
+        android:layout_above="@id/mRlyMatchRank"
+        android:visibility="gone">
+        <TextView
+            android:text="回到今日赛程"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="10dp"
+            android:textColor="@color/match_gotoday_text"
+            />
+    </RelativeLayout>
+
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/mLvMatch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/mRlyGoToday"
+        android:scrollbars="none"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:drawSelectorOnTop="true"
+        android:cacheColorHint="#00000000"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderBackground="#00000000"
+        ptr:ptrHeaderSubTextColor="#999999"
+        ptr:ptrHeaderTextColor="#333333"
+        ptr:ptrListViewExtrasEnabled="false"
+        ptr:ptrMode="both"
+        ptr:ptrRefreshableViewBackground="#00000000"
+        ptr:ptrScrollingWhileRefreshingEnabled="true"
+        ptr:ptrShowIndicator="false"
+        ></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/mLlyPullDownTip"
+        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        >
+        
+        <ImageView
+            android:id="@+id/mIvPullDownTip"
+            android:layout_width="7dp"
+            android:layout_height="9dp"
+
+            />
+
+        <!--android:src="@drawable/pulldowntip"-->
+
+        <TextView
+            android:id="@+id/mTvPullDownTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下拉可看回放"
+            android:textColor="#fab123"
+            android:textSize="10dp"
+            android:layout_marginLeft="3dp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/mIvMatchRankTopBg"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_above="@id/mRlyMatchRank"
+
+        android:visibility="gone"
+        />
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/mTvScoreboard"
+        android:textStyle="bold"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:text="积分榜"
+        android:textSize="17dp"
+        android:background="@color/color14"/>
+
+    <!--android:background="@drawable/rank_enterance_topbg"-->
+</RelativeLayout>

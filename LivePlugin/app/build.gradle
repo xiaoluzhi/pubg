@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+android {
+    sourceSets.main.jniLibs.srcDirs = ['libs']
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    /***
+     * 形如xyzzwwvv的32位无符号整数，共8位数字
+     2.字段说明：
+     x：客户端类型号, 等于客户端类型。例如对王者电视台来说，6表示安卓, 7表示iOS。
+     y：当前版本标记。0表示线上发行版，1表示debug版。
+     zz: 游戏类型id，统一全局分配.
+     ww：游戏大版本号，和游戏保持一致。如v16则ww=16，v17则ww=17
+     vv：电视台版本号，每次提交给游戏的版本都需要加一，每次更新大版本时都需要重置为0。
+     例如，60001609表示“安卓-线上版本-v16-第9次编译包”，71001703表示“iOS-debug包-v17-第3次编译包”。
+     */
+    defaultConfig {
+        applicationId "com.tencent.tga.plugin"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 60030101 //21000之后为IOS预留
+        versionName "4.2"
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(getBuildToolsFilePath())
+            keyAlias 'Tga'
+            storePassword 'TxTgaLivePlugin'
+            keyPassword 'TxTgaLivePlugin'
+        }
+        release {
+            storeFile file(getBuildToolsFilePath())
+            keyAlias 'Tga'
+            storePassword 'TxTgaLivePlugin'
+            keyPassword 'TxTgaLivePlugin'
+        }
+    }
+    configurations {
+        compile.exclude module: 'support-annotations'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+//            multiDexKeepFile file('multidex-config.txt')
+            multiDexEnabled false
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+task beforeBuild2(dependsOn: ':LiveSDK:assemble'){
+
+}
+preBuild.dependsOn beforeBuild2
+
+androidExtensions {
+    experimental = true
+}
+def getBuildToolsFilePath() {
+    return 'build-tools/keystore/livepluginsign.jks'
+}
+
+dependencies {
+    implementation project(':tlog')
+    implementation project(':commonView')
+    implementation project(':minanetworksdk')
+    implementation project(':TGAImageLoader')
+    implementation project(':TGAGson')
+    implementation project(':tgadanma')
+    implementation project(':tgaPBUitl')
+    implementation project(':apngplayer')
+    compileOnly files('./../../../tga_android_components/LiveSDK/libs/tgahttplib.jar')
+    compileOnly files('./../../../tga_android_components/LiveSDK/libs/sdklib.jar')
+    compileOnly files('libs/MSDK_Android_3.2.15a_94981.jar')
+    compileOnly files('libs/tbs_sdk_thirdapp_v3.6.0.1299_43610_sharewithdownload_msdk_withoutGame_obfs_20180630_170250.jar')
+//    implementation(name:'TVKPlayer-all-V7.1.000.4020', ext:'aar')
+    implementation files('libs/TVKPlayer-all-V7.1.000.4020.jar')
+//    implementation files('libs/MidasPluginSDK_release_1.6.8.jar')
+//    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+//    implementation 'com.google.android.material:material:1.0.0'
+//    implementation 'com.android.support:multidex:1.0.1'
+}
+
+assemble.doLast {
+    // 复制jar包
+    //复制到的目录
+    println "copy plugin apk star..."
+    String dest = '../../uedemo/Plugins/TGALive/Source/ThirdParty/AndroidTGALiveSDK/assets/livesdk'
+    copy {
+        from './/build/outputs/apk/release/app-release.apk'
+        into dest
+        rename { String fileName ->
+            println name
+            'tgaPubgmhdTVPlugin.zip'
+        }
+    }
+    println "copy plugin apk finished"
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
+}
+
+

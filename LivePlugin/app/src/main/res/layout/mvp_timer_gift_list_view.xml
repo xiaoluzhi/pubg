@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="507dp"
+                android:layout_height="245dp"
+                android:background="@drawable/box_online_bg">
+
+    <View
+            android:layout_width="214dp"
+            android:layout_height="244dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/light"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="-5dp"
+            android:background="@drawable/gift_list_title"/>
+
+    <ImageView
+            android:id="@+id/gift_list_close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="4dp"
+            android:layout_marginRight="46dp"
+            android:layout_marginTop="4dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/dialog_player_close" />
+
+
+    <com.tencent.tga.liveplugin.live.gift.GiftStrokeProcess
+            android:id="@+id/gift_stroke_process"
+            android:layout_width="356dp"
+            android:layout_height="30dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="160dip"
+            />
+
+    <com.tencent.tga.liveplugin.live.gift.GiftProcess
+            android:id="@+id/gift_process"
+            android:layout_width="356dp"
+            android:layout_height="30dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="160dip"
+            />
+
+    <com.tencent.tga.liveplugin.live.gift.GiftItemNew
+            android:id="@+id/gift_list1"
+            android:layout_width="78dp"
+            android:layout_height="93dip"
+            android:background="@drawable/icon_box_can_receive_bg2"
+            android:layout_marginLeft="85dip"
+            android:layout_marginTop="52.5dip"
+            />
+
+    <com.tencent.tga.liveplugin.live.gift.GiftItemNew
+            android:id="@+id/gift_list2"
+            android:layout_width="78dp"
+            android:layout_height="93dip"
+            android:background="@drawable/icon_box_can_receive_bg2"
+            android:layout_marginTop="71dip"
+            android:layout_marginLeft="170dp"
+            />
+
+    <com.tencent.tga.liveplugin.live.gift.GiftItemNew
+            android:id="@+id/gift_list3"
+            android:layout_width="78dp"
+            android:layout_height="93dip"
+            android:layout_toRightOf="@+id/gift_list2"
+            android:background="@drawable/icon_box_can_receive_bg"
+            android:layout_marginTop="69dip"
+            android:layout_marginLeft="7dp"
+            />
+
+    <com.tencent.tga.liveplugin.live.gift.GiftItemNew
+            android:id="@+id/gift_list4"
+            android:layout_width="78dp"
+            android:layout_height="93dip"
+            android:layout_toRightOf="@+id/gift_list3"
+            android:background="@drawable/icon_box_can_receive_bg"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="58dip"
+            />
+
+    <View
+            android:id="@+id/flag1"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:layout_below="@id/gift_list1"
+            android:layout_marginLeft="122dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/flag_disable"/>
+
+    <TextView
+            android:id="@+id/gift_time1"
+            android:layout_width="78dip"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flag1"
+            android:layout_marginTop="1px"
+            android:textSize="9dip"
+            android:layout_alignLeft="@id/gift_list1"
+            android:layout_alignRight="@id/gift_list1"
+            android:textColor="#E1DBD7"
+            />
+
+    <View
+            android:id="@+id/flag2"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:layout_below="@id/gift_list2"
+            android:layout_marginLeft="203dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/flag_disable"/>
+
+    <TextView
+            android:id="@+id/gift_time2"
+            android:layout_width="78dip"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/flag2"
+            android:layout_marginTop="1px"
+            android:textSize="9dip"
+            android:layout_alignLeft="@id/gift_list2"
+            android:layout_alignRight="@id/gift_list2"
+            android:textColor="#E1DBD7"
+            />
+
+
+    <View
+            android:id="@+id/flag3"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:layout_below="@id/gift_list3"
+            android:layout_marginLeft="288dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/flag_disable"/>
+
+    <TextView
+            android:id="@+id/gift_time3"
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/flag3"
+            android:layout_marginTop="1px"
+            android:textSize="9dip"
+            android:layout_alignLeft="@id/gift_list3"
+            android:layout_alignRight="@id/gift_list3"
+            android:textColor="#E1DBD7"
+            />
+    <View
+            android:id="@+id/flag4"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:layout_below="@id/gift_list4"
+            android:layout_marginLeft="374dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/flag_disable"/>
+    <TextView
+            android:id="@+id/gift_time4"
+            android:layout_width="50dip"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/flag4"
+            android:layout_marginTop="1px"
+            android:textSize="9dip"
+            android:layout_alignLeft="@id/gift_list4"
+            android:layout_alignRight="@id/gift_list4"
+            android:textColor="#E1DBD7"
+            />
+
+    <TextView
+            android:id="@+id/gift_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="21dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="9dip"
+            android:textColor="#71717D"
+            android:text="积累观赛时长领奖励，每日零点重置" />
+
+</RelativeLayout>

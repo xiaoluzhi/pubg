@@ -1,0 +1,15 @@
+include ':app',':sdklib', ':LiveSDK', ':tlog',':commonView', ':TGAHttpLib', ':minanetworksdk',':TGAGson',':TGAImageLoader', ':tgadanma', ':tgaPBUitl','apngplayer'
+
+project(':commonView').projectDir = new File('./../../tga_android_components/commonView')
+project(':sdklib').projectDir = new File('./../../tga_android_components/sdklib')
+project(':TGAHttpLib').projectDir = new File('./../../tga_android_components/TGAHttpLib')
+project(':tlog').projectDir = new File('./../../tga_android_components/tlog')
+project(':minanetworksdk').projectDir = new File('./../../tga_android_components/minanetworksdk')
+project(':LiveSDK').projectDir = new File('./../../tga_android_components/LiveSDK')
+
+project(':TGAGson').projectDir = new File('./../../tga_android_components/TGAGson')
+project(':TGAImageLoader').projectDir = new File('./../../tga_android_components/TGAImageLoader')
+
+project(':tgadanma').projectDir = new File('./../../tga_android_components/tgadanma')
+project(':tgaPBUitl').projectDir = new File('./../../tga_android_components/tgaPBUitl')
+project(':apngplayer').projectDir = new File('./../../tga_android_components/apngplayer')

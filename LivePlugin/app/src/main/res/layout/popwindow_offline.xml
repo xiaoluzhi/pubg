@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pop_offline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"    >
+    <RelativeLayout
+            android:layout_width="296dp"
+            android:layout_height="198dp"
+            android:layout_gravity="center"
+            android:background="@drawable/offline_bg">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提示"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="6dp"/>
+
+        <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="当前视角直播已结束，\n是否切到主直播间继续观看？"
+                android:textSize="12dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_marginTop="74dp"
+                android:textColor="@color/white" />
+
+        <Button
+                android:id="@+id/cancel_switch_btn"
+                android:layout_width="72dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="59dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:background="@drawable/cancel_switch_btn"/>
+        <Button
+                android:id="@+id/switch_btn"
+                android:layout_width="72dp"
+                android:layout_height="28dp"
+                android:layout_marginRight="59dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:background="@drawable/switch_btn"/>
+    </RelativeLayout>
+</FrameLayout>

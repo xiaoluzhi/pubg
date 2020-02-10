@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="65dp"
+        android:gravity="center"
+        android:layout_height="21dp"
+        android:id="@+id/live_line_room">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/room_title"
+            android:textSize="8dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="2dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/curren_room_flag"
+            android:id="@+id/current_icon"/>
+
+</LinearLayout>

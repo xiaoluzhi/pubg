@@ -1,0 +1,33 @@
+package online_data_protos;
+
+option java_package = "com.tencent.protocol.tga.online_data";
+option java_outer_classname= "online_data_protos";
+
+enum CMD
+{
+    CMD_ONLINE_DATA = 0x1033;
+}
+
+enum SUBCMD
+{
+    SUBCMD_ONLINE_HELLO = 0x1;  // 上报在线心跳
+}
+
+// SUBCMD_ONLINE_HELLO = 0x1;  // 上报在线心跳
+message OnlineHelloReq
+{
+    required bytes userid = 1;
+    optional bytes openid = 2; 
+    optional uint32 client_type = 3;
+    optional bytes gameid = 4; 
+    optional uint32 areaid = 5;
+    optional bytes roomid = 6;
+}
+
+message OnlineHelloRsp
+{
+    required uint32 result = 1;
+    optional bytes err_msg = 2;
+    optional uint32 hello_timespan = 3;  // hello时间间隔
+}
+

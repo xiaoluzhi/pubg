@@ -1,0 +1,64 @@
+package auth_protos;
+
+option java_package = "com.tencent.protocol.tga.auth";
+option java_outer_classname = "auth_protos";
+
+enum auth_cmd_types {
+	CMD_AUTH = 0x1006;
+}
+
+enum auth_subcmd
+{
+	SUBCMD_AUTH_TOKEN		= 0x1;		//认证并获取票据
+}
+
+//0x1001-0x01 认证并获取票据 请求
+//组包说明：用户通过QQ登陆，QQ号为123456
+//则请求参数为：account_name="123456"，account_type=AccountType_QQ，client_type填分配的值，st_type和st_buf填SSO返回的签名，access_token不填
+//组包说明：用户通过微信登陆，微信openid为oDF3iYx0ro3_7jD4HFRDfrjdCM58，微信访问token为sFopJ9lMmLl4u-ad61ojKpS0TolhN2s3SnHoI2Mh5GgdiYb35i-7DG2T2CDyQKMe
+//则请求参数为：account_name="oDF3iYx0ro3_7jD4HFRDfrjdCM58"，account_type=AccountType_WeChat，access_token="sFopJ9lMmLl4u-ad61ojKpS0TolhN2s3SnHoI2Mh5GgdiYb35i-7DG2T2CDyQKMe"，client_type填分配的值，st_type和st_buf不填
+//游客：account_type填AccountType_Tourist，account_name填机器码，openappid、client_type、areaid填相应的值
+
+message AuthTokenReq
+{
+	required bytes  account_name     = 1; //帐号名
+	optional uint32 account_type     = 2; //帐号类型，见AccountType定义
+	optional uint32 client_type      = 3; //终端类型
+	optional bytes  access_token     = 4; //微信登录时填写，访问token
+	optional uint32 st_type          = 5; //QQ登录时填写，st_type: 就是AppID
+	optional bytes  st_buf           = 6; //QQ登录时填写，st_buf: SSO返回的签名信息
+	optional bytes  clientip         = 7; //客户端ip
+	optional bytes  mcode            = 8; //客户端机器码
+	optional uint32 client_time      = 9; //客户端时间戳 
+    optional bytes  live_token       = 10;//主播工具端登录使用
+    optional bytes  gameid           = 11; //插件的游戏id
+    optional uint32 areaid           = 12; //游戏大区id
+    optional bytes  game_openid      = 13; //用户游戏openid
+    optional bytes  device_info      = 14; //设备机型
+    optional bytes  sdk_appid        = 15; //sdk的appid
+    optional bytes  game_uid         = 16; //用户游戏uid
+}
+
+enum AuthTokenErrCode
+{
+	AuthTokenErrCode_Success         = 0; //成功
+	AuthTokenErrCode_UnknowAccount   = 1; //不支持的帐号类型，重新进行认证
+	AuthTokenErrCode_QQAuthFail      = 2; //QQ认证失败，重新进行认证
+	AuthTokenErrCode_WeChatAuthFail  = 3; //微信认证失败，重新进行认证
+}
+
+//0x1001-0x01 认证并获取票据 回包
+message AuthTokenRsp
+{
+	required uint32 result          = 1; //结果，具体错误码见AuthTokenErrCode定义
+	optional bytes  errmsg          = 2; //错误信息
+	optional bytes  uuid            = 3; //uuid，用户的QT身份ID
+	optional bytes  openid          = 4; //openid，用户的QT通道ID
+
+	//auth_key加密签名，QQ登录用sso_gtk解密；
+	//微信登录用wx_gtk（将access_token进行一次md5，生成wx_gtk）解密；
+	//游客登录用默认key（*-l#_,L<19ai^R*p）解密；
+	optional bytes  auth_key        = 5; //用sso_gtk或wx_gtk解密得到user_gtk
+	optional bytes  access_token    = 6; //客户端透传票据，注册在线时使用
+	optional uint32 token_expires   = 7; //token过期时间，unix时间戳
+}

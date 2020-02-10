@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.tencent.tga.liveplugin.live.gift.view.TimerGiftView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gift_container"
+    android:layout_width="60dp"
+    android:layout_height="60dp">
+
+    <ImageView
+        android:id="@+id/gift_image"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|center_horizontal" />
+
+    <TextView
+        android:id="@+id/gift_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/live_gift_icon_bg"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text=""
+        android:textSize="9dip" />
+
+</com.tencent.tga.liveplugin.live.gift.view.TimerGiftView>
+

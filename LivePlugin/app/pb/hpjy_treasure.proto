@@ -1,0 +1,58 @@
+package hpjy_treasure_protos;
+
+option java_package = "com.tencent.protocol.tga.hpjy_treasure";
+option java_outer_classname ="hpjy_treasure_protos";
+
+
+enum CMD
+{
+    CMD_HPJY_TREASURE = 0x1048;
+}
+
+enum SUBCMD
+{ 
+    SUBCMD_RECEIVE_TREASURE_BOX         = 0x01; // 领取宝箱,长连接请求
+}
+
+enum RET_CODE
+{
+    kSuccess          = 0x0;  // 领取成功
+    kAreadyReceive    = 0x1;  // 已经领取
+    kServerError      = 0x2;  // 领取失败 
+}
+
+
+///////////////////////////////////////////////////////////////
+// SUBCMD_RECEIVE_TREASURE_BOX         = 0x01; // 领取宝箱
+message ReceiveTreasureBoxReq
+{
+    required bytes user_id          = 1;    // 用户id
+    required bytes boxid            = 2;    // 宝箱id
+    required uint32 server_time     = 3;    // 服务器时间,拉取宝箱列表时获取
+    optional bytes time_stamp       = 4;    // 时间戳-单位秒
+    optional bytes random_value     = 5;    // 随机数
+    optional bytes user_name        = 6; 
+    optional uint32 level           = 7;    
+    optional uint32 client_type     = 8;  
+    optional uint32 area            = 9;    // 服务器：微信（1），手Q（2）
+    optional bytes openid      		= 10;   //注意，这里是game_openid
+    optional uint32 platid          = 11;   // 平台：IOS（0），安卓（1）
+    optional uint32 areaid       	= 12;   // 
+    optional bytes mcode            = 13;
+    optional uint32 is_h5           = 14;  // 是否来自h5
+    optional uint32 clientip        = 15;  // clientip
+}
+
+message ReceiveItem
+{
+    optional bytes pic = 1;
+    optional bytes tip = 2; 
+}
+
+message ReceiveTreasureBoxRsp
+{
+    required uint32 result      = 1;    // 开宝箱结果
+    optional bytes err_info     = 2;    // 错误信息
+    optional bytes boxid           = 3;
+    repeated ReceiveItem recv_box = 4;    // 实际开的宝箱道具
+}

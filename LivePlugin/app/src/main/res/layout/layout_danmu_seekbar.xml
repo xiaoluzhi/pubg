@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="弹幕透明度"
+        android:textSize="11dip" />
+
+
+    <SeekBar
+        android:id="@+id/video_bar_seek_bar"
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_type"
+        android:max="100"
+        android:maxHeight="3dp"
+        android:minHeight="3dp"
+        android:paddingLeft="7dip"
+        android:paddingRight="5dip"
+        android:progressDrawable="@drawable/gamejoy_danmu_selector_seekbar"
+        android:thumb="@drawable/gamejoy_danmu_icon_track"
+        android:thumbOffset="5dip"
+        android:layout_gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="50dip"
+        android:singleLine="true"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dip"
+        android:textColor="#FFFFFF"
+        android:textSize="10dip"/>
+</LinearLayout>

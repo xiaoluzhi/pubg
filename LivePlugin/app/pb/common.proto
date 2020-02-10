@@ -1,0 +1,195 @@
+package common_protos;
+
+option java_package = "com.tencent.protocol.tga.common";
+option java_outer_classname ="common_protos";
+
+//跳转类型
+enum JUMP_TYPE
+{
+	JUMP_TYPE_GAME_LIST 	    = 0x1;  //游戏列表 无参
+	JUMP_TYPE_GAME_DETAILS 	    = 0x2;  //游戏详情 gameid
+	JUMP_TYPE_INFO_LIST 	    = 0x3;  //资讯列表 无参
+	JUMP_TYPE_INFO_DETAILS 	    = 0x4;  //资讯详情 articleid
+	JUMP_TYPE_VIDEO_DETAILS 	= 0x5;  //视频详情 videoid
+	JUMP_TYPE_VIDEO_ALBUM_LIST 	= 0x6;	//视频专辑列表 专辑id
+    JUMP_TYPE_URL            	= 0x7;	//活动地址，URL
+    JUMP_TYPE_LIVE              = 0x8;  //直播页 roomid
+    JUMP_TYPE_QQVIDEO_LIVE      = 0x9;  //腾讯视频直播
+}
+
+//帐号类型
+enum AccountType
+{
+    AccountType_QQ         = 1; //QQ号
+    AccountType_WeChat     = 2; //微信号
+    AccountType_Tourist    = 3; //游客
+    AccountType_LiveToken  = 4; //主播PC工具端登录
+}
+
+//客户端类型
+enum ClientType
+{
+    EZTV_APP_ANDROID     = 1; //鹅掌APP 安卓
+    EZTV_APP_IOS         = 2; //鹅掌APP 苹果
+    EZTV_TOOL_ANDROID    = 3; //鹅掌直播助手 安卓
+    EZTV_TOOL_IOS        = 4; //鹅掌直播助手 苹果
+    EZTV_TOOL_OBS        = 5; //鹅掌直播助手 OBS
+    SDK_WZRY_ANDROID     = 6; //sdk插件王者荣耀-安卓
+    SDK_WZRY_IOS         = 7; //sdk插件王者荣耀-苹果
+    SDK_FC_ANDROID       = 8; //sdk插件飞车-安卓
+    SDK_FC_IOS           = 9; //sdk插件飞车-iOS
+    SDK_SMOBA_HELPER_ANDROID = 10; //sdk插件王者荣耀助手-安卓
+    SDK_SMOBA_HELPER_IOS     = 11; //sdk插件王者荣耀助手-iOS
+    SDK_FC_H5_ANDORID        = 12; //飞车安卓-H5直播页面
+    SDK_FC_H5_IOS            = 13; //飞车IOS-H5直播页面
+    SDK_WZRY_H5_ANDROID      = 14;  // 王者赛事页-安卓
+    SDK_WZRY_H5_IOS          = 15;  // 王者赛事页-IOS
+    SDK_HLDDZ_ANDROID        = 16;  // 欢乐斗地主-Android
+    SDK_HLDDZ_IOS            = 17;  // 欢乐斗地主-IOS
+    SDK_PPKDC_ANDROID        = 18;  // 跑跑卡丁-Android
+    SDK_PPKDC_IOS            = 19;  // 跑跑卡丁车-IOS
+	SDK_PPKDC_H5_ANDROID     = 20;  // 跑跑卡丁车-Android-H5直播页面
+    SDK_PPKDC_H5_IOS         = 21;  // 跑跑卡丁车-IOS-H5直播页面
+	SDK_HLDDZ_H5_ANDROID     = 22;  // 欢乐斗地主-Android-H5直播页面
+    SDK_HLDDZ_H5_IOS         = 23;  // 欢乐斗地主-IOS-H5直播页面
+	SDK_HPJY_ANDROID         = 24;  // 和平精英-Android
+    SDK_HPJY_IOS             = 25;  // 和平精英-IOS
+	SDK_HPJY_H5_ANDROID      = 26;  // 和平精英h5-Android
+    SDK_HPJY_H5_IOS          = 27;  // 和平精英h5-IOS
+
+
+    EXTERN_WX_MATCH_APPLET_ANDROID = 500;  // 赛事分享小程序-安卓
+    EXTERN_WX_MATCH_APPLET_IOS = 501;  // 赛事分享小程序-IOS
+    EXTERN_DONGXI_ANDROID = 502;  // 东西部阵营
+    EXTERN_DONGXI_IOS = 503;  // 东西部阵营
+}
+
+//------------------------请求来源定义---------------------------//
+enum SOURCE_TYPE
+{
+	SOURCE_TYPE_VIEDO_DETAIL_PAGE       = 0x01;	//视频详情页
+    SOURCE_TYPE_GAME_DETAIL_PAGE        = 0x02;	//游戏详情页
+    SOURCE_TYPE_HOME_PAGE_GAMERECOMMEND = 0x03;	//首页游戏推荐
+    SOURCE_TYPE_LIVE_DETAILS            = 0x04;	//直播详情页
+    SOURCE_TYPE_GAME_LIVE_LIST          = 0x05; //按游戏类型拉取直播列表-指定游戏-分页
+    SOURCE_TYPE_FRONT_PAGE_LIVE_LIST    = 0x06; //首页直播列表-所有游戏-数量可配
+    SOURCE_TYPE_LIVE_ROOM_RECOMM_LIST   = 0x07; //主播房间推荐直播列表-指定游戏-数量可配
+    SOURCE_TYPE_HOMEPAGE_CAROUSEL       = 0x08; //首页轮播图
+    SOURCE_TYPE_H5_LIVE                 = 0x09; //H5直播页面
+    SOURCE_TYPE_H5_LIVE_TTXD            = 0x0a; //H5直播页面-天天炫斗
+}
+
+message VideoItem
+{
+    optional bytes   vid	                = 1; //视频ID
+	optional bytes	 title		            = 2; //标题
+	optional bytes	 author		            = 3; //作者
+    optional bytes	 description            = 4; //描述 
+	optional bytes	 cover_image_228_128    = 5; //图片
+	optional uint32  create_time            = 6; //上架时间
+   	optional uint32  duration	            = 7; //视频时长
+	optional uint32  video_pv	            = 8; //视频点击量
+    optional bytes   game_id	            = 9; //游戏ID
+	optional bytes	 cover_image_496_280    = 10; //图片
+    optional bytes   game_name              = 11; //游戏名
+}
+
+message AblumItem
+{
+    optional bytes   id             = 1;
+	optional bytes	 title		    = 2;	//标题
+	optional bytes	 author		    = 3;	//作者
+    optional bytes	 description    = 4;    //描述 
+    repeated VideoItem   video_list = 5;    //视频列表
+}
+
+message RecommendItem
+{
+    optional bytes   id         = 1;
+	optional bytes	 title		= 2;	//标题
+	optional bytes	 author		= 3;	//作者
+	optional bytes	 label		= 4;	//标签
+	optional bytes	 picture	= 5;	//图片
+	optional uint32  jump_type	= 6;    //跳转类型
+	optional bytes   jump_mark	= 7;    //跳转标识
+	optional uint32  on_time	= 8;	//上架时间
+	optional uint32  off_time	= 9;	//下架时间
+   	optional uint32  duration	= 10;	//视频时长
+	optional uint32  video_pv	= 11;	//视频点击量
+    optional uint32  online_num = 12;   //在线人数    
+}
+
+message ArticleItem
+{
+    optional bytes   id             = 1;    //文章ID
+	optional bytes	 title		    = 2;	//标题
+    optional bytes	 cover_image    = 3;    //封面
+	optional bytes	 author		    = 4;	//作者
+    optional bytes	 description    = 5;    //描述 
+    optional bytes   url            = 6;    //文章H5地址
+    optional uint32  create_time    = 7;    //创建时间
+    optional bytes   game_id	    = 8;	//游戏ID
+    optional bytes   cid            = 9;    //栏目ID
+}
+
+message GameItem
+{
+	required bytes game_id		= 1;	//游戏ID
+	optional bytes game_name	= 2;	//游戏名称
+	optional bytes game_icon	= 3;	//游戏图标
+    optional bytes bk_image 	= 4;	//游戏背景图
+	optional bytes description	= 5;	//游戏描述
+    optional uint32 screem_mode	= 6;	//屏幕模式， 0:横屏，1：竖屏
+}
+
+enum STREAM_TYPE
+{
+    E_STREAM_TYPE_EZ            = 0;    // 鹅掌视频流
+    E_STREAM_TYPE_QQVIDEO       = 1;    // 腾讯视频流
+}
+
+message LiveItem
+{
+    optional bytes roomid       = 1;    //直播房间号
+    optional bytes title	    = 2;    //直播标题
+    optional bytes cover_image  = 3;   //直播封面
+    optional bytes userid       = 4;    //主播ID
+    optional bytes user_name    = 5;    //主播名称
+	optional bytes game_id		= 6;    //游戏ID
+	optional bytes game_name	= 7;    //游戏名称
+    optional uint32 online_num	= 8;    //在线人数
+    optional bytes user_tag_name = 9;   //主播标签
+    optional uint32 stream_type  = 10;   //视频流类型,参见STREAM_TYPE
+}
+
+
+message DbFetchParam
+{
+    optional bytes name = 1;
+    optional bytes value = 2;
+}
+
+message DbFetchDataTaskItem
+{
+    repeated DbFetchParam params = 1;    
+    optional uint32 presqlid  = 2;
+}
+
+// 信箱消息定义
+enum MESSAGE_BOX_TYPE
+{
+    // 1000~1999分配给助手
+    E_SHN_MESSAGE_TYPE_MEDAL            = 1000;    //  有新的活动勋章
+	E_SMH_MESSAGE_TYPE_ZUOQI            = 1001;    //  坐骑通知
+	E_SMH_MESSAGE_TYPE_TEAM_MEDAL       = 1002;    //  战队勋章通知
+	E_SMH_MESSAGE_TYPE_BACKPACK         = 1003;    //  背包礼物通知
+	E_SMH_MESSAGE_TYPE_VIP_UPGRADE      = 1004;    //  VIP等级提升通知
+	
+    // 2000~2999分配给王者
+    E_SMOBA_MESSAGE_TYPE_BACKPACK       = 2000;  // 背包通知
+    E_SMOBA_MESSAGE_TYPE_ZUOQI          = 2001;  // 坐骑通知
+    E_SMOBA_MESSAGE_TYPE_MEDAL          = 2002;  // 活动勋章通知
+	
+    // 3000~3999分配给飞车
+    E_MSPEED_MESSAGE_TYPE_BADGE_CHANGE  = 3000;    //  飞车徽章变更广播，对应message_content定义为json串
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#cc000000"
+        >
+
+    <ImageView
+            android:layout_width="161dp"
+            android:layout_height="32dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/gift_receive_title"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@id/content"/>
+    <RelativeLayout
+            android:id="@+id/content"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="222dp"
+            android:background="@drawable/gift_receive_bg">
+
+        <LinearLayout
+                android:id="@+id/mLlyReceiveGiftContent"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="65dp"
+                android:orientation="horizontal"
+                >
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/mLlyReceiveGiftContent"
+                android:layout_marginTop="40dp"
+                android:textColor="#71717D"
+                android:textSize="10dp"
+                android:text="稍后将通过邮件发放奖励"/>
+
+    </RelativeLayout>
+
+    <Button
+            android:id="@+id/mBtnReceiveGiftSure"
+            android:layout_width="89dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/icon_know"
+            android:text="确定"
+            android:textSize="13dp"
+            android:textColor="@color/white"
+            />
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#ff000000</color>
+
+    <color name="blue">#FF0eaede</color>
+
+    <color name="halftransparent">#CC000000</color>//半透明
+    <color name="transparent">#00000000</color>//透明
+
+    <color name="color1">#1021A8E0</color>
+    <color name="color2">#FF21A8E0</color>
+
+    <color name="color7">#CC000000</color>
+
+    <color name="color11">#FFDF08</color>
+
+    <color name="color13">#6673869c</color>
+    <color name="color14">#ff8c00</color>
+    <!-- 播放器 -->
+    <color name="color_backgroud">#ff414141</color>
+    <color name="color_progress">#FFFFC951</color>
+    <color name="color_second_progress">#99FFFFFF</color>
+
+    //赛程
+    <color name="match_gray1">#7888b0</color> //亮灰 : 赛程日期、赛事名字
+    <color name="match_gray2">#8fa0ce</color> //亮灰 : 队伍名字、比分、未开始比赛时间
+    <color name="match_unsubscribe">#6f8ee2</color> //未订阅
+    <color name="match_subscribe">#33bfeb</color> //订阅
+    <color name="match_gotoday">#26131d27</color> //回到今日背景颜色
+    <color name="match_gotoday_text">#6f8ee2</color> //回到今日字体颜色
+
+</resources>
