@@ -27,7 +27,7 @@
     <color name="match_gray2">#8fa0ce</color> //亮灰 : 队伍名字、比分、未开始比赛时间
     <color name="match_unsubscribe">#6f8ee2</color> //未订阅
     <color name="match_subscribe">#33bfeb</color> //订阅
-    <color name="match_gotoday">#26131d27</color> //回到今日背景颜色
+    <color name="match_gotoday">#C87A1D</color> //回到今日背景颜色
     <color name="match_gotoday_text">#6f8ee2</color> //回到今日字体颜色
 
 </resources>

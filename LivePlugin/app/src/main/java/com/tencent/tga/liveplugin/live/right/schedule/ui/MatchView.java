@@ -10,6 +10,7 @@ import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
 import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
 import com.tencent.tga.liveplugin.base.mvp.BaseView;
 import com.tencent.tga.liveplugin.base.view.BaseViewInter;
+import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.presenter.MatchViewPresenter;
 import com.tencent.tga.plugin.R;
 
@@ -30,7 +31,15 @@ public class MatchView extends BaseView<MatchViewPresenter> implements BaseViewI
     public TextView mTvRightName;
 
     public Typeface mMatchViewFont;
-    public MatchItem mMatchItem;
+    //public MatchItem mMatchItem;
+
+    public MatchDayInfoBean.MatchDayListBean.MatchListBean matchListBean;
+
+    public TextView mTvStatus;
+    public ImageView mIvLeftLine;
+    public TextView mTvMatchtitle;
+    public TextView mTvMatchSubTitle;
+    public TextView mTvTeamOrRank;//参赛队伍/积分情况
     public MatchView(Context context) {
         super(context);
         mContext = context;
@@ -70,12 +79,19 @@ public class MatchView extends BaseView<MatchViewPresenter> implements BaseViewI
         mTvPlayAndSubscription = (TextView) findViewById(R.id.mTvPlayAndSubscription);
         mIvRightIcon = (ImageView) findViewById(R.id.mIvRightIcon);
         mTvRightName = (TextView) findViewById(R.id.mTvRightName);
-
+        mTvMatchSubTitle = findViewById(R.id.mTvMatchSubTitle);
+        mTvStatus = findViewById(R.id.mTvStatus);
+        mIvLeftLine = findViewById(R.id.mIvLeftLine);
+        mTvMatchtitle = findViewById(R.id.mTvMatchtitle);
+        mTvTeamOrRank = findViewById(R.id.mTvTeamOrRank);
         getPresenter().init();
 
     }
 
-    public void setData(MatchItem mb){
+    /*public void setData(MatchItem mb){
+        getPresenter().setData(mb);
+    }*/
+    public void setData(MatchDayInfoBean.MatchDayListBean.MatchListBean mb){
         getPresenter().setData(mb);
     }
 

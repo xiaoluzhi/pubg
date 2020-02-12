@@ -10,6 +10,16 @@ public class MatchCategoryBean {
     public boolean isDate = false;
     public RaceInfoBean mRaceInfoBean;
 
+    public MatchDayInfoBean.MatchDayListBean.MatchListBean matchListBean;
+
+    public MatchDayInfoBean.MatchDayListBean.MatchListBean getMatchListBean() {
+        return matchListBean;
+    }
+
+    public void setMatchListBean(MatchDayInfoBean.MatchDayListBean.MatchListBean matchListBean) {
+        this.matchListBean = matchListBean;
+    }
+
     public MatchCategoryBean(int date, boolean isDate) {
         this.date = date;
         this.isDate = isDate;
@@ -18,6 +28,11 @@ public class MatchCategoryBean {
     /*public MatchCategoryBean(RaceInfo raceInfo) {
         this.mRaceInfoBean = new RaceInfoBean(raceInfo);
     }*/
+
+    public MatchCategoryBean(MatchDayInfoBean.MatchDayListBean.MatchListBean matchListBean){
+        this.matchListBean = matchListBean;
+    }
+
 
     public int getDate() {
         return date;

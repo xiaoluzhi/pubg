@@ -2,33 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121d2c"
+    android:background="#0F121C"
     xmlns:ptr="http://schemas.android.com/apk/res-auto">
 
 
     <RelativeLayout
         android:id="@+id/mRlyMatchRank"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="24dp"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:visibility="visible"
-        android:background="@color/color14">
+        android:background="@drawable/schedule_rank_bg">
 
         <ImageView
             android:id="@+id/mIvRankEntranceIcon"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_centerVertical="true" />
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/schedule_rank_entrance"/>
         <TextView
             android:id="@+id/mTvRankEntranceName"
             android:text="积分榜"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/mIvRankEntranceIcon"
-            android:textSize="17dp"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:layout_marginLeft="1dp"
+            android:textColor="#FFC951"
             android:layout_centerVertical="true"
             android:textStyle="bold"
             />
@@ -46,20 +47,39 @@
     </RelativeLayout>
 
     <RelativeLayout
+
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="33dp"
         android:id="@+id/mRlyGoToday"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@color/match_gotoday"
-        android:layout_above="@id/mRlyMatchRank"
-        android:visibility="gone">
+        android:layout_width="55dp"
+        android:layout_height="16dp"
+        android:background="@drawable/schedule_gotoday_bg"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        android:layout_above="@id/mRlyMatchRank">
+<!---->
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+        <ImageView
+            android:layout_marginRight="2dp"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:src="@drawable/schedule_gotoday_small_tip"/>
         <TextView
-            android:text="回到今日赛程"
+            android:text="回到今日"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="10dp"
-            android:textColor="@color/match_gotoday_text"
-            />
+            android:textSize="9dp"
+            android:textColor="@color/white" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -67,7 +87,7 @@
         android:id="@+id/mLvMatch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/mRlyGoToday"
+        android:layout_above="@+id/mRlyMatchRank"
         android:scrollbars="none"
         android:divider="@null"
         android:listSelector="@android:color/transparent"
@@ -137,7 +157,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textColor="@color/white"
         android:text="积分榜"
         android:textSize="17dp"
         android:background="@color/color14"/>

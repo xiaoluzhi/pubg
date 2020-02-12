@@ -1,10 +1,13 @@
 package com.tencent.tga.liveplugin.live.right.schedule.model;
 
+import android.content.Context;
 import android.text.TextUtils;
 
+import com.loopj.android.tgahttp.httputil.HttpBaseUrlWithParameterProxy;
 import com.tencent.tga.liveplugin.base.mvp.BaseModelInter;
 import com.tencent.tga.liveplugin.base.mvp.BasePresenter;
 import com.tencent.tga.liveplugin.live.common.bean.UnityBean;
+import com.tencent.tga.liveplugin.live.right.schedule.proxy.GetHpjyScheduleListHttpProxy;
 import com.tencent.tga.liveplugin.live.right.schedule.proxy.MultiMatchScheduleListProxy;
 import com.tencent.tga.liveplugin.networkutil.NetProxy;
 import com.tencent.tga.liveplugin.networkutil.Sessions;
@@ -39,6 +42,19 @@ public class ScheduleModel extends BaseModelInter {
         }
     }
 
+    public void reqMatchList(Context context,HttpBaseUrlWithParameterProxy.Callback callback, int date, int direction){
+        //callback.onSuc(1);
+        //callback.onFail(-1);
+        mProxyHolder.getHpjyScheduleListHttpProxyParam.last_match_day = date;
+        mProxyHolder.getHpjyScheduleListHttpProxyParam.direction = direction;
+        if(!TextUtils.isEmpty(UserInfo.getInstance().mGameid) && Sessions.globalSession().uuid != null){
+            mProxyHolder.getHpjyScheduleListHttpProxyParam.gameid = UserInfo.getInstance().mGameid;
+            mProxyHolder.getHpjyScheduleListHttpProxy.postReq(context,callback,mProxyHolder.getHpjyScheduleListHttpProxyParam);
+        }else {
+            callback.onFail(-1);//参数为空
+        }
+    }
+
     public ProxyHolder mProxyHolder = new ProxyHolder();
 
     @Override
@@ -50,5 +66,8 @@ public class ScheduleModel extends BaseModelInter {
 
         public MultiMatchScheduleListProxy multiMatchScheduleListProxy = new MultiMatchScheduleListProxy();
         public MultiMatchScheduleListProxy.Param multiMatchScheduleListProxyParam = new MultiMatchScheduleListProxy.Param();
+
+        public GetHpjyScheduleListHttpProxy getHpjyScheduleListHttpProxy = new GetHpjyScheduleListHttpProxy();
+        public GetHpjyScheduleListHttpProxy.Param getHpjyScheduleListHttpProxyParam = new GetHpjyScheduleListHttpProxy.Param();
     }
 }

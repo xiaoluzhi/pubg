@@ -1,5 +1,8 @@
 package com.tencent.tga.liveplugin.live.right.schedule.bean;
 
+import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
+import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
+
 import java.util.List;
 
 public class MatchDayInfoBean {
@@ -25,6 +28,24 @@ public class MatchDayInfoBean {
 
     private int result;
     private List<MatchDayListBean> match_day_list;
+    private String msg;
+    private String is_finish;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getIs_finish() {
+        return is_finish;
+    }
+
+    public void setIs_finish(String is_finish) {
+        this.is_finish = is_finish;
+    }
 
     public int getResult() {
         return result;

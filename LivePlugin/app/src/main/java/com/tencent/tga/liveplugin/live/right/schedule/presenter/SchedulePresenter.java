@@ -10,8 +10,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.loopj.android.tgahttp.httputil.HttpBaseUrlWithParameterProxy;
 import com.tencent.common.log.tga.TLog;
 import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
+import com.tencent.tga.gson.Gson;
 import com.tencent.tga.liveplugin.base.mvp.BasePresenter;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.base.util.NoDoubleClickUtils;
@@ -25,8 +27,11 @@ import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
 import com.tencent.tga.liveplugin.live.right.LiveRightContainer;
 import com.tencent.tga.liveplugin.live.right.schedule.ScheduleView;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchCategoryBean;
+import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.ScheduleModel;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.DataErrorView;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchDateView;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
 import com.tencent.tga.liveplugin.networkutil.NetProxy;
 import com.tencent.tga.liveplugin.networkutil.NetUtils;
 import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
@@ -76,39 +81,38 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
 
 
     public synchronized void getMatchList(final int date, final int direction){
-        getModel().reqMatchList(new NetProxy.Callback() {
+        getModel().reqMatchList(getView().mContext,new HttpBaseUrlWithParameterProxy.Callback() {
             @Override
             public void onSuc(int code) {
                 TLog.e(TAG, "getMatchList onSuc : " + code);
                 try {
                     getView().mLvMatch.onRefreshComplete();
-
-
-                    /*if (getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp != null) {
-                        if (getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.is_finish == 1) {
-                            if (direction == ScheduleModel.FORWARD) {
-                                isFinishTopLoadMore = true;
-                            } else if (direction == ScheduleModel.BACKWARD) {
-                                isFinishBottomLoadMore = true;
+                    if (getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.data != null) {
+                        MatchDayInfoBean matchDayInfoBean = new Gson().fromJson(getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.data,MatchDayInfoBean.class);
+                        if (matchDayInfoBean!=null){
+                            if (matchDayInfoBean.getIs_finish().equals("1")) {
+                                if (direction == ScheduleModel.FORWARD) {
+                                    isFinishTopLoadMore = true;
+                                } else if (direction == ScheduleModel.BACKWARD) {
+                                    isFinishBottomLoadMore = true;
+                                }
                             }
-                        }
-                        if (getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.match_day_list != null &&
-                                getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.match_day_list.size() != 0) {
+                            if (matchDayInfoBean.getMatch_day_list().size()!= 0) {
 
-                            if (date == 0) {
-                                mCurrentDate = getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.match_day_list.get(0).match_day_time;
+                                if (date == 0) {
+                                    mCurrentDate = matchDayInfoBean.getMatch_day_list().get(0).getMatch_day_time();
+                                }
+
+                                AddDataToList(matchDayInfoBean.getMatch_day_list(), getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.direction);
+
+                                TLog.e(TAG, "getMatchList : " + getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.data);
                             }
-
-                            AddDataToList(getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.match_day_list,
-                                    getModel().mProxyHolder.multiMatchScheduleListProxyParam.direction);
-
-                            TLog.e(TAG, "getMultiMatchScheduleListRsp : " + getModel().mProxyHolder.multiMatchScheduleListProxyParam.getMultiMatchScheduleListRsp.toString());
                         } else {
                             setEmptyDataView(true, DataErrorView.ERROR_MSG_EMPTY);
                         }
                     } else {
                         setEmptyDataView(true, DataErrorView.ERROR_MSG_EMPTY);
-                    }*/
+                    }
                     getView().mAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     TLog.e(TAG, "getMatchList error : " + e.getMessage());
@@ -132,16 +136,16 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         },date,direction);
     }
 
-    /*private synchronized void AddDataToList(List<MatchDayInfo> list,int direction){
+    private synchronized void AddDataToList(List<MatchDayInfoBean.MatchDayListBean> list, int direction){
         try {
             List<MatchCategoryBean> list_temp = new ArrayList<>();
             for(int i = 0;i<list.size();i++){
-                if(isExist(list.get(i).match_day_time)){
+                if(isExist(list.get(i).getMatch_day_time())){
                     continue;
                 }
-                list_temp.add(new MatchCategoryBean(list.get(i).match_day_time,true));
-                for(int j = 0;list.get(i).today_race_list != null && j<list.get(i).today_race_list.size();j++){
-                    list_temp.add(new MatchCategoryBean(list.get(i).today_race_list.get(j)));
+                list_temp.add(new MatchCategoryBean(list.get(i).getMatch_day_time(),true));
+                for(int j = 0;list.get(i).getMatch_list() != null && j<list.get(i).getMatch_list().size();j++){
+                    list_temp.add(new MatchCategoryBean(list.get(i).getMatch_list().get(j)));
                 }
             }
             if(direction == ScheduleModel.BACKWARD){
@@ -156,7 +160,7 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         }catch (Exception e){
             TLog.e(TAG,"AddDataToList error : "+e.getMessage());
         }
-    }*/
+    }
 
     private boolean isExist(int date){
         if(getView().mList != null){
@@ -178,19 +182,21 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                 FrameLayout viewgroup =  holder.getView(R.id.root);
                 try{
                     viewgroup.removeAllViews();
-                    /*if(matchBean.isDate){
+                    if(matchBean.isDate){
                         MatchDateView mdv = new MatchDateView(mContext);
-                        mdv.setFont(LiveView.mFont);
+                        mdv.setFont(LiveConfig.mFont);
                         mdv.setData(matchBean.getDate());
                         //viewgroup.addView(tv,DeviceUtils.dip2px(mContext,90),DeviceUtils.dip2px(mContext,16));
                         viewgroup.addView(mdv);
                     }else {
-                        MatchCategoryView mcv = new MatchCategoryView(mContext);
-                        mcv.setFont(LiveView.mFont);
+                        //MatchCategoryView mcv = new MatchCategoryView(mContext);
+                        //mcv.setFont(LiveConfig.mFont);
                         //mcv.setPadding(30,0,0,0);
-                        mcv.setData(matchBean);
-                        viewgroup.addView(mcv);
-                    }*/
+                        //mcv.setData(matchBean);
+                        MatchView matchView = new MatchView(mContext);
+                        matchView.setData(matchBean.getMatchListBean());
+                        viewgroup.addView(matchView);
+                    }
                 }catch (Exception e){
                     TLog.e(TAG,"initAdapter error : "+e.getMessage());
                 }
