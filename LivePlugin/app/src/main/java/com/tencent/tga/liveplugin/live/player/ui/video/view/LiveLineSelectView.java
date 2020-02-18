@@ -14,6 +14,7 @@ import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent;
 import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
 import com.tencent.tga.liveplugin.live.player.PlayView;
 import com.tencent.tga.liveplugin.live.player.event.PlayViewEvent;
+import com.tencent.tga.liveplugin.report.ReportManager;
 import com.tencent.tga.plugin.R;
 
 import android.annotation.SuppressLint;
@@ -52,6 +53,7 @@ public class LiveLineSelectView extends BasePopWindow{
 							if (LiveInfo.mSourceId == channelInfo.getRoom_list().get(0).getSourceid()) 	return;
 							PlayViewEvent.lineChange(new LiveEvent.LiveLineChange(channelInfo.getRoom_list().get(0), channelInfo.getPlay_type()));
 							LiveLineSelectView.this.dismiss();
+							ReportManager.getInstance().report_ChannelClick();
 						} catch (Throwable e) {
 							e.printStackTrace();
 						}

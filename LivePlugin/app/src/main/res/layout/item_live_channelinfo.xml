@@ -38,7 +38,7 @@
             android:textColor="@color/white"
             android:layout_marginRight="18dp"
             />
-    <GridView
+    <com.tencent.tga.liveplugin.base.view.AutoAdaptGridView
             android:id="@+id/live_line_roomlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

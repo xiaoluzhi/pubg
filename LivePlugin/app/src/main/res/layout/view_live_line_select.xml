@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D90E1B2C"
+    android:background="#CC100F14"
     android:orientation="horizontal">
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
         android:cacheColorHint="@android:color/transparent"
         android:gravity="center_vertical"
         android:listSelector="@android:color/transparent"

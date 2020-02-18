@@ -10,23 +10,25 @@ import com.ryg.dynamicload.internal.DLPluginLayoutInflater
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl
 import com.tencent.tga.liveplugin.base.util.commonadapter.CommonAdapter
 import com.tencent.tga.liveplugin.base.util.commonadapter.ViewHolder
+import com.tencent.tga.liveplugin.base.view.AutoAdaptGridView
 import com.tencent.tga.liveplugin.live.LiveInfo
 import com.tencent.tga.liveplugin.live.common.bean.ChannelInfo
 import com.tencent.tga.liveplugin.live.common.bean.RoomInfo
 import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent
 import com.tencent.tga.liveplugin.live.player.event.PlayViewEvent
+import com.tencent.tga.liveplugin.report.ReportManager
 import com.tencent.tga.plugin.R
 
 /**
  * Created by agneswang on 2020/1/10.
  */
 class LiveLineSelectItem : RelativeLayout {
-    var mChannelImage: ImageView? = null
-    var mChannelTitle: TextView? = null
-    var mChannelTips: TextView? = null
-    var mRoomGridView : GridView? = null
-    var mAdapter : CommonAdapter<RoomInfo>? = null
-    var mRoomList : List<RoomInfo>? = ArrayList<RoomInfo>()
+    lateinit var mChannelImage: ImageView
+    lateinit var mChannelTitle: TextView
+    lateinit var mChannelTips: TextView
+    lateinit var mRoomGridView : AutoAdaptGridView
+    lateinit var mAdapter : CommonAdapter<RoomInfo>
+    var mRoomList : List<RoomInfo> = ArrayList<RoomInfo>()
     var mPlayType : Int = 1
     constructor(context: Context):super(context){
         DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_live_channelinfo,this)
@@ -43,10 +45,11 @@ class LiveLineSelectItem : RelativeLayout {
         mChannelImage = findViewById<ImageView>(R.id.live_line_icon)
         mChannelTitle = findViewById(R.id.live_line_title)
         mChannelTips = findViewById(R.id.live_line_tips)
-        mRoomGridView = findViewById<GridView>(R.id.live_line_roomlist)
-        mRoomGridView?.setOnItemClickListener { parent, view, position, id ->
+        mRoomGridView = findViewById<AutoAdaptGridView>(R.id.live_line_roomlist)
+        mRoomGridView.setOnItemClickListener { parent, view, position, id ->
             var roomInfo = mRoomList?.get(position)
             PlayViewEvent.lineChange(LiveEvent.LiveLineChange(roomInfo, mPlayType))
+            ReportManager.getInstance().report_RoomClick()
         }
     }
 
@@ -66,9 +69,9 @@ class LiveLineSelectItem : RelativeLayout {
             }
         }
 
-        mRoomGridView?.setAdapter(mAdapter)
-        mRoomGridView?.invalidate()
-        mAdapter?.notifyDataSetChanged()
+        mRoomGridView.setAdapter(mAdapter)
+        mRoomGridView.invalidate()
+        mAdapter.notifyDataSetChanged()
 
         if (!TextUtils.isEmpty(channelInfo.title)) {
             mChannelTitle?.setText(channelInfo.title)

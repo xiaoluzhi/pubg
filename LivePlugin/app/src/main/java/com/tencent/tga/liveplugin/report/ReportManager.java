@@ -323,6 +323,26 @@ public class ReportManager {
         addDataToLimitList(new ReportBean("TVUserFeedback", reportContent));
     }
 
+    public void report_ChannelListEnter(){
+        String reportContent = getReportContent(UserInfo.getInstance().mOpenid);
+        addDataToLimitList(new ReportBean("Channellist_enter_hpjy", reportContent));
+    }
+
+    public void report_ChannelEntryClick(){
+        String reportContent = getReportContent(UserInfo.getInstance().mOpenid);
+        addDataToUnLimitList(new ReportBean("Channellist_enter_hpjy", reportContent));
+    }
+
+    public void report_ChannelClick(){
+        String reportContent = getReportContent(UserInfo.getInstance().mOpenid);
+        addDataToUnLimitList(new ReportBean("Channellist_detail_hpjy", reportContent));
+    }
+
+    public void report_RoomClick(){
+        String reportContent = getReportContent(UserInfo.getInstance().mOpenid);
+        addDataToUnLimitList(new ReportBean("Channellist_groupview_hpjy", reportContent));
+    }
+
     /**
     * 获取上报的内容,部分通用已经封装好
     * @author hyqiao

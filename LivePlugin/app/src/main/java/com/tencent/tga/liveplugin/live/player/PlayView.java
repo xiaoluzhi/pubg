@@ -242,6 +242,7 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
             return;
         }
         getPresenter().modle.reqCurrentMatch(true);
+        ReportManager.getInstance().report_ChannelEntryClick();
     }
 
     public void showLiveLineView(List<ChannelInfo> mListInfo) {
