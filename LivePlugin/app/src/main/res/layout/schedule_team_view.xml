@@ -13,11 +13,12 @@
         android:textColor="@color/white"/>
     <ImageView
         android:id="@+id/schedule_team_view_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:padding="2dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="13dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="2dp"
         android:background="@drawable/integral_details_close"/>
     <GridView
         android:id="@+id/schedule_team_view_grid"

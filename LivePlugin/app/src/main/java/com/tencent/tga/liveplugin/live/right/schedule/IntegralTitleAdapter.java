@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
+import com.tencent.tga.liveplugin.base.util.DeviceUtils;
 import com.tencent.tga.plugin.R;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class IntegralTitleAdapter extends BaseAdapter {
         } else {
             holder.textView.setBackgroundResource(R.drawable.integral_list_item_bg);
             holder.textView.setTextColor(Color.parseColor("#8D9293"));
+            holder.textView.setPadding(DeviceUtils.dip2px(context,20),0,0,0);
         }
         if (i == 0 && checked == -1) {
             holder.textView.setBackgroundResource(R.drawable.integral_click);

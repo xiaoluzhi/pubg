@@ -60,6 +60,7 @@ public class IntegralDetailsView extends BaseFrameLayoutView <IntegralDetailsVie
 
         getPresenter().getData(matchId,roomId);
         mTitle.setText(title);
+        mRootView.findViewById(R.id.integral_details_listViewBg).getBackground().setAlpha(53);
 
         mClose.setOnClickListener(new OnClickListener() {
             @Override

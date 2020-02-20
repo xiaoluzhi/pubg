@@ -134,6 +134,12 @@ public class IntegralDetailAdapter extends BaseAdapter {
        }
        return view;
     }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+
     private class ViewTotalHolder{
         private ImageView rankImg;
         private TextView rankText;

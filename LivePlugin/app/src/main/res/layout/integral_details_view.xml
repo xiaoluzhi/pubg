@@ -20,17 +20,34 @@
         android:layout_marginRight="6dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/integral_details_close"/>
-    <ListView
-        android:id="@+id/integral_details_listView1"
-        android:layout_width="64dp"
+
+    <RelativeLayout
+        android:layout_width="68dp"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"
-        android:scrollbars="none"
         android:layout_below="@+id/integral_details_view_title"
-        android:choiceMode="singleChoice"
-        android:clipChildren="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent">
+
+        <View
+            android:id="@+id/integral_details_listViewBg"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/black"/>
+
+        <ListView
+            android:id="@+id/integral_details_listView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:clipChildren="false"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:layout_marginTop="5dp"/>
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/integral_details_listView2"
         android:layout_width="395dp"
