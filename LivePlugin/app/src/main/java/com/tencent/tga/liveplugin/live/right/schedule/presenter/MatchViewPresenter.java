@@ -20,7 +20,9 @@ import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent;
 import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.MatchViewModel;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailsView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.ScheduleTeamView;
 import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
 import com.tencent.tga.plugin.R;
 
@@ -109,8 +111,14 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                 //这里点击事件
                 if (getView().mTvTeamOrRank.getText().equals("参赛队伍")){
                     //这是 getView().matchListBean.getMatch_id()
+                    ScheduleTeamView scheduleTeamView=new ScheduleTeamView(getView().getContext()
+                            ,getView().matchListBean.getMatch_id(),getView());
+                    scheduleTeamView.initView();
                 }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
-
+                    String title=TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time())*1000L)+getView().matchListBean.getMatch_main_title();
+                    IntegralDetailsView integralDetailsView=new IntegralDetailsView(getView().getContext(),getView().matchListBean.getMatch_id()
+                            ,getView().matchListBean.getRoomid(),title,getView());
+                    integralDetailsView.initView();
                 }
             }
         });

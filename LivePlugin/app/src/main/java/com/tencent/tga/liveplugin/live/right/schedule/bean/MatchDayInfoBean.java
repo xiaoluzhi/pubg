@@ -140,6 +140,7 @@ public class MatchDayInfoBean {
             private String guest_team_logo;
             private List<String> record_vid_list;//排好序的回放vid列表， 最多7个
             private String has_cheer;
+            private String roomid;
             private String card_url;//卡片url, 非卡片不回
             private String card_title;//卡片标题, 非卡片不回
             private String match_sub_title;//副标题， 每天的日期后面展示第一场比赛的副标题,回放视频标题里也会展示
@@ -164,7 +165,7 @@ public class MatchDayInfoBean {
             public MatchListBean(String guest_team_name, String host_team_name, String host_team_id, int subscribe_state, String host_team_logo, String match_id,
                                  String guest_team_id, String stage, String guest_team_short, String region, int match_state, String host_team_short,
                                  int host_team_score, int guest_team_score, String match_time, String guest_team_logo, List<String> record_vid_list,
-                                 String has_cheer, String card_url, String card_title, String match_sub_title,String match_main_title){
+                                 String has_cheer, String roomid,String card_url, String card_title, String match_sub_title,String match_main_title){
                 this.guest_team_name = guest_team_name;
                 this.host_team_name = host_team_name;
                 this.host_team_id = host_team_id;
@@ -183,6 +184,7 @@ public class MatchDayInfoBean {
                 this.guest_team_logo = guest_team_logo;
                 this.record_vid_list = record_vid_list;
                 this.has_cheer = has_cheer;
+                this.roomid=roomid;
                 this.card_url =  card_url;
                 this.card_title = card_title;
                 this.match_sub_title = match_sub_title;
@@ -331,6 +333,14 @@ public class MatchDayInfoBean {
 
             public void setHas_cheer(String has_cheer) {
                 this.has_cheer = has_cheer;
+            }
+
+            public String getRoomid() {
+                return roomid;
+            }
+
+            public void setRoomid(String roomid) {
+                this.roomid = roomid;
             }
 
             public String getCard_url() {

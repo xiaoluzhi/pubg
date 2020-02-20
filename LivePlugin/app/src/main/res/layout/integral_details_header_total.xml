@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="395dp"
+    android:layout_height="21dp"
+    android:background="#22242B">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="排名"
+        android:textSize="9dp"
+        android:textColor="#BDBDBD"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="战队"
+        android:textSize="9dp"
+        android:textColor="#BDBDBD"
+        android:layout_marginLeft="62dp"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#2D2F36"
+        android:layout_marginLeft="109dp"/>
+    <LinearLayout
+        android:id="@+id/integral_details_header_linear"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@id/line"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:layout_width="45dp"
+        android:layout_height="21dp"
+        android:gravity="center"
+        android:text="总积分"
+        android:textSize="9dp"
+        android:textColor="#BDBDBD"
+        android:background="#23252D"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
