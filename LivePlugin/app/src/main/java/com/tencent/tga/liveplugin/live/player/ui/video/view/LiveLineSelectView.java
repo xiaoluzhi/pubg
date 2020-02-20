@@ -18,6 +18,7 @@ import com.tencent.tga.liveplugin.report.ReportManager;
 import com.tencent.tga.plugin.R;
 
 import android.annotation.SuppressLint;
+import android.view.View;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -38,9 +39,7 @@ public class LiveLineSelectView extends BasePopWindow{
 	}
 
 	private void initViews(){
-
 		mListView =  root.findViewById(R.id.live_line_listView);
-
 		mListAda = new CommonAdapter<ChannelInfo>(mContext, channelInfos, R.layout.item_line_select_list) {
 			@Override
 			public void convert(ViewHolder holder, ChannelInfo channelInfo) {

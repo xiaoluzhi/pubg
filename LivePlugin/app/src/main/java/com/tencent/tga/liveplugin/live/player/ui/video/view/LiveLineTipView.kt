@@ -16,7 +16,7 @@ import com.tencent.tga.plugin.R
 /**
  * Created by agneswang on 2020/1/13.
  */
-class LiveLineTipView : LinearLayout {
+class LiveLineTipView : FrameLayout {
     var mSwtichBtn : Button? = null
     constructor(context: Context):super(context){
         DLPluginLayoutInflater.getInstance(context).inflate(R.layout.view_line_select_tips,this)
@@ -29,7 +29,7 @@ class LiveLineTipView : LinearLayout {
     }
 
     fun initView() {
-        mSwtichBtn = findViewById(R.id.line_tips_switch)
+//        mSwtichBtn = findViewById(R.id.line_tips_switch)
     }
 
     fun show(parent : ViewGroup) {
@@ -38,8 +38,9 @@ class LiveLineTipView : LinearLayout {
         params.topMargin = DeviceUtils.dip2px(parent.context, 20f)
         params.rightMargin = DeviceUtils.dip2px(parent.context, 12f)
         if (parent.indexOfChild(this) == -1) parent.addView(this, params) else visibility = View.VISIBLE
-        mSwtichBtn?.setOnClickListener{
-            PlayViewEvent.liveLineClick()
-        }
+//        mSwtichBtn?.setOnClickListener{
+//            PlayViewEvent.liveLineClick()
+//            visibility = View.GONE
+//        }
     }
 }

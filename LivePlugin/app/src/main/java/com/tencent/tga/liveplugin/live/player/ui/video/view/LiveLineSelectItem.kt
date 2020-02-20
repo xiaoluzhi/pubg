@@ -47,8 +47,9 @@ class LiveLineSelectItem : RelativeLayout {
         mChannelTips = findViewById(R.id.live_line_tips)
         mRoomGridView = findViewById<AutoAdaptGridView>(R.id.live_line_roomlist)
         mRoomGridView.setOnItemClickListener { parent, view, position, id ->
-            var roomInfo = mRoomList?.get(position)
+            var roomInfo = mRoomList.get(position)
             PlayViewEvent.lineChange(LiveEvent.LiveLineChange(roomInfo, mPlayType))
+            PlayViewEvent.hideLiveLineView()
             ReportManager.getInstance().report_RoomClick()
         }
     }
@@ -58,6 +59,7 @@ class LiveLineSelectItem : RelativeLayout {
             return
         mRoomList = channelInfo.room_list
         mPlayType = channelInfo.play_type
+        mRoomGridView.visibility = (if (mRoomList.size > 1) View.VISIBLE else View.GONE)
         mAdapter = object : CommonAdapter<RoomInfo>(context, mRoomList, R.layout.item_line_select_room) {
             override fun convert(holder: ViewHolder, roomInfo: RoomInfo) {
                 var currentIcon = holder.getView<ImageView>(R.id.current_icon)

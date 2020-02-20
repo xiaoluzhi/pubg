@@ -243,6 +243,7 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
         }
         getPresenter().modle.reqCurrentMatch(true);
         ReportManager.getInstance().report_ChannelEntryClick();
+        hideLiveLineTipsView();
     }
 
     public void showLiveLineView(List<ChannelInfo> mListInfo) {
@@ -264,6 +265,11 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
         mPlayerTitleView.mLiveLineSelect.setImageResource(R.drawable.tile_live_line_select_show);
     }
 
+    public void hideLiveLineView() {
+        if (null != mLiveLineSelectView && mLiveLineSelectView.isShowing())
+            mLiveLineSelectView.dismiss();
+    }
+
     public void showLiveLineTipsView() {
         if (null == mLiveLineTipsView) mLiveLineTipsView = new LiveLineTipView(getContext());
         mLiveLineTipsView.show(this);
@@ -273,6 +279,10 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
                 if (null != mLiveLineTipsView) mLiveLineTipsView.setVisibility(View.GONE);
             }
         }, 3000);
+    }
+
+    public void hideLiveLineTipsView() {
+        if (null != mLiveLineTipsView) mLiveLineTipsView.setVisibility(View.GONE);
     }
 
     private void initPlayStateView() {

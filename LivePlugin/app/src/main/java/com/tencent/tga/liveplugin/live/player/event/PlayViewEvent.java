@@ -63,6 +63,8 @@ public class PlayViewEvent extends BaseEvent {
 
     private static final int SHOW_LIVE_LINE_TIPS = 19;
 
+    private static final int HIDE_LIVE_LINE_VIEW = 20;
+
     private static final String TAG = "PlayViewEvent";
 
     public PlayViewEvent(View view) {
@@ -120,6 +122,10 @@ public class PlayViewEvent extends BaseEvent {
 
     public static void lineChange(LiveEvent.LiveLineChange liveLineChange) {
         doExc( LINE_CHANGE,liveLineChange);
+    }
+
+    public static void hideLiveLineView() {
+        doExc(HIDE_LIVE_LINE_VIEW);
     }
 
     public static void lockScreen(LiveEvent.LockSreen lockSreen) {
@@ -220,6 +226,10 @@ public class PlayViewEvent extends BaseEvent {
                     break;
                 case SHOW_LIVE_LINE_TIPS:
                     ((PlayView) getMView()).showLiveLineTipsView();
+                    break;
+                case HIDE_LIVE_LINE_VIEW:
+                    ((PlayView) getMView()).hideLiveLineView();
+
             }
         } catch (Exception e) {
             TLog.e(TAG, e.getMessage());

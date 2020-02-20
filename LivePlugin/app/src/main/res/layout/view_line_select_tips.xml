@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal" android:layout_width="180dp"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="149dp"
         android:layout_height="32dp"
         android:background="@drawable/live_line_tips_bg">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textSize="9dp"
+            android:layout_marginLeft="7dp"
+            android:textSize="10dp"
             android:text="点击可切换【战队视角】观赛！"
             android:layout_marginTop="11dp"
-            android:textColor="@color/white"/>
+            android:textColor="#FFC951"/>
 
-    <Button
+    <!--<Button
             android:id="@+id/line_tips_switch"
             android:layout_width="40dp"
             android:layout_height="16dp"
@@ -21,6 +21,6 @@
             android:text="切换"
             android:textSize="9dp"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
 
-</LinearLayout>
+</FrameLayout>
