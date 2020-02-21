@@ -20,7 +20,7 @@ public class ScheduleTeamProxy extends HttpBaseUrlWithParameterProxy<ScheduleTea
 
     @Override
     protected String getUrl(ScheduleTeamProxy.Param param) {
-        return HttpUtil.getHttpUrl("getHpjyTeamByMatchid") + getParameter(param);
+        return HttpUtil.getHttpUrl("getHpjyTeamsByMatchid") + getParameter(param);
     }
 
     @Override

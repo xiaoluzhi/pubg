@@ -7,7 +7,6 @@ import com.tencent.common.log.tga.TLog;
 import com.tencent.tga.liveplugin.base.mvp.BaseFrameLayoutModelInter;
 import com.tencent.tga.liveplugin.base.mvp.BaseFrameLayoutPresenter;
 import com.tencent.tga.liveplugin.base.util.ToastUtil;
-import com.tencent.tga.liveplugin.live.LiveInfo;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBankBean;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamScoreBean;
 import com.tencent.tga.liveplugin.live.right.schedule.presenter.IntegralDetailsViewPresenter;
@@ -40,7 +39,7 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
         proxy.postReq(getPresenter().getView().getContext(), new HttpBaseUrlWithParameterProxy.Callback() {
             @Override
             public void onSuc(int i) {
-//                try {
+                try {
                     TLog.e(TAG, "reqGiftList 成功 :" + param.response);
                     if (!TextUtils.isEmpty(param.response)) {
                         try {
@@ -70,7 +69,11 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
                                     teamBankBean.setList(list2);
                                     list.add(teamBankBean);
                                 }
-                                presenter.setDetailList(list,type,titleList);
+                                if (list.size() > 0) {
+                                    presenter.setDetailList(list, type, titleList);
+                                }else{
+                                    ToastUtil.show(getPresenter().getView().getContext(),"数据异常");
+                                }
                             }else{
                                 TLog.e(TAG, "ScheduleTeamProxy result !=0" );
                                 ToastUtil.show(getPresenter().getView().getContext(),"网络异常");
@@ -80,9 +83,9 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
                             e.printStackTrace();
                         }
                     }
-//                }catch (Exception e){
-//                    TLog.e(TAG, "IntegralDetailsProxy error : " + e.getMessage());
-//                }
+                }catch (Exception e){
+                    TLog.e(TAG, "IntegralDetailsProxy error : " + e.getMessage());
+                }
             }
 
             @Override
@@ -92,7 +95,7 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
             }
         },param);
     }
-    public ArrayList<String> changeCount(int count){
+    private ArrayList<String> changeCount(int count){
         ArrayList<String> dataList=new ArrayList<>();
         list.add("总积分");
         list.add("第一局");

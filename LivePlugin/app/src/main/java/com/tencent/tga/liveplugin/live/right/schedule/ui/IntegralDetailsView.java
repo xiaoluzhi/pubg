@@ -19,46 +19,48 @@ import com.tencent.tga.liveplugin.base.view.BasePopWindow;
 import com.tencent.tga.liveplugin.live.right.schedule.presenter.IntegralDetailsViewPresenter;
 import com.tencent.tga.plugin.R;
 
-public class IntegralDetailsView extends BaseFrameLayoutView <IntegralDetailsViewPresenter>{
+public class IntegralDetailsView extends BaseFrameLayoutView<IntegralDetailsViewPresenter> {
+    private static final String TAG = "IntegralDetailsView";
     private IntegralDetailsViewPresenter mPresenter;
-    private String matchId,roomId;
+    private String matchId, roomId;
     private View mRootView;
     private BasePopWindow mPopWindow;
     private ViewGroup mParent;
-    public  ListView totalList,detailList;
+    public ListView totalList, detailList;
     private TextView mTitle;
     private ImageView mClose;
     private String title;
 
-    public IntegralDetailsView(Context context,String matchId,String roomId,String title,ViewGroup parent) {
+    public IntegralDetailsView(Context context, String matchId, String roomId, String title, ViewGroup parent) {
         super(context);
-        this.matchId=matchId;
-        this.roomId=roomId;
-        this.title=title;
-        mParent=parent;
+        this.matchId = matchId;
+        this.roomId = roomId;
+        this.title = title;
+        mParent = parent;
     }
 
     @Override
     protected IntegralDetailsViewPresenter getPresenter() {
-        if (mPresenter==null){
-            mPresenter=new IntegralDetailsViewPresenter();
+        if (mPresenter == null) {
+            mPresenter = new IntegralDetailsViewPresenter();
         }
         return mPresenter;
     }
-    public void initView(){
-        mRootView= DLPluginLayoutInflater.getInstance(getContext()).inflate(R.layout.integral_details_view,null);
-        totalList=mRootView.findViewById(R.id.integral_details_listView1);
-        detailList=mRootView.findViewById(R.id.integral_details_listView2);
-        mTitle=mRootView.findViewById(R.id.integral_details_view_title);
-        mClose=mRootView.findViewById(R.id.integral_details_view_close);
+
+    public void initView() {
+        mRootView = DLPluginLayoutInflater.getInstance(getContext()).inflate(R.layout.integral_details_view, null);
+        totalList = mRootView.findViewById(R.id.integral_details_listView1);
+        detailList = mRootView.findViewById(R.id.integral_details_listView2);
+        mTitle = mRootView.findViewById(R.id.integral_details_view_title);
+        mClose = mRootView.findViewById(R.id.integral_details_view_close);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.width = DeviceUtils.dip2px(getContext(),476);
-        params.height = DeviceUtils.dip2px(getContext(),275);
+        params.width = DeviceUtils.dip2px(getContext(), 476);
+        params.height = DeviceUtils.dip2px(getContext(), 275);
         params.gravity = Gravity.CENTER;
         addView(mRootView, params);
-        setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+        setLayoutParams(new ViewGroup.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
-        getPresenter().getData(matchId,roomId);
+        getPresenter().getData(matchId, roomId);
         mTitle.setText(title);
         mRootView.findViewById(R.id.integral_details_listViewBg).getBackground().setAlpha(53);
 
@@ -69,38 +71,42 @@ public class IntegralDetailsView extends BaseFrameLayoutView <IntegralDetailsVie
             }
         });
     }
-    public void show()
-    {
-        if (mPopWindow == null)
-        {
-            mPopWindow = new BasePopWindow(this, WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT,false);
-            mPopWindow.setFocusable(true);
-            mPopWindow.setOutsideTouchable(false);
-            mPopWindow.setBackgroundDrawable(new ColorDrawable(0xB2000000));
-            setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-                @Override
-                public void onSystemUiVisibilityChange(int visibility) {
-                    mPopWindow.setHideBottomBar();
-                }
-            });
-        }
 
-        if (!mPopWindow.isShowing())
-        {
-            mPopWindow.showAtLocation(mParent, Gravity.CENTER, 0, 0);
+    public void show() {
+        try {
+            if (mPopWindow == null) {
+                mPopWindow = new BasePopWindow(this, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, false);
+                mPopWindow.setFocusable(true);
+                mPopWindow.setOutsideTouchable(false);
+                mPopWindow.setBackgroundDrawable(new ColorDrawable(0xB2000000));
+                setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        mPopWindow.setHideBottomBar();
+                    }
+                });
+            }
+
+            if (!mPopWindow.isShowing()) {
+                mPopWindow.showAtLocation(mParent, Gravity.CENTER, 0, 0);
+            }
+        } catch (Exception e) {
+            TLog.e(TAG, "IntegralDetailsView show error : " + e.getMessage());
         }
     }
-    public boolean isShowing(){
-        if(mPopWindow != null && mPopWindow.isShowing()){
+
+    public boolean isShowing() {
+        if (mPopWindow != null && mPopWindow.isShowing()) {
             return true;
         }
         return false;
     }
-    public void close(){
+
+    public void close() {
         try {
             mPopWindow.dismiss();
-        }catch (Exception e){
-            TLog.e("ScheduleTeamView","ScheduleTeamView close error : "+e.getMessage());
+        } catch (Exception e) {
+            TLog.e(TAG, "IntegralDetailsView close error : " + e.getMessage());
         }
     }
 }

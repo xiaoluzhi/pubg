@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
+import com.tencent.common.log.tga.TLog;
+import com.tencent.open.utils.TlsSniSocketFactory;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBean;
 import com.tencent.tga.plugin.R;
@@ -15,6 +17,7 @@ import com.tencent.tga.plugin.R;
 import java.util.ArrayList;
 
 public class ScheduleTeamAdapter extends BaseAdapter {
+    private static final String TAG = "ScheduleTeamAdapter";
     private ArrayList<TeamBean> arrayList;
     private Context context;
     public ScheduleTeamAdapter(ArrayList<TeamBean> arrayList, Context context){
@@ -39,6 +42,7 @@ public class ScheduleTeamAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
+        try {
         if (view==null){
             view= DLPluginLayoutInflater.getInstance(context).inflate(R.layout.schedule_team_view_item,null);
             holder=new ViewHolder();
@@ -50,6 +54,9 @@ public class ScheduleTeamAdapter extends BaseAdapter {
         }
         holder.textView.setText(arrayList.get(i).getTeam_name());
         ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(),holder.imageView);
+        }catch (Exception e){
+            TLog.e(TAG,"ScheduleTeamAdapter getView error is"+e.getMessage());
+        }
         return view;
     }
 

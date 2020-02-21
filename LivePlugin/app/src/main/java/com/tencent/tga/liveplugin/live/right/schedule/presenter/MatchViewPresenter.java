@@ -23,7 +23,9 @@ import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
 import com.tencent.tga.liveplugin.live.liveView.event.LiveViewEvent;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.MatchViewModel;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailsView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.ScheduleTeamView;
 import com.tencent.tga.liveplugin.networkutil.NetProxy;
 import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
 import com.tencent.tga.plugin.R;
@@ -144,9 +146,24 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
             public void onClick(View view) {
                 //这里点击事件
                 if (getView().mTvTeamOrRank.getText().equals("参赛队伍")){
-                    //这是 getView().matchListBean.getMatch_id()
+                    try {
+                        //这是 getView().matchListBean.getMatch_id()
+                        TLog.e(TAG,"getView().matchListBean.getMatch_id()"+getView().matchListBean.getMatch_id());
+                        ScheduleTeamView scheduleTeamView = new ScheduleTeamView(getView().getContext()
+                                , getView().matchListBean.getMatch_id(), getView().mScheduleView);
+                        scheduleTeamView.initView();
+                    } catch (Exception e) {
+                        TLog.e(TAG,"ScheduleTeamView error is"+e.getMessage());
+                    }
                 }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
-
+                    try {
+                        String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) + getView().matchListBean.getMatch_main_title();
+                        IntegralDetailsView integralDetailsView = new IntegralDetailsView(getView().getContext(), getView().matchListBean.getMatch_id()
+                                , getView().matchListBean.getRoomid(), title, getView().mScheduleView);
+                        integralDetailsView.initView();
+                    }catch (Exception e){
+                        TLog.e(TAG,"IntegralDetailsView error is"+e.getMessage());
+                    }
                 }
             }
         });

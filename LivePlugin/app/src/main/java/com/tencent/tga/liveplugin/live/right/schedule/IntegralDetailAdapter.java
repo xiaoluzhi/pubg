@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
+import com.tencent.common.log.tga.TLog;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBankBean;
 import com.tencent.tga.plugin.R;
@@ -18,6 +19,7 @@ import com.tencent.tga.plugin.R;
 import java.util.ArrayList;
 
 public class IntegralDetailAdapter extends BaseAdapter {
+    private static final String TAG = "IntegralDetailAdapter";
     private Context context;
     private ArrayList<TeamBankBean> arrayList;
     private int type;
@@ -48,91 +50,96 @@ public class IntegralDetailAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewTotalHolder holderTotal=null;
         ViewGamesHolder holderGames=null;
-       if (view==null){
-           if (type==0){
-               view= DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_total_integral_details,null);
-               holderTotal=new ViewTotalHolder();
-               holderTotal.rankImg=view.findViewById(R.id.item_total_integral_rankImg);
-               holderTotal.rankText=view.findViewById(R.id.item_total_integral_rankText);
-               holderTotal.teamLogo=view.findViewById(R.id.item_total_integral_teamImg);
-               holderTotal.teamName=view.findViewById(R.id.item_total_integral_teamName);
-               holderTotal.linearLayout=view.findViewById(R.id.item_games_integral_linear);
-               holderTotal.gradeTotal=view.findViewById(R.id.item_total_integral_gradeTotal);
-               view.setTag(holderTotal);
-           }else{
-               view=DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details,null);
-               holderGames=new ViewGamesHolder();
-               holderGames.rankImg=view.findViewById(R.id.item_games_integral_rankImg);
-               holderGames.rankText=view.findViewById(R.id.item_games_integral_rankText);
-               holderGames.teamLogo=view.findViewById(R.id.item_games_integral_teamImg);
-               holderGames.teamName=view.findViewById(R.id.item_games_integral_teamName);
-               holderGames.grade1=view.findViewById(R.id.item_games_integral_grade1);
-               holderGames.grade2=view.findViewById(R.id.item_games_integral_grade2);
-               holderGames.gradeTotal=view.findViewById(R.id.item_games_integral_gradeTotal);
-               view.setTag(holderGames);
-           }
-    }else{
-           if (type==0){
-               holderTotal= (ViewTotalHolder) view.getTag();
-           }else{
-               holderGames= (ViewGamesHolder) view.getTag();
-           }
-       }
-       if (type==0){
-           if (holderTotal!=null){
-               switch (i) {
-                   case 0:
-                       holderTotal.rankImg.setImageResource(R.drawable.first_place);
-                       break;
-                   case 1:
-                       holderTotal.rankImg.setImageResource(R.drawable.second_place);
-                       break;
-                   case 2:
-                       holderTotal.rankImg.setImageResource(R.drawable.third_place);
-                       break;
-                   default:
-                       holderTotal.rankText.setText(i+"");
-                       break;
-               }
-               ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(),holderTotal.teamLogo);
-               holderTotal.teamName.setText(arrayList.get(i).getTeam_name());
-               for (int j=0;j<arrayList.get(i).getList().size();j++){
-                   TextView textView=new TextView(context);
-                   textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT,1));
-                   textView.setText(arrayList.get(i).getList().get(j).getBo_score()+"");
-                   textView.setTextColor(Color.parseColor("#858585"));
-                   textView.setTextSize(8);
-                   textView.setGravity(Gravity.CENTER);
-                   holderTotal.linearLayout.addView(textView);
-               }
-               holderTotal.gradeTotal.setText(arrayList.get(i).getTotal_score()+"");
+        try {
+            if (view == null) {
+                if (type == 0) {
+                    view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_total_integral_details, null);
+                    holderTotal = new ViewTotalHolder();
+                    holderTotal.rankImg = view.findViewById(R.id.item_total_integral_rankImg);
+                    holderTotal.rankText = view.findViewById(R.id.item_total_integral_rankText);
+                    holderTotal.teamLogo = view.findViewById(R.id.item_total_integral_teamImg);
+                    holderTotal.teamName = view.findViewById(R.id.item_total_integral_teamName);
+                    holderTotal.linearLayout = view.findViewById(R.id.item_games_integral_linear);
+                    holderTotal.gradeTotal = view.findViewById(R.id.item_total_integral_gradeTotal);
+                    view.setTag(holderTotal);
+                } else {
+                    view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details, null);
+                    holderGames = new ViewGamesHolder();
+                    holderGames.rankImg = view.findViewById(R.id.item_games_integral_rankImg);
+                    holderGames.rankText = view.findViewById(R.id.item_games_integral_rankText);
+                    holderGames.teamLogo = view.findViewById(R.id.item_games_integral_teamImg);
+                    holderGames.teamName = view.findViewById(R.id.item_games_integral_teamName);
+                    holderGames.grade1 = view.findViewById(R.id.item_games_integral_grade1);
+                    holderGames.grade2 = view.findViewById(R.id.item_games_integral_grade2);
+                    holderGames.gradeTotal = view.findViewById(R.id.item_games_integral_gradeTotal);
+                    view.setTag(holderGames);
+                }
+            } else {
+                if (type == 0) {
+                    holderTotal = (ViewTotalHolder) view.getTag();
+                } else {
+                    holderGames = (ViewGamesHolder) view.getTag();
+                }
+            }
+            if (type == 0) {
+                if (holderTotal != null) {
+                    switch (i) {
+                        case 0:
+                            holderTotal.rankImg.setImageResource(R.drawable.first_place);
+                            break;
+                        case 1:
+                            holderTotal.rankImg.setImageResource(R.drawable.second_place);
+                            break;
+                        case 2:
+                            holderTotal.rankImg.setImageResource(R.drawable.third_place);
+                            break;
+                        default:
+                            holderTotal.rankText.setText(i + "");
+                            break;
+                    }
+                    ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), holderTotal.teamLogo);
+                    holderTotal.teamName.setText(arrayList.get(i).getTeam_name());
+                    for (int j = 0; j < arrayList.get(i).getList().size(); j++) {
+                        TextView textView = new TextView(context);
+                        textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                        textView.setText(arrayList.get(i).getList().get(j).getBo_score() + "");
+                        textView.setTextColor(Color.parseColor("#858585"));
+                        textView.setTextSize(8);
+                        textView.setGravity(Gravity.CENTER);
+                        holderTotal.linearLayout.addView(textView);
+                    }
+                    holderTotal.gradeTotal.setText(arrayList.get(i).getTotal_score() + "");
 
-           }
-       }else{
-           if (holderGames!=null){
-               switch (i) {
-                   case 0:
-                       holderGames.rankImg.setImageResource(R.drawable.first_place);
-                       break;
-                   case 1:
-                       holderGames.rankImg.setImageResource(R.drawable.second_place);
-                       break;
-                   case 2:
-                       holderGames.rankImg.setImageResource(R.drawable.third_place);
-                       break;
-                   default:
-                       holderGames.rankText.setText(i+"");
-                       break;
-               }
-               ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(),holderGames.teamLogo);
-               holderGames.teamName.setText(arrayList.get(i).getTeam_name());
-               holderGames.grade1.setText(arrayList.get(i).getList().get(0).getRank_score()+"");
-               holderGames.grade2.setText(arrayList.get(i).getList().get(0).getEliminlate_score()+"");
-               holderGames.gradeTotal.setText(arrayList.get(i).getList().get(0).getBo_score()+"");
-           }
+                }
+            } else {
+                if (holderGames != null) {
+                    switch (i) {
+                        case 0:
+                            holderGames.rankImg.setImageResource(R.drawable.first_place);
+                            break;
+                        case 1:
+                            holderGames.rankImg.setImageResource(R.drawable.second_place);
+                            break;
+                        case 2:
+                            holderGames.rankImg.setImageResource(R.drawable.third_place);
+                            break;
+                        default:
+                            holderGames.rankText.setText(i + "");
+                            break;
+                    }
+                    ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), holderGames.teamLogo);
+                    holderGames.teamName.setText(arrayList.get(i).getTeam_name());
+                    holderGames.grade1.setText(arrayList.get(i).getList().get(0).getRank_score() + "");
+                    holderGames.grade2.setText(arrayList.get(i).getList().get(0).getEliminlate_score() + "");
+                    holderGames.gradeTotal.setText(arrayList.get(i).getList().get(0).getBo_score() + "");
+                }
 
-       }
-       return view;
+            }
+        }catch (Exception e){
+            TLog.e(TAG,"IntegralDetailAdapter getView error is"+e.getMessage());
+        }
+            return view;
+
     }
 
     @Override

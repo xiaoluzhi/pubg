@@ -39,9 +39,10 @@ public class ScheduleTeamModel extends BaseFrameLayoutModelInter {
                 try {
                 if (!TextUtils.isEmpty(param.response)) {
                     try {
+                        TLog.e(TAG,"param.response is"+param.response);
                         JSONObject jsonObject = new JSONObject(param.response);
                         if (jsonObject.optInt("result")==0){
-                            JSONArray array=jsonObject.optJSONArray("rank_list");
+                            JSONArray array=jsonObject.optJSONArray("team_list");
                             ArrayList<TeamBean> list=new ArrayList<>();
                             for (int a=0;a<array.length();a++){
                                 TeamBean bean=new TeamBean();
@@ -51,7 +52,11 @@ public class ScheduleTeamModel extends BaseFrameLayoutModelInter {
                                 bean.setTeam_short_name(array.optJSONObject(a).optString("team_short_name"));
                                 list.add(bean);
                             }
-                            mPresenter.setData(list);
+                            if (list.size() >0) {
+                                mPresenter.setData(list);
+                            } else {
+                                ToastUtil.show(getPresenter().getView().getContext(),"数据异常");
+                            }
                         }else{
                             TLog.e(TAG, "ScheduleTeamProxy result !=0" );
                             ToastUtil.show(getPresenter().getView().getContext(),"网络异常");
@@ -68,6 +73,7 @@ public class ScheduleTeamModel extends BaseFrameLayoutModelInter {
 
             @Override
             public void onFail(int i) {
+                TLog.e(TAG, "ScheduleTeamProxy onFail is: " +i);
                 ToastUtil.show(getPresenter().getView().getContext(),"网络异常");
             }
         },param);

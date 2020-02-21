@@ -19,6 +19,7 @@ import com.tencent.tga.liveplugin.live.right.schedule.presenter.ScheduleTeamPres
 import com.tencent.tga.plugin.R;
 
 public class ScheduleTeamView extends BaseFrameLayoutView<ScheduleTeamPresenter>{
+    private static final String TAG = "ScheduleTeamView";
     private ScheduleTeamPresenter scheduleTeamPresenter;
     private View mRootView;
     public  GridView mGridView;
@@ -63,23 +64,25 @@ public class ScheduleTeamView extends BaseFrameLayoutView<ScheduleTeamPresenter>
 
     public void show()
     {
-        if (mPopWindow == null)
-        {
-            mPopWindow = new BasePopWindow(this, WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT,false);
-            mPopWindow.setFocusable(true);
-            mPopWindow.setOutsideTouchable(false);
-            mPopWindow.setBackgroundDrawable(new ColorDrawable(0xB2000000));
-            setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-                @Override
-                public void onSystemUiVisibilityChange(int visibility) {
-                    mPopWindow.setHideBottomBar();
-                }
-            });
-        }
+        try {
+            if (mPopWindow == null) {
+                mPopWindow = new BasePopWindow(this, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, false);
+                mPopWindow.setFocusable(true);
+                mPopWindow.setOutsideTouchable(false);
+                mPopWindow.setBackgroundDrawable(new ColorDrawable(0xB2000000));
+                setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        mPopWindow.setHideBottomBar();
+                    }
+                });
+            }
 
-        if (!mPopWindow.isShowing())
-        {
-            mPopWindow.showAtLocation(mParent, Gravity.CENTER, 0, 0);
+            if (!mPopWindow.isShowing()) {
+                mPopWindow.showAtLocation(mParent, Gravity.CENTER, 0, 0);
+            }
+        }catch (Exception e){
+            TLog.e(TAG,"ScheduleTeamView show error : "+e.getMessage());
         }
     }
     public boolean isShowing(){
@@ -92,7 +95,7 @@ public class ScheduleTeamView extends BaseFrameLayoutView<ScheduleTeamPresenter>
         try {
             mPopWindow.dismiss();
         }catch (Exception e){
-            TLog.e("ScheduleTeamView","ScheduleTeamView close error : "+e.getMessage());
+            TLog.e(TAG,"ScheduleTeamView close error : "+e.getMessage());
         }
     }
 }

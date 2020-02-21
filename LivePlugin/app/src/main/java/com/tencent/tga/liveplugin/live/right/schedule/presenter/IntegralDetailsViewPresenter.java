@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
+import com.tencent.common.log.tga.TLog;
 import com.tencent.tga.liveplugin.base.mvp.BaseFrameLayoutPresenter;
 import com.tencent.tga.liveplugin.live.right.schedule.IntegralDetailAdapter;
 import com.tencent.tga.liveplugin.live.right.schedule.IntegralTitleAdapter;
@@ -41,65 +42,73 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
         getModel().requestList(matchId,roomId,0);
     }
     public void setTotalList(ArrayList<String> list){
-        if (count==1) {
-            adapter = new IntegralTitleAdapter(list, getView().getContext());
-            getView().totalList.setAdapter(adapter);
-            getView().totalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if (position != i) {
-                        adapter.setChecked(i);
-                        adapter.notifyDataSetInvalidated();
-                        getModel().requestList(matchId, roomId, i);
+        try {
+            if (count == 1) {
+                adapter = new IntegralTitleAdapter(list, getView().getContext());
+                getView().totalList.setAdapter(adapter);
+                getView().totalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (position != i) {
+                            adapter.setChecked(i);
+                            adapter.notifyDataSetInvalidated();
+                            getModel().requestList(matchId, roomId, i);
+                        }
+                        position = i;
                     }
-                    position = i;
-                }
-            });
-            getView().show();
-            count++;
-        }else{
-            return;
+                });
+                getView().show();
+                count++;
+            } else {
+                return;
+            }
+        } catch (Exception e) {
+            TLog.e(TAG, "setTotalList error : " + e.getMessage());
         }
     }
     public void setDetailList(ArrayList<TeamBankBean> arrayList,int type,ArrayList<String> list){
-        if (detailAdapter==null)detailAdapter=new IntegralDetailAdapter(getView().getContext());
-        detailAdapter.setData(arrayList,type);
-        getView().detailList.setAdapter(detailAdapter);
-        ArrayList<String> titles=new ArrayList<>();
-        titles.addAll(list);
-        titles.remove(0);
-        addHeader(type,titles);
+        try {
+            if (detailAdapter == null)
+                detailAdapter = new IntegralDetailAdapter(getView().getContext());
+            detailAdapter.setData(arrayList, type);
+            getView().detailList.setAdapter(detailAdapter);
+            ArrayList<String> titles = new ArrayList<>();
+            titles.addAll(list);
+            titles.remove(0);
+            addHeader(type, titles);
+        } catch (Exception e) {
+            TLog.e(TAG, "setDetailList error : " + e.getMessage());
+        }
     }
 
     private void addHeader(int type,ArrayList<String> list) {
-        if (viewTotal != null) {
-            getView().detailList.removeHeaderView(viewTotal);
-        }
-        if (viewGames != null ) {
-            getView().detailList.removeHeaderView(viewGames);
-        }
-        if (type == 0) {
-            viewTotal = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_total, null);
-            LinearLayout linearLayout;
-            linearLayout=viewTotal.findViewById(R.id.integral_details_header_linear);
-            for (int i=0;i<list.size();i++){
-                TextView textView=new TextView(getView().getContext());
-                textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT,1));
-                textView.setText(list.get(i));
-                textView.setTextColor(Color.parseColor("#BDBDBD"));
-                textView.setTextSize(8);
-                textView.setGravity(Gravity.CENTER);
-                linearLayout.addView(textView);
+        try {
+            if (viewTotal != null) {
+                getView().detailList.removeHeaderView(viewTotal);
             }
-            getView().detailList.addHeaderView(viewTotal);
-        } else {
+            if (viewGames != null) {
+                getView().detailList.removeHeaderView(viewGames);
+            }
+            if (type == 0) {
+                viewTotal = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_total, null);
+                LinearLayout linearLayout;
+                linearLayout = viewTotal.findViewById(R.id.integral_details_header_linear);
+                for (int i = 0; i < list.size(); i++) {
+                    TextView textView = new TextView(getView().getContext());
+                    textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                    textView.setText(list.get(i));
+                    textView.setTextColor(Color.parseColor("#BDBDBD"));
+                    textView.setTextSize(8);
+                    textView.setGravity(Gravity.CENTER);
+                    linearLayout.addView(textView);
+                }
+                getView().detailList.addHeaderView(viewTotal);
+            } else {
                 viewGames = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_games, null);
                 getView().detailList.addHeaderView(viewGames);
+            }
+        } catch (Exception e) {
+            TLog.e(TAG, "addHeader error : " + e.getMessage());
         }
     }
-//    public void dataChange(ArrayList<TeamBankBean> arrayList,int type){
-//        addHeader(type);
-//        detailAdapter.setData(arrayList,type);
-//        detailAdapter.notifyDataSetChanged();
-//    }
 }
