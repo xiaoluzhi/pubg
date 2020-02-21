@@ -12,7 +12,7 @@
         android:layout_height="24dp"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@drawable/schedule_rank_bg">
 
         <ImageView
@@ -46,41 +46,7 @@
             />
     </RelativeLayout>
 
-    <RelativeLayout
 
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="33dp"
-        android:id="@+id/mRlyGoToday"
-        android:layout_width="55dp"
-        android:layout_height="16dp"
-        android:background="@drawable/schedule_gotoday_bg"
-        android:layout_alignParentBottom="true"
-        android:visibility="visible"
-        android:layout_above="@id/mRlyMatchRank">
-<!---->
-
-        <LinearLayout
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-        <ImageView
-            android:layout_marginRight="2dp"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
-            android:src="@drawable/schedule_gotoday_small_tip"/>
-        <TextView
-            android:text="回到今日"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="9dp"
-            android:textColor="@color/white" />
-
-        </LinearLayout>
-    </RelativeLayout>
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
@@ -142,9 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_above="@id/mRlyMatchRank"
-
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 
     <TextView
@@ -160,6 +124,40 @@
         android:text="积分榜"
         android:textSize="17dp"
         android:background="@color/color14"/>
+
+    <RelativeLayout
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/mRlyGoToday"
+        android:layout_width="55dp"
+        android:layout_height="16dp"
+        android:background="@drawable/schedule_gotoday_bg"
+        android:layout_alignBottom="@id/mLvMatch"
+        android:visibility="gone"
+        android:layout_marginBottom="4.5dp">
+        <!---->
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_marginRight="2dp"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/schedule_gotoday_small_tip"/>
+            <TextView
+                android:text="回到今日"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="9dp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <!--android:background="@drawable/rank_enterance_topbg"-->
 </RelativeLayout>

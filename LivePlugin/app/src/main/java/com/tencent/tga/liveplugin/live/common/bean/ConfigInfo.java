@@ -23,7 +23,8 @@ public class ConfigInfo {
     public static final String BOX_ICON = "box_icon";
     public static final String BOX_ANIM_SWITCH = "box_anim_switch";
 
-    public static final String TEAM_RANK_SWITCH = "team_rank_switch";
+    public static final String SCORE_RANK_SWITCH = "score_rank_switch";
+    public static final String SCORE_RANK_URL = "score_rank_url";
 
     private static List<String> mFunctionReqList = new ArrayList<>();
     private HashMap<String, String> mConfigMap = new HashMap();
@@ -113,6 +114,8 @@ public class ConfigInfo {
         mFunctionReqList.add(BOX_SWITCH);
         mFunctionReqList.add(BOX_ICON);
         mFunctionReqList.add(BOX_ANIM_SWITCH);
+        mFunctionReqList.add(SCORE_RANK_SWITCH);
+        mFunctionReqList.add(SCORE_RANK_URL);
         return mFunctionReqList;
     }
 

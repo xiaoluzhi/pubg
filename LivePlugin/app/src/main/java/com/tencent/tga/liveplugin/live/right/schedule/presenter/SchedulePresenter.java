@@ -4,6 +4,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -15,7 +16,6 @@ import com.tencent.common.log.tga.TLog;
 import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
 import com.tencent.tga.gson.Gson;
 import com.tencent.tga.liveplugin.base.mvp.BasePresenter;
-import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.base.util.NoDoubleClickUtils;
 import com.tencent.tga.liveplugin.base.util.ThreadPoolManager;
 import com.tencent.tga.liveplugin.base.util.ToastUtil;
@@ -23,9 +23,8 @@ import com.tencent.tga.liveplugin.base.util.commonadapter.CommonAdapter;
 import com.tencent.tga.liveplugin.base.util.commonadapter.ViewHolder;
 import com.tencent.tga.liveplugin.live.LiveConfig;
 import com.tencent.tga.liveplugin.live.common.bean.ConfigInfo;
-import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
-import com.tencent.tga.liveplugin.live.right.LiveRightContainer;
 import com.tencent.tga.liveplugin.live.right.schedule.ScheduleView;
+import com.tencent.tga.liveplugin.live.right.schedule.ScoreRankWebView;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchCategoryBean;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.ScheduleModel;
@@ -33,13 +32,9 @@ import com.tencent.tga.liveplugin.live.right.schedule.ui.DataErrorView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchDateView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
 import com.tencent.tga.liveplugin.networkutil.NetProxy;
-import com.tencent.tga.liveplugin.networkutil.NetUtils;
 import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
 import com.tencent.tga.liveplugin.report.ReportManager;
 import com.tencent.tga.plugin.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -293,10 +288,12 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                     return;
                 }
                 try {
-                    //new ScheduleRankManager(LiveConfig.mLiveContext,rank_url).showPanel();
-                    hideRankEntranceRedPot();
+                    /*if (scoreRankWebView == null){
+                        scoreRankWebView = new ScoreRankWebView(getView().mContext,(ViewGroup) getView().getParent().getParent(),rank_url);
+                    }*/
+                    //hideRankEntranceRedPot();
                 }catch (Exception e){
-                    TLog.e(TAG,"ScheduleRankManager error : "+e.getMessage());
+                    TLog.e(TAG," error : "+e.getMessage());
                 }
             }
         });
@@ -517,33 +514,34 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
     public void updateData(final String matchID, final int subscribe_state){
         TLog.e(TAG,"updateData(String matchID,int subscribe_state) - " + matchID +" "+ subscribe_state);
         if(getView().mList == null || getView().mAdapter == null){
-            TLog.e("lzq 1");
             return;
         }
         Runnable mRunnable = new Runnable() {
             @Override
             public void run() {
                 try{
-                    TLog.e("lzq 5");
                     for(int i = 0;getView().mList != null && i<getView().mList.size();i++){
-                        TLog.e("lzq 2");
-                            if(getView().mList.get(i).getMatchListBean().getMatch_id().equals(matchID)){
-                                TLog.e("lzq 4");
-                                int state = 0;
-                                if(subscribe_state == 2){
-                                    state = 0;
-                                    TLog.e("subscribe_state == 2");
-                                }else {
-                                    state = 1;
-                                    TLog.e("subscribe_state != 2");
+                        if (getView().mList.get(i).getMatchListBean()!=null){
+                            if (getView().mList.get(i).getMatchListBean().getMatch_id()!=null){
+                                if(getView().mList.get(i).getMatchListBean().getMatch_id().equals(matchID)){
+                                    int state = 0;
+                                    if(subscribe_state == 2){
+                                        state = 0;
+                                        TLog.e("subscribe_state == 2");
+                                    }else {
+                                        state = 1;
+                                        TLog.e("subscribe_state != 2");
+                                    }
+                                    MatchDayInfoBean.MatchDayListBean.MatchListBean oldM = getView().mList.get(i).getMatchListBean();
+                                    MatchDayInfoBean.MatchDayListBean.MatchListBean newM = new MatchDayInfoBean.MatchDayListBean.MatchListBean(state
+                                            ,oldM.getMatch_id(),oldM.getStage(),oldM.getMatch_state(),oldM.getMatch_time(),oldM.getRecord_vid_list(),oldM.getHas_cheer(), oldM.getMatch_sub_title()
+                                            ,oldM.getMatch_main_title(),oldM.getRoomid());
+                                    getView().mList.get(i).setMatchListBean(newM);
+                                    break;
                                 }
-                                MatchDayInfoBean.MatchDayListBean.MatchListBean oldM = getView().mList.get(i).getMatchListBean();
-                                MatchDayInfoBean.MatchDayListBean.MatchListBean newM = new MatchDayInfoBean.MatchDayListBean.MatchListBean(state
-                                ,oldM.getMatch_id(),oldM.getStage(),oldM.getMatch_state(),oldM.getMatch_time(),oldM.getRecord_vid_list(),oldM.getHas_cheer(), oldM.getMatch_sub_title()
-                                ,oldM.getMatch_main_title(),oldM.getRoomid());
-                                getView().mList.get(i).setMatchListBean(newM);
-                                break;
                             }
+                        }
+
                     }
                     notifyListChanged();
                 }catch (Exception e){
@@ -555,7 +553,7 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
     }
 
     public void initRankEntrance(){
-        if(ConfigInfo.getmInstance().getConfig(ConfigInfo.TEAM_RANK_SWITCH)){
+        if(ConfigInfo.getmInstance().getConfig(ConfigInfo.SCORE_RANK_SWITCH)){
             initRankEntranceView();
         }else {
             try {
@@ -565,11 +563,14 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
             }
         }
     }
-    private String rank_url = "";
+
+    public ScoreRankWebView scoreRankWebView;
+    private String rank_url = "www.qq.com";
     private void initRankEntranceView(){
-        getView().mRlyMatchRank.setVisibility(View.VISIBLE);
-        getView().mIvMatchRankTopBg.setVisibility(View.VISIBLE);
         try {
+            getView().mRlyMatchRank.setVisibility(View.VISIBLE);
+            getView().mIvMatchRankTopBg.setVisibility(View.VISIBLE);
+            rank_url = ConfigInfo.getmInstance().getStringConfig(ConfigInfo.SCORE_RANK_URL);
             /*JSONObject rank_info = new JSONObject(ConfigInfo.getmInstance().getStringConfig(ConfigInfo.TEAM_RANK_CFG));
             rank_url = rank_info.optString("rank_url");
             getView().mTvRankEntranceName.setText(rank_info.optString("rank_name"));
