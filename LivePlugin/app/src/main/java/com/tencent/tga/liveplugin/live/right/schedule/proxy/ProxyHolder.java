@@ -12,10 +12,16 @@ public class ProxyHolder {
 
         getRoomListProxy = new GetRoomListProxy();
         getRoomListProxyParam = new GetRoomListProxy.Param();
+
+        matchSubscribeProxy = new MatchSubscribeProxy();
+        matchSubscribeProxyParam = new MatchSubscribeProxy.Param();
     }
     public CurrentMatchProxy currentMatchProxy;
     public CurrentMatchProxy.Param currentMatchProxyParma;
 
     public GetRoomListProxy getRoomListProxy;
     public GetRoomListProxy.Param getRoomListProxyParam;
+
+    public MatchSubscribeProxy matchSubscribeProxy;
+    public MatchSubscribeProxy.Param matchSubscribeProxyParam;
 }

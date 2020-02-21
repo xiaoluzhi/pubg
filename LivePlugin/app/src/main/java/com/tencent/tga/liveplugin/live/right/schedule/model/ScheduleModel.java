@@ -45,14 +45,19 @@ public class ScheduleModel extends BaseModelInter {
     public void reqMatchList(Context context,HttpBaseUrlWithParameterProxy.Callback callback, int date, int direction){
         //callback.onSuc(1);
         //callback.onFail(-1);
-        mProxyHolder.getHpjyScheduleListHttpProxyParam.last_match_day = date;
-        mProxyHolder.getHpjyScheduleListHttpProxyParam.direction = direction;
-        if(!TextUtils.isEmpty(UserInfo.getInstance().mGameid) && Sessions.globalSession().uuid != null){
-            mProxyHolder.getHpjyScheduleListHttpProxyParam.gameid = UserInfo.getInstance().mGameid;
-            mProxyHolder.getHpjyScheduleListHttpProxy.postReq(context,callback,mProxyHolder.getHpjyScheduleListHttpProxyParam);
-        }else {
-            callback.onFail(-1);//参数为空
+        try {
+            mProxyHolder.getHpjyScheduleListHttpProxyParam.last_match_day = date;
+            mProxyHolder.getHpjyScheduleListHttpProxyParam.direction = direction;
+            if(!TextUtils.isEmpty(UserInfo.getInstance().mGameid) && Sessions.globalSession().uuid != null){
+                mProxyHolder.getHpjyScheduleListHttpProxyParam.userid = new String(Sessions.globalSession().getUid(), "utf-8");
+                mProxyHolder.getHpjyScheduleListHttpProxy.postReq(context,callback,mProxyHolder.getHpjyScheduleListHttpProxyParam);
+            }else {
+                callback.onFail(-1);//参数为空
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     public ProxyHolder mProxyHolder = new ProxyHolder();

@@ -58,6 +58,8 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
     private int mCurrentDate = 0;//当前天获取到的赛程日期，返回今日赛程使用
     private int current_position = -1;
 
+    private ScheduleView scheduleView;
+
     @Override
     public ScheduleModel getModel() {
         if (mChatModel == null)
@@ -76,6 +78,8 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         initPullDownTips();
 
         initRankEntrance();
+
+        scheduleView = getView();
 
     }
 
@@ -194,6 +198,7 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                         //mcv.setPadding(30,0,0,0);
                         //mcv.setData(matchBean);
                         MatchView matchView = new MatchView(mContext);
+                        matchView.setScheduleView(scheduleView);
                         matchView.setData(matchBean.getMatchListBean());
                         viewgroup.addView(matchView);
                     }
@@ -510,29 +515,35 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
     * @time 2017/4/6 14:32
     */
     public void updateData(final String matchID, final int subscribe_state){
-        TLog.e(TAG,"updateData(String matchID,int subscribe_state)");
+        TLog.e(TAG,"updateData(String matchID,int subscribe_state) - " + matchID +" "+ subscribe_state);
         if(getView().mList == null || getView().mAdapter == null){
+            TLog.e("lzq 1");
             return;
         }
         Runnable mRunnable = new Runnable() {
             @Override
             public void run() {
                 try{
+                    TLog.e("lzq 5");
                     for(int i = 0;getView().mList != null && i<getView().mList.size();i++){
-                        for(int j = 0;getView().mList.get(i).mRaceInfoBean != null && getView().mList.get(i).mRaceInfoBean.per_match_list != null && j<getView().mList.get(i).mRaceInfoBean.per_match_list.size();j++){
-                            if(PBDataUtils.byteString2String(getView().mList.get(i).mRaceInfoBean.per_match_list.get(j).match_id).equals(matchID)){
+                        TLog.e("lzq 2");
+                            if(getView().mList.get(i).getMatchListBean().getMatch_id().equals(matchID)){
+                                TLog.e("lzq 4");
                                 int state = 0;
                                 if(subscribe_state == 2){
                                     state = 0;
+                                    TLog.e("subscribe_state == 2");
                                 }else {
                                     state = 1;
+                                    TLog.e("subscribe_state != 2");
                                 }
-                                MatchItem oldM= getView().mList.get(i).mRaceInfoBean.per_match_list.get(j);
-                                MatchItem newM = new MatchItem(oldM.match_id, oldM.match_state, oldM.match_time, oldM.match_main_title, oldM.match_sub_title, oldM.host_team_name, oldM.host_team_logo, oldM.guest_team_name, oldM.guest_team_logo, oldM.host_team_score, oldM.guest_team_score, oldM.room_id, oldM.vid, oldM.online_num, state, oldM.room_type, oldM.record_vid_list, oldM.host_team_id, oldM.guest_team_id, oldM.host_vote_num, oldM.guest_vote_num, oldM.has_cheer);
-                                getView().mList.get(i).mRaceInfoBean.per_match_list.set(j,newM);
+                                MatchDayInfoBean.MatchDayListBean.MatchListBean oldM = getView().mList.get(i).getMatchListBean();
+                                MatchDayInfoBean.MatchDayListBean.MatchListBean newM = new MatchDayInfoBean.MatchDayListBean.MatchListBean(state
+                                ,oldM.getMatch_id(),oldM.getStage(),oldM.getMatch_state(),oldM.getMatch_time(),oldM.getRecord_vid_list(),oldM.getHas_cheer(), oldM.getMatch_sub_title()
+                                ,oldM.getMatch_main_title(),oldM.getRoomid());
+                                getView().mList.get(i).setMatchListBean(newM);
                                 break;
                             }
-                        }
                     }
                     notifyListChanged();
                 }catch (Exception e){

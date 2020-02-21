@@ -1,0 +1,61 @@
+package match_subscribe_protos;
+
+option java_package = "com.tencent.protocol.tga.matchsubscribe";
+option java_outer_classname = "match_subscribe_protos";
+
+enum CMD
+{
+	CMD_MATCH = 0x1015;
+}
+
+enum SUBCMD
+{
+	SUBCMD_SUBSCRIBE_MATCH_OP = 0x03;	//订阅赛事请求
+}   
+
+// 0x1 订阅赛事请求
+enum SubscribeOperationType
+{
+    SUB_OP_TYPE_SUBSCRIBE     = 1; // 订阅
+    SUB_OP_TYPE_CANCEL        = 2; // 取消订阅
+}
+
+enum EnterType
+{
+    SmobaActivityTab            = 5;  // 王者电视台活动面板
+    MspeedNormal 				= 6;  // 飞车电视台赛程入口
+    MspeedH5 					= 7;  // 飞车电视台h5入口
+	MspeedOperatePush 			= 8;  // 飞车直播运营推送
+	MspeedSubscribeLayer 	    = 9;  // 飞车订阅浮层
+	SmobaSaishiH5 	            = 10;  // 赛事中心h5
+    MspeedDaka                  = 11;  // 飞车观赛打卡活动 
+    PpkdcNormal                 = 12; //卡丁车电视台赛程入口
+}
+
+message MatchSubscribeReq
+{
+    required bytes  user_id          = 1; //订阅用户id
+    required bytes  match_id         = 2; //订阅赛事id
+    required uint32 operation_type   = 3; //操作类型,参见SubscribeOperationType
+    required bytes  game_id          = 4; // 游戏id
+    required bytes  user_openid      = 5; // 用户openid
+    optional uint32 entry_type       = 6; // 入口类型: 1-默认,即普通订阅,2-浮层订阅,3-竞猜H5
+    optional bytes jf_gameid         = 7;  // 经分gameid, 无逻辑,上报经分统计用, 和经分同事协定
+    optional bytes push_id           = 8;  // 上报push id
+    optional uint32 need_check_award = 9;  // 王者专用， 检查是否需要奖励
+    optional string check_subscribe_teamid = 10;  // 王者专用, 检查是否订阅过该战队
+}
+
+message MatchSubscribeRsp
+{
+    required uint32 result      = 1;
+    optional int32 has_award    = 2;  // 此次订阅是否有奖励
+    optional bytes wording      = 3;  // 奖励提示文案
+    optional bytes url          = 4;  // 奖励提示图
+    optional string check_subscribe_teamid = 5;  // 王者专用, 检查是否订阅过该战队
+    optional uint32 is_team_subscribe = 6;  // 0 否 1 是
+    optional bytes match_main_title = 7;  // 主标题
+    optional bytes match_sub_title = 8;  // 副标题
+    optional uint32 check_teamid_can_subscribe = 9; // 检查战队是否支持订阅
+}
+

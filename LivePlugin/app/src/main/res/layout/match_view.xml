@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="2019突围赛"
+        android:text=""
         android:textColor="#BDBDBD"
         android:textSize="9dp" />
 
@@ -58,7 +58,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp"
                 android:gravity="center"
-                android:text="12.32"
+                android:text=""
                 android:textColor="#A8A8A8"
                 android:textSize="9dp" />
 
@@ -70,7 +70,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="1dp"
                 android:gravity="center"
-                android:text="已结束"
+                android:text=""
                 android:textColor="#A8A8A8"
                 android:textSize="8dp" />
 
@@ -97,22 +97,37 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="6dp"
-                    android:text="A组比赛：25进15"
+                    android:text=""
                     android:textColor="#bdbdbd"
                     android:textSize="9dp" />
 
-                <TextView
-                    android:id="@+id/mTvTeamOrRank"
-                    android:layout_width="74dp"
-                    android:layout_height="16dp"
+
+                <LinearLayout
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="6dp"
-                    android:background="@drawable/schedule_item_rank_detail_bg"
-                    android:gravity="center"
-                    android:text="积分详情"
-                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/mTvTeamOrRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#56A0F7"
                     android:textSize="9dp" />
+
+                    <ImageView
+                        android:id="@+id/mIvArrow"
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_blue"/>
+
+                    <!--android:background="@drawable/schedule_item_rank_detail_bg"-->
+
+                </LinearLayout>
 
                 <TextView
                     android:gravity="center"
@@ -122,41 +137,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="6dp"
-                    android:text="回放"
+                    android:text=""
                     android:textColor="#59B56C"
                     android:textSize="8dp"
                     android:background="@drawable/schedule_item_replay_bg"/>
 
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="7"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/mIvLeftIcon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="fitXY"></ImageView>
-
-                <TextView
-                    android:id="@+id/mTvLeftName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mIvLeftIcon"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:paddingLeft="1dp"
-                    android:paddingRight="1dp"
-                    android:text="QGHappy"
-                    android:textColor="@color/white"
-                    android:textSize="9dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -175,38 +160,6 @@
                     android:textSize="11dp" />
 
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="7">
-
-                <ImageView
-                    android:id="@+id/mIvRightIcon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:scaleType="fitXY" />
-
-                <TextView
-                    android:id="@+id/mTvRightName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/mIvRightIcon"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:paddingLeft="1dp"
-                    android:paddingRight="1dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="9dp" />
-
-            </RelativeLayout>
-
         </LinearLayout>
 
     </LinearLayout>

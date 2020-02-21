@@ -28,11 +28,8 @@ public class GetHpjyScheduleListHttpProxy extends HttpBaseUrlWithParameterProxy<
         try {
             //j.put("userid",param.userid);
             //j.put("seasonid", param.seasonid);
-            j.put("gameid",param.gameid);
+            j.put("userid",param.userid);
 
-            if (param.stage!=null && !param.stage.equals("")){
-                j.put("stage",param.stage);
-            }
             j.put("direction",param.direction);
             if (param.direction!=0){
                 j.put("last_match_day",param.last_match_day);
@@ -73,10 +70,7 @@ public class GetHpjyScheduleListHttpProxy extends HttpBaseUrlWithParameterProxy<
     public static class Param{
 
         //in
-        //public String userid ;
-        //public String seasonid ;
-        public String gameid;
-        public String stage;//赛事阶段id 不填表示拉取全部赛事
+        public String userid;
         public int direction;//翻页方向,0当前默认,-1向前,1向后,非0时last_match_day必填
         public int last_match_day;//分页的最近比赛日
 

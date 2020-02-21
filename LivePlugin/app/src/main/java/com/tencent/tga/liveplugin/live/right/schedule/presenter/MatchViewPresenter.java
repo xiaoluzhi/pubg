@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.loopj.android.tgahttp.httputil.HttpBaseUrlWithParameterProxy;
 import com.tencent.common.log.tga.TLog;
 import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
 import com.tencent.tga.liveplugin.base.mvp.BasePresenter;
@@ -16,13 +17,14 @@ import com.tencent.tga.liveplugin.base.util.DeviceUtils;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.base.util.NoDoubleClickUtils;
 import com.tencent.tga.liveplugin.base.util.TimeUtils;
+import com.tencent.tga.liveplugin.base.util.ToastUtil;
 import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent;
 import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
+import com.tencent.tga.liveplugin.live.liveView.event.LiveViewEvent;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.MatchViewModel;
-import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailsView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
-import com.tencent.tga.liveplugin.live.right.schedule.ui.ScheduleTeamView;
+import com.tencent.tga.liveplugin.networkutil.NetProxy;
 import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
 import com.tencent.tga.plugin.R;
 
@@ -47,6 +49,7 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
 
     public boolean isNowTime;//是否现在及以后的时间 UI调整
 
+
     @Override
     public MatchViewModel getModel() {
         if (matchViewModel == null)
@@ -59,7 +62,8 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
     }
 
     private void initListener(){
-        getView().mTvPlayAndSubscription.setOnClickListener(new View.OnClickListener() {
+        //getView().mTvPlayAndSubscription.setOnClickListener(new View.OnClickListener() {
+          getView().mTvStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(NoDoubleClickUtils.isDoubleClick()){
@@ -69,12 +73,44 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                     //订阅部分暂用之前的逻辑，通知到主页面调用请求，之后可以切换到MatchViewModel中
                     if(getView().matchListBean.getSubscribe_state() == 1){
                         TLog.e(TAG,"取消订阅");
+                        getModel().doSubscribe(getView().mContext, new NetProxy.Callback(){
+                            @Override
+                            public void onSuc(int i) {
+                                if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
+                                    ToastUtil.show(getView().mContext,"取消订阅成功");
+                                    getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,2);
+                                }else {
+                                    TLog.e(TAG,"取消订阅失败");
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int i) {
+                                TLog.e(TAG,"取消订阅-失败-"+i);
+                            }
+                        },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),2);
                         //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), false);
                         //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id), SubscribeOperationType.SUB_OP_TYPE_CANCEL.getValue(), EnterType.PpkdcNormal.getValue()));
                     }else {
                         //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), true);
                         //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id),SubscribeOperationType.SUB_OP_TYPE_SUBSCRIBE.getValue(), EnterType.PpkdcNormal.getValue()));
                         TLog.e(TAG,"订阅");
+                        getModel().doSubscribe(getView().mContext, new NetProxy.Callback() {
+                            @Override
+                            public void onSuc(int i) {
+                                if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
+                                    ToastUtil.show(getView().mContext,"订阅成功");
+                                    getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,1);
+                                }else {
+                                    TLog.e(TAG,"订阅失败");
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int i) {
+                                TLog.e(TAG,"订阅-失败-"+i);
+                            }
+                        },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),1);
                     }
                 }else if(getView().matchListBean.getMatch_state() == MATCH_STATE_FINISHED){
                     if(getView().matchListBean.getRecord_vid_list() != null && getView().matchListBean.getRecord_vid_list().size() > 0){
@@ -84,16 +120,14 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                             videoList.add(getView().matchListBean.getRecord_vid_list().get(i));
                         }
                         String match_date = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time())*1000L);
-                        /*String title = String.format("%s %s %s %s %s:%s %s",
+                        String title = String.format("%s %s %s %s %s:%s %s",
                                 match_date,
-                                PBDataUtils.byteString2String(getView().mMatchItem.match_main_title),
-                                PBDataUtils.byteString2String(getView().mMatchItem.match_sub_title),
-                                PBDataUtils.byteString2String(getView().mMatchItem.host_team_name),
-                                getView().mMatchItem.host_team_score,
-                                getView().mMatchItem.guest_team_score,
-                                PBDataUtils.byteString2String(getView().mMatchItem.guest_team_name));
-                        NotificationCenter.defaultCenter().publish(new LiveEvent.VideoPlay(videoList,title));*/
-
+                                getView().matchListBean.getMatch_sub_title(),
+                                getView().matchListBean.getMatch_sub_title());
+                        ArrayList<String> videotitle = new ArrayList<>();
+                        videotitle.add(title);
+                        //NotificationCenter.defaultCenter().publish(new LiveEvent.VideoPlay(videoList,title));
+                        LiveViewEvent.Companion.launchVideoView(true, videoList,videotitle, 0, null, true);
                         //直接调用播放，以及上报
                         //VideoPlayActivity.launch(that, false, event.vids, null, event.title, -1);
                         //ReportManager.getInstance().report_TVVideoClick(event.vids.get(0).toString(), ReportManager.BOTTOM_MATCH);
@@ -111,14 +145,8 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                 //这里点击事件
                 if (getView().mTvTeamOrRank.getText().equals("参赛队伍")){
                     //这是 getView().matchListBean.getMatch_id()
-                    ScheduleTeamView scheduleTeamView=new ScheduleTeamView(getView().getContext()
-                            ,getView().matchListBean.getMatch_id(),getView());
-                    scheduleTeamView.initView();
                 }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
-                    String title=TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time())*1000L)+getView().matchListBean.getMatch_main_title();
-                    IntegralDetailsView integralDetailsView=new IntegralDetailsView(getView().getContext(),getView().matchListBean.getMatch_id()
-                            ,getView().matchListBean.getRoomid(),title,getView());
-                    integralDetailsView.initView();
+
                 }
             }
         });
@@ -136,13 +164,10 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
 
     public void setData(MatchDayInfoBean.MatchDayListBean.MatchListBean mb){
         getView().matchListBean = mb;
-        getView().mTvLeftName.setText(mb.getHost_team_name());
-        getView().mTvRightName.setText(mb.getGuest_team_name());
         getView().mTvMatchtitle.setText(mb.getMatch_main_title());
         getView().mTvMatchSubTitle.setText(mb.getMatch_sub_title());
         setPlayState(mb);
         setScore(mb);
-        setIcon(mb);
 
         getView().post(new Runnable() {
             @Override
@@ -161,15 +186,7 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
     private void setScore(MatchDayInfoBean.MatchDayListBean.MatchListBean mb){
         SpannableString spannableString = null;
         if(mb.getMatch_state() == MATCH_STATE_FINISHED){
-            if(mb.getHost_team_score()>mb.getGuest_team_score()){
-                spannableString = getSpannableString(mb.getHost_team_score()+":"+mb.getGuest_team_score(),(mb.getHost_team_score()+"").length(),"#FECC21","#FFFFFF");
-            }else if(mb.getHost_team_score()<mb.getGuest_team_score()){
-                spannableString = getSpannableString(mb.getHost_team_score()+":"+mb.getGuest_team_score(),(mb.getHost_team_score()+":").length(),"#FFFFFF","#FECC21");
-            }else {
-                spannableString = getSpannableString(mb.getHost_team_score()+":"+mb.getGuest_team_score(),(mb.getHost_team_score()+":").length(),"#FFFFFF","#FFFFFF");
-            }
         }else if(mb.getMatch_state() == MATCH_STATE_RUNNING){
-            spannableString = getSpannableString(mb.getHost_team_score()+":"+mb.getGuest_team_score(),(mb.getHost_team_score()+":").length(),"#FFFFFF","#FFFFFF");
         }else {
             spannableString = getSpannableString("-:-","-".length(),"#FFFFFF","#FFFFFF");
         }
@@ -177,10 +194,6 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
         getView().mTvScore.setText(spannableString);
     }
 
-    private void setIcon(MatchDayInfoBean.MatchDayListBean.MatchListBean mb){
-        ImageLoaderUitl.loadimage(mb.getHost_team_logo(),getView().mIvLeftIcon);
-        ImageLoaderUitl.loadimage(mb.getGuest_team_logo(),getView().mIvRightIcon);
-    }
     //设置回放的UI
     private void setReplayUI(){
         if(getView().mTvStatus == null)
@@ -224,11 +237,14 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
         getView().mTvPlayAndSubscription.setText("未开始");
 
         getView().mTvTeamOrRank.setText("参赛队伍");
-        if (isNowTime){
+        getView().mTvTeamOrRank.setTextColor(Color.parseColor("#FF9E44"));
+        getView().mIvArrow.setImageResource(R.drawable.arrow_orange);
+
+        /*if (isNowTime){
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg_now);
         }else {
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg);
-        }
+        }*/
     }
 
     /**
@@ -247,11 +263,14 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
         getView().mTvStatus.setVisibility(GONE);
 
         getView().mTvTeamOrRank.setText("参赛队伍");
-        if (isNowTime){
+        getView().mTvTeamOrRank.setTextColor(Color.parseColor("#FF9E44"));
+        getView().mIvArrow.setImageResource(R.drawable.arrow_orange);
+
+        /*if (isNowTime){
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg_now);
         }else {
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg);
-        }
+        }*/
     }
 
     /**
@@ -264,15 +283,18 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
             return;
         getView().mTvPlayAndSubscription.setVisibility(View.VISIBLE);
         getView().mTvPlayAndSubscription.setBackground(null);
-        getView().mTvPlayAndSubscription.setTextColor(0xFF7092b3);
+        getView().mTvPlayAndSubscription.setTextColor(0xFFA8A8A8);
         getView().mTvPlayAndSubscription.setText("已结束");
 
         getView().mTvTeamOrRank.setText("积分详情");
-        if (isNowTime){
+        getView().mTvTeamOrRank.setTextColor(Color.parseColor("#56A0F7"));
+        getView().mIvArrow.setImageResource(R.drawable.arrow_blue);
+
+        /*if (isNowTime){
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg_now);
         }else {
             getView().mTvTeamOrRank.setBackgroundResource(R.drawable.schedule_item_rank_detail_bg);
-        }
+        }*/
     }
 
 
@@ -289,6 +311,7 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
             setLivingState();
         }else if(type == MATCH_STATE_NOT_START){
             setTvPlayAndSubscriptionSize(false);
+            setUnStarState();
             if(mb.getSubscribe_state() == 1){
                 setSubscribeUI(true);
             }else {
@@ -300,8 +323,9 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                 setReplayUI();
             }else {
                 setTvPlayAndSubscriptionSize(true);
-                setFinishedState();
+                getView().mTvStatus.setVisibility(GONE);
             }
+            setFinishedState();
         }else {
             getView().mTvPlayAndSubscription.setVisibility(GONE);
         }
