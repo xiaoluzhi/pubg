@@ -30,6 +30,7 @@ enum EnterType
 	SmobaSaishiH5 	            = 10;  // 赛事中心h5
     MspeedDaka                  = 11;  // 飞车观赛打卡活动 
     PpkdcNormal                 = 12; //卡丁车电视台赛程入口
+    HpjyNormal=13;//和平精英电视台赛程入口
 }
 
 message MatchSubscribeReq
