@@ -3,25 +3,28 @@
     android:layout_width="476dp"
     android:layout_height="275dp"
     android:background="@drawable/schedule_team_view_bg">
+
     <TextView
         android:id="@+id/integral_details_view_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="5dp"
-        android:textSize="12dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+
     <ImageView
         android:id="@+id/integral_details_view_close"
         android:layout_width="17dp"
         android:layout_height="17dp"
-        android:padding="2dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="6dp"
         android:layout_marginTop="3dp"
-        android:background="@drawable/integral_details_close"/>
+        android:layout_marginRight="6dp"
+        android:background="@drawable/integral_details_close"
+        android:padding="2dp" />
 
     <RelativeLayout
+        android:id="@+id/integral_details_view_right"
         android:layout_width="68dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/integral_details_view_title"
@@ -34,29 +37,68 @@
             android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:background="@color/black"/>
+            android:background="@color/black" />
 
         <ListView
             android:id="@+id/integral_details_listView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:choiceMode="singleChoice"
             android:clipChildren="false"
-            android:scrollbars="none"
             android:divider="@null"
             android:listSelector="@android:color/transparent"
-            android:layout_marginTop="5dp"/>
+            android:scrollbars="none" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/integral_details_listView2"
+    <HorizontalScrollView
+        android:id="@+id/integral_details_scrollView"
         android:layout_width="395dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/integral_details_view_title"
         android:layout_marginLeft="6dp"
-        android:layout_alignParentLeft="true"
-        android:scrollbars="none"
-        android:divider="@null"
-        android:layout_below="@+id/integral_details_view_title"/>
+        android:layout_marginTop="10dp"
+        android:scrollbars="none">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/integral_details_more_headerView"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:orientation="horizontal"/>
+
+            <ListView
+                android:id="@+id/integral_details_listView2"
+                android:layout_width="440dp"
+                android:layout_height="243dp"
+                android:divider="@null"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </HorizontalScrollView>
+    <LinearLayout
+        android:id="@+id/integral_details_normal_linear"
+        android:layout_width="395dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/integral_details_view_title"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <RelativeLayout
+            android:id="@+id/integral_details_normal_headerView"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:orientation="horizontal"/>
+
+        <ListView
+            android:id="@+id/integral_details_listView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:scrollbars="none" />
+
+    </LinearLayout>
 </RelativeLayout>

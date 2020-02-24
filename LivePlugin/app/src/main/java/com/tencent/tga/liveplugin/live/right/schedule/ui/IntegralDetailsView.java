@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
@@ -26,7 +29,10 @@ public class IntegralDetailsView extends BaseFrameLayoutView<IntegralDetailsView
     private View mRootView;
     private BasePopWindow mPopWindow;
     private ViewGroup mParent;
-    public ListView totalList, detailList;
+    public RelativeLayout mMoreHeaderView,mNormalHeaderView;
+    public ListView totalList, detailMoreList,detailNormalList;
+    public LinearLayout normalLinear;
+    public HorizontalScrollView mScrollView;
     private TextView mTitle;
     private ImageView mClose;
     private String title;
@@ -49,8 +55,13 @@ public class IntegralDetailsView extends BaseFrameLayoutView<IntegralDetailsView
 
     public void initView() {
         mRootView = DLPluginLayoutInflater.getInstance(getContext()).inflate(R.layout.integral_details_view, null);
+        mMoreHeaderView=mRootView.findViewById(R.id.integral_details_more_headerView);
+        mNormalHeaderView=mRootView.findViewById(R.id.integral_details_normal_headerView);
+        normalLinear=mRootView.findViewById(R.id.integral_details_normal_linear);
+        mScrollView=mRootView.findViewById(R.id.integral_details_scrollView);
         totalList = mRootView.findViewById(R.id.integral_details_listView1);
-        detailList = mRootView.findViewById(R.id.integral_details_listView2);
+        detailMoreList = mRootView.findViewById(R.id.integral_details_listView2);
+        detailNormalList=mRootView.findViewById(R.id.integral_details_listView3);
         mTitle = mRootView.findViewById(R.id.integral_details_view_title);
         mClose = mRootView.findViewById(R.id.integral_details_view_close);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

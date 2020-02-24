@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
 import com.tencent.common.log.tga.TLog;
 import com.tencent.tga.liveplugin.base.mvp.BaseFrameLayoutPresenter;
+import com.tencent.tga.liveplugin.base.util.DeviceUtils;
 import com.tencent.tga.liveplugin.live.right.schedule.IntegralDetailAdapter;
 import com.tencent.tga.liveplugin.live.right.schedule.IntegralTitleAdapter;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBankBean;
@@ -18,30 +19,34 @@ import com.tencent.tga.liveplugin.live.right.schedule.model.IntegralDetailsViewM
 import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailsView;
 import com.tencent.tga.plugin.R;
 
+
 import java.util.ArrayList;
 
 public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<IntegralDetailsView, IntegralDetailsViewModel> {
-    private static final String TAG ="IntegralDetailsViewPresenter";
+    private static final String TAG = "IntegralDetailsViewPresenter";
     private IntegralDetailsViewModel model;
     private IntegralTitleAdapter adapter;
     private IntegralDetailAdapter detailAdapter;
-    private View viewTotal,viewGames;
-    private int position=0;
-    private String matchId,roomId;
-    private int count=1;
+    private View viewTotal, viewGames, viewMore;
+    private int position = 0;
+    private String matchId, roomId;
+    private int count = 1;
+
     @Override
     public IntegralDetailsViewModel getModel() {
-        if (model==null){
-            model=new IntegralDetailsViewModel(this);
+        if (model == null) {
+            model = new IntegralDetailsViewModel(this);
         }
         return model;
     }
-    public void getData(String matchId,String roomId){
-        this.matchId=matchId;
-        this.roomId=roomId;
-        getModel().requestList(matchId,roomId,0);
+
+    public void getData(String matchId, String roomId) {
+        this.matchId = matchId;
+        this.roomId = roomId;
+        getModel().requestList(matchId, roomId, 0);
     }
-    public void setTotalList(ArrayList<String> list){
+
+    public void setTotalList(ArrayList<String> list) {
         try {
             if (count == 1) {
                 adapter = new IntegralTitleAdapter(list, getView().getContext());
@@ -66,12 +71,21 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
             TLog.e(TAG, "setTotalList error : " + e.getMessage());
         }
     }
-    public void setDetailList(ArrayList<TeamBankBean> arrayList,int type,ArrayList<String> list){
+
+    public void setDetailList(ArrayList<TeamBankBean> arrayList, int type, ArrayList<String> list) {
         try {
             if (detailAdapter == null)
                 detailAdapter = new IntegralDetailAdapter(getView().getContext());
             detailAdapter.setData(arrayList, type);
-            getView().detailList.setAdapter(detailAdapter);
+            if (type == 1) {
+                getView().mScrollView.setVisibility(View.VISIBLE);
+                getView().normalLinear.setVisibility(View.GONE);
+                getView().detailMoreList.setAdapter(detailAdapter);
+            } else {
+                getView().mScrollView.setVisibility(View.GONE);
+                getView().normalLinear.setVisibility(View.VISIBLE);
+                getView().detailNormalList.setAdapter(detailAdapter);
+            }
             ArrayList<String> titles = new ArrayList<>();
             titles.addAll(list);
             titles.remove(0);
@@ -81,14 +95,18 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
         }
     }
 
-    private void addHeader(int type,ArrayList<String> list) {
+    private void addHeader(int type, ArrayList<String> list) {
         try {
             if (viewTotal != null) {
-                getView().detailList.removeHeaderView(viewTotal);
+                getView().mNormalHeaderView.removeAllViews();
             }
             if (viewGames != null) {
-                getView().detailList.removeHeaderView(viewGames);
+                getView().mNormalHeaderView.removeAllViews();
             }
+            if (viewMore != null) {
+                getView().mMoreHeaderView.removeAllViews();
+            }
+
             if (type == 0) {
                 viewTotal = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_total, null);
                 LinearLayout linearLayout;
@@ -102,10 +120,28 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
                     textView.setGravity(Gravity.CENTER);
                     linearLayout.addView(textView);
                 }
-                getView().detailList.addHeaderView(viewTotal);
-            } else {
+                getView().mNormalHeaderView.addView(viewTotal);
+            } else if (type == 1) {
+                viewMore = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_more, null);
+                LinearLayout linearLayout = viewMore.findViewById(R.id.integral_details_header_more_linear);
+                for (int i = 0; i < list.size(); i++) {
+                    TextView textView = new TextView(getView().getContext());
+                    if (i==list.size()-1){
+                        textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(getView().getContext(), 45), DeviceUtils.dip2px(getView().getContext(), 21)));
+                    }else{
+                        textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(getView().getContext(), 48), DeviceUtils.dip2px(getView().getContext(), 21)));
+                    }
+
+                    textView.setText(list.get(i));
+                    textView.setTextColor(Color.parseColor("#BDBDBD"));
+                    textView.setTextSize(8);
+                    textView.setGravity(Gravity.CENTER);
+                    linearLayout.addView(textView);
+                }
+                getView().mMoreHeaderView.addView(viewMore);
+            } else if (type == 2) {
                 viewGames = DLPluginLayoutInflater.getInstance(getView().getContext()).inflate(R.layout.integral_details_header_games, null);
-                getView().detailList.addHeaderView(viewGames);
+                getView().mNormalHeaderView.addView(viewGames);
             }
         } catch (Exception e) {
             TLog.e(TAG, "addHeader error : " + e.getMessage());

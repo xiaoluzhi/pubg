@@ -157,7 +157,7 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                     }
                 }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
                     try {
-                        String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) + getView().matchListBean.getMatch_main_title();
+                        String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) +" "+getView().matchListBean.getMatch_main_title();
                         IntegralDetailsView integralDetailsView = new IntegralDetailsView(getView().getContext(), getView().matchListBean.getMatch_id()
                                 , getView().matchListBean.getRoomid(), title, getView().mScheduleView);
                         integralDetailsView.initView();

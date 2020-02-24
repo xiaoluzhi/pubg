@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="440dp"
     android:layout_height="21dp"
     android:background="#1C1E24">
     <ImageView
-        android:id="@+id/item_total_integral_rankImg"
+        android:id="@+id/item_total_integral_more_rankImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_centerVertical="true"/>
 
     <TextView
-        android:id="@+id/item_total_integral_rankText"
+        android:id="@+id/item_total_integral_more_rankText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -20,13 +20,13 @@
         android:textSize="10dp" />
 
     <ImageView
-        android:id="@+id/item_total_integral_teamImg"
+        android:id="@+id/item_total_integral_more_teamImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="41dp"/>
     <TextView
-        android:id="@+id/item_total_integral_teamName"
+        android:id="@+id/item_total_integral_more_teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8dp"
@@ -34,26 +34,26 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="62dp"/>
     <View
-        android:id="@+id/item_total_integral_line"
+        android:id="@+id/item_total_integral_more_line"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#2D2F36"
         android:layout_marginLeft="109dp"/>
     <LinearLayout
-        android:id="@+id/item_games_integral_linear"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/item_total_integral_more_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
         android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/item_total_integral_line"/>
+        android:layout_toRightOf="@id/item_total_integral_more_line"/>
     <TextView
-        android:id="@+id/item_total_integral_gradeTotal"
+        android:id="@+id/item_total_integral_more_gradeTotal"
         android:layout_width="45dp"
         android:layout_height="21dp"
+        android:layout_toRightOf="@+id/item_total_integral_more_linear"
         android:textColor="#DCDCDC"
         android:textSize="8dp"
         android:gravity="center"
-        android:layout_alignParentRight="true"
         android:background="#23252D"/>
 
 </RelativeLayout>

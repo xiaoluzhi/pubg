@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
 import com.tencent.common.log.tga.TLog;
+import com.tencent.tga.liveplugin.base.util.DeviceUtils;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBankBean;
 import com.tencent.tga.plugin.R;
@@ -50,6 +51,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewTotalHolder holderTotal=null;
         ViewGamesHolder holderGames=null;
+        ViewTotalMoreHolder totalMoreHolder=null;
         try {
             if (view == null) {
                 if (type == 0) {
@@ -62,22 +64,35 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     holderTotal.linearLayout = view.findViewById(R.id.item_games_integral_linear);
                     holderTotal.gradeTotal = view.findViewById(R.id.item_total_integral_gradeTotal);
                     view.setTag(holderTotal);
-                } else {
-                    view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details, null);
-                    holderGames = new ViewGamesHolder();
-                    holderGames.rankImg = view.findViewById(R.id.item_games_integral_rankImg);
-                    holderGames.rankText = view.findViewById(R.id.item_games_integral_rankText);
-                    holderGames.teamLogo = view.findViewById(R.id.item_games_integral_teamImg);
-                    holderGames.teamName = view.findViewById(R.id.item_games_integral_teamName);
-                    holderGames.grade1 = view.findViewById(R.id.item_games_integral_grade1);
-                    holderGames.grade2 = view.findViewById(R.id.item_games_integral_grade2);
-                    holderGames.gradeTotal = view.findViewById(R.id.item_games_integral_gradeTotal);
-                    view.setTag(holderGames);
+                } else if(type==1){
+                    view=DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_total_integral_details_more,null);
+                    totalMoreHolder=new ViewTotalMoreHolder();
+                    totalMoreHolder.rankImg = view.findViewById(R.id.item_total_integral_more_rankImg);
+                    totalMoreHolder.rankText = view.findViewById(R.id.item_total_integral_more_rankText);
+                    totalMoreHolder.teamLogo = view.findViewById(R.id.item_total_integral_more_teamImg);
+                    totalMoreHolder.teamName = view.findViewById(R.id.item_total_integral_more_teamName);
+                    totalMoreHolder.linearLayout = view.findViewById(R.id.item_total_integral_more_linear);
+                    totalMoreHolder.gradeTotal = view.findViewById(R.id.item_total_integral_more_gradeTotal);
+                    view.setTag(totalMoreHolder);
+
+                }else if(type==2){
+                        view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details, null);
+                        holderGames = new ViewGamesHolder();
+                        holderGames.rankImg = view.findViewById(R.id.item_games_integral_rankImg);
+                        holderGames.rankText = view.findViewById(R.id.item_games_integral_rankText);
+                        holderGames.teamLogo = view.findViewById(R.id.item_games_integral_teamImg);
+                        holderGames.teamName = view.findViewById(R.id.item_games_integral_teamName);
+                        holderGames.grade1 = view.findViewById(R.id.item_games_integral_grade1);
+                        holderGames.grade2 = view.findViewById(R.id.item_games_integral_grade2);
+                        holderGames.gradeTotal = view.findViewById(R.id.item_games_integral_gradeTotal);
+                        view.setTag(holderGames);
                 }
             } else {
                 if (type == 0) {
                     holderTotal = (ViewTotalHolder) view.getTag();
-                } else {
+                }else if(type==1){
+                    totalMoreHolder= (ViewTotalMoreHolder) view.getTag();
+                } else if(type==2) {
                     holderGames = (ViewGamesHolder) view.getTag();
                 }
             }
@@ -111,7 +126,41 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     holderTotal.gradeTotal.setText(arrayList.get(i).getTotal_score() + "");
 
                 }
-            } else {
+            } else if(type==1){
+                if (totalMoreHolder != null) {
+                    switch (i) {
+                        case 0:
+                            totalMoreHolder.rankImg.setImageResource(R.drawable.first_place);
+                            break;
+                        case 1:
+                            totalMoreHolder.rankImg.setImageResource(R.drawable.second_place);
+                            break;
+                        case 2:
+                            totalMoreHolder.rankImg.setImageResource(R.drawable.third_place);
+                            break;
+                        default:
+                            totalMoreHolder.rankText.setText(i + "");
+                            break;
+                    }
+                    ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), totalMoreHolder.teamLogo);
+                    totalMoreHolder.teamName.setText(arrayList.get(i).getTeam_name());
+                    for (int j = 0; j < arrayList.get(i).getList().size(); j++) {
+                        TextView textView = new TextView(context);
+                        if (i==arrayList.get(i).getList().size()-1){
+                            textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 45), DeviceUtils.dip2px(context, 21)));
+                        }else{
+                            textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 48), DeviceUtils.dip2px(context, 21)));
+                        }
+                        textView.setText(arrayList.get(i).getList().get(j).getBo_score() + "");
+                        textView.setTextColor(Color.parseColor("#858585"));
+                        textView.setTextSize(8);
+                        textView.setGravity(Gravity.CENTER);
+                        totalMoreHolder.linearLayout.addView(textView);
+                    }
+                    totalMoreHolder.gradeTotal.setText(arrayList.get(i).getTotal_score() + "");
+
+                }
+            }else if(type==2){
                 if (holderGames != null) {
                     switch (i) {
                         case 0:
@@ -148,6 +197,14 @@ public class IntegralDetailAdapter extends BaseAdapter {
     }
 
     private class ViewTotalHolder{
+        private ImageView rankImg;
+        private TextView rankText;
+        private ImageView teamLogo;
+        private TextView teamName;
+        private TextView gradeTotal;
+        private LinearLayout linearLayout;
+    }
+    private class ViewTotalMoreHolder{
         private ImageView rankImg;
         private TextView rankText;
         private ImageView teamLogo;

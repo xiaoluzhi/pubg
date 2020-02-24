@@ -35,6 +35,7 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
         //type--0代表总计，1代表第一局
         param.roomId=roomId;
         param.matchId=matchId;
+        TLog.e(TAG, "reqGiftList 成功 :" +  param.matchId);
         param.bo_num=type;
         proxy.postReq(getPresenter().getView().getContext(), new HttpBaseUrlWithParameterProxy.Callback() {
             @Override
@@ -70,7 +71,19 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
                                     list.add(teamBankBean);
                                 }
                                 if (list.size() > 0) {
-                                    presenter.setDetailList(list, type, titleList);
+                                    //重新处理type,mType=0,1,2;
+                                    // 0代表小于或等于五局，1代表大于五局，2代表单局积分
+                                    int mType;
+                                    if (type==0){
+                                        if (titleList.size()>5){
+                                            mType=1;
+                                        }else{
+                                            mType=0;
+                                        }
+                                    }else{
+                                        mType=2;
+                                    }
+                                    presenter.setDetailList(list, mType, titleList);
                                 }else{
                                     ToastUtil.show(getPresenter().getView().getContext(),"数据异常");
                                 }
@@ -104,6 +117,9 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
         list.add("第四局");
         list.add("第五局");
         list.add("第六局");
+        list.add("第七局");
+        list.add("第八局");
+        list.add("第九局");
         for(int i=0;i<count;i++){
             dataList.add(list.get(i));
         }
