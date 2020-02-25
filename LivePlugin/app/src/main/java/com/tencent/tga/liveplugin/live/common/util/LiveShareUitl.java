@@ -225,7 +225,23 @@ public class LiveShareUitl {
      */
     public static void saveLiveLineRed(Context context,String ids) {
             synchronized (LiveShareUitl.class) {
-                SPUtils.SPSaveString(context,LIVE_LINE_RED, getCurDay());
+                if (isShowedLiveLineTips(context)) {
+                    SPUtils.SPSaveString(context, LIVE_LINE_RED, getCurDay());
+                }
+        }
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     * 如果当天没有显示过气泡，那么不管有没有点过频道，都需要显示气泡
+     */
+    public static boolean isLiveLineRed(Context context) {
+        synchronized (LiveShareUitl.class) {
+            String newId = getCurDay();
+            String oldId = SPUtils.SPGetString(context, LIVE_LINE_RED, "");
+            return (!TextUtils.equals(oldId, newId));
         }
     }
 
@@ -234,11 +250,22 @@ public class LiveShareUitl {
      * @param context
      * @return
      */
-    public static boolean isLiveLineRed(Context context) {
+    public static void saveLiveLineTips(Context context) {
+        synchronized (LiveShareUitl.class) {
+            SPUtils.SPSaveString(context,"live_line_tips", getCurDay());
+        }
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isShowedLiveLineTips(Context context) {
         synchronized (LiveShareUitl.class) {
             String newId = getCurDay();
-            String oldId = SPUtils.SPGetString(context, LIVE_LINE_RED, "");
-            return (!TextUtils.equals(oldId, newId));
+            String oldId = SPUtils.SPGetString(context, "live_line_tips", "");
+            return (TextUtils.equals(oldId, newId));
         }
     }
 

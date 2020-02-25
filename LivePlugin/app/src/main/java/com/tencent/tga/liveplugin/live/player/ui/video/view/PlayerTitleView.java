@@ -84,7 +84,7 @@ public class PlayerTitleView extends LinearLayout {
         }
         mLiveLineSelect.setVisibility(mLineSize>1 ? VISIBLE : GONE);
         mLiveLineText.setVisibility(mLineSize>1 ? VISIBLE : GONE);
-        if (!isClickRedPot) {
+//        if (!isClickRedPot) {
             if (isMultiRoom && LiveShareUitl.isLiveLineRed(getContext())) {
                 mLiveLineSelect.setRadius(2);
                 mLiveLineSelect.setRedPotMargin(1, 0);
@@ -92,7 +92,7 @@ public class PlayerTitleView extends LinearLayout {
                 PlayViewEvent.showLiveLineTips();
             }  else
                 mLiveLineSelect.setTipOn(false);
-        }
+//        }
     }
 
     public void switchMode(boolean isFull){

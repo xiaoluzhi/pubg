@@ -273,6 +273,7 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
     public void showLiveLineTipsView() {
         if (null == mLiveLineTipsView) mLiveLineTipsView = new LiveLineTipView(getContext());
         mLiveLineTipsView.show(this);
+        LiveShareUitl.saveLiveLineTips(getContext());
         if (null != mHandler) mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -359,7 +360,7 @@ public class PlayView extends BaseFrameLayoutView<BaseFrameLayoutPresenter> {
         LOG.e(TAG, "updateRoomInfo............." + roomInfo);
         if (!TextUtils.isEmpty(roomInfo.getLive_title())) {
             if (mPlayerTitleView != null) {
-                if (roomInfo.getOnline_num() > 0) mPlayerTitleView.setmOnlineNum(roomInfo.getOnline_num());
+                if (roomInfo.getOnline_num() >= 0) mPlayerTitleView.setmOnlineNum(roomInfo.getOnline_num());
                 mPlayerTitleView.setTitle(roomInfo.getLive_title(), playType);
             }
         }

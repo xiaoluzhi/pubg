@@ -11,7 +11,10 @@
             android:id="@+id/room_title"
             android:textSize="8dp"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/white"/>
+            android:ellipsize="end"
+            android:maxEms="6"
+            android:singleLine="true"
+            android:textColor="@color/white" />
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

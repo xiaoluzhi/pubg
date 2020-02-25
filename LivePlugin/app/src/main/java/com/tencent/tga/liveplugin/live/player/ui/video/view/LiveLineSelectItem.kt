@@ -67,7 +67,7 @@ class LiveLineSelectItem : RelativeLayout {
                 holder.getView<LinearLayout>(R.id.live_line_room).setBackgroundResource(if(roomInfo.sourceid == LiveInfo.mSourceId) R.drawable.live_line_room_sel else R.drawable.live_line_room_unsel)
                 currentIcon.visibility = if (roomInfo.sourceid == LiveInfo.mSourceId) View.VISIBLE else View.GONE
                 roomTitle.setTextColor(if (roomInfo.sourceid == LiveInfo.mSourceId) Color.parseColor("#FFC951") else Color.WHITE)
-                roomTitle.setText(roomInfo.room_title)
+                roomTitle.text = roomInfo.room_title
             }
         }
 
@@ -89,7 +89,7 @@ class LiveLineSelectItem : RelativeLayout {
             mChannelTips?.setText("重播")
             mChannelTips?.setBackgroundColor(Color.parseColor("#5375A5"))
         } else {
-            mChannelTips?.setText("LIVE")
+            mChannelTips?.setText("直播")
             mChannelTips?.setBackgroundColor(Color.parseColor("#EDB32F"))
         }
 
