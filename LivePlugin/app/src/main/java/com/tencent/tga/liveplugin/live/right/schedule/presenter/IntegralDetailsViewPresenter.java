@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
@@ -74,6 +75,7 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
 
     public void setDetailList(ArrayList<TeamBankBean> arrayList, int type, ArrayList<String> list) {
         try {
+            TLog.e(TAG,"type======="+type);
             if (detailAdapter == null)
                 detailAdapter = new IntegralDetailAdapter(getView().getContext());
             detailAdapter.setData(arrayList, type);
@@ -81,6 +83,7 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
                 getView().mScrollView.setVisibility(View.VISIBLE);
                 getView().normalLinear.setVisibility(View.GONE);
                 getView().detailMoreList.setAdapter(detailAdapter);
+                setListViewHeightBasedOnChildren(getView().detailMoreList);
             } else {
                 getView().mScrollView.setVisibility(View.GONE);
                 getView().normalLinear.setVisibility(View.VISIBLE);
@@ -126,12 +129,7 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
                 LinearLayout linearLayout = viewMore.findViewById(R.id.integral_details_header_more_linear);
                 for (int i = 0; i < list.size(); i++) {
                     TextView textView = new TextView(getView().getContext());
-                    if (i==list.size()-1){
-                        textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(getView().getContext(), 45), DeviceUtils.dip2px(getView().getContext(), 21)));
-                    }else{
-                        textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(getView().getContext(), 48), DeviceUtils.dip2px(getView().getContext(), 21)));
-                    }
-
+                    textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(getView().getContext(), 48), DeviceUtils.dip2px(getView().getContext(), 21)));
                     textView.setText(list.get(i));
                     textView.setTextColor(Color.parseColor("#BDBDBD"));
                     textView.setTextSize(8);
@@ -146,5 +144,19 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
         } catch (Exception e) {
             TLog.e(TAG, "addHeader error : " + e.getMessage());
         }
+    }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        IntegralDetailAdapter listAdapter = (IntegralDetailAdapter) listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        View listItem = listAdapter.getView(0, null, listView);
+        listItem.measure(0, 0);
+        int totalWidth = listItem.getMeasuredWidth();
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.width = totalWidth;
+        listView.setLayoutParams(params);
     }
 }

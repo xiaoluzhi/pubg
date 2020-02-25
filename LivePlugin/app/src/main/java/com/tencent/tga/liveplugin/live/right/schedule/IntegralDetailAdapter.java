@@ -24,14 +24,17 @@ public class IntegralDetailAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<TeamBankBean> arrayList;
     private int type;
-    public IntegralDetailAdapter(Context context){
-        this.context=context;
+
+    public IntegralDetailAdapter(Context context) {
+        this.context = context;
 
     }
-    public void setData(ArrayList<TeamBankBean> arrayList,int type){
-        this.arrayList=arrayList;
-        this.type=type;
+
+    public void setData(ArrayList<TeamBankBean> arrayList, int type) {
+        this.arrayList = arrayList;
+        this.type = type;
     }
+
     @Override
     public int getCount() {
         return arrayList.size();
@@ -49,9 +52,9 @@ public class IntegralDetailAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewTotalHolder holderTotal=null;
-        ViewGamesHolder holderGames=null;
-        ViewTotalMoreHolder totalMoreHolder=null;
+        ViewTotalHolder holderTotal = null;
+        ViewGamesHolder holderGames = null;
+        ViewTotalMoreHolder totalMoreHolder = null;
         try {
             if (view == null) {
                 if (type == 0) {
@@ -64,9 +67,9 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     holderTotal.linearLayout = view.findViewById(R.id.item_games_integral_linear);
                     holderTotal.gradeTotal = view.findViewById(R.id.item_total_integral_gradeTotal);
                     view.setTag(holderTotal);
-                } else if(type==1){
-                    view=DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_total_integral_details_more,null);
-                    totalMoreHolder=new ViewTotalMoreHolder();
+                } else if (type == 1) {
+                    view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_total_integral_details_more, null);
+                    totalMoreHolder = new ViewTotalMoreHolder();
                     totalMoreHolder.rankImg = view.findViewById(R.id.item_total_integral_more_rankImg);
                     totalMoreHolder.rankText = view.findViewById(R.id.item_total_integral_more_rankText);
                     totalMoreHolder.teamLogo = view.findViewById(R.id.item_total_integral_more_teamImg);
@@ -75,24 +78,24 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     totalMoreHolder.gradeTotal = view.findViewById(R.id.item_total_integral_more_gradeTotal);
                     view.setTag(totalMoreHolder);
 
-                }else if(type==2){
-                        view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details, null);
-                        holderGames = new ViewGamesHolder();
-                        holderGames.rankImg = view.findViewById(R.id.item_games_integral_rankImg);
-                        holderGames.rankText = view.findViewById(R.id.item_games_integral_rankText);
-                        holderGames.teamLogo = view.findViewById(R.id.item_games_integral_teamImg);
-                        holderGames.teamName = view.findViewById(R.id.item_games_integral_teamName);
-                        holderGames.grade1 = view.findViewById(R.id.item_games_integral_grade1);
-                        holderGames.grade2 = view.findViewById(R.id.item_games_integral_grade2);
-                        holderGames.gradeTotal = view.findViewById(R.id.item_games_integral_gradeTotal);
-                        view.setTag(holderGames);
+                } else if (type == 2) {
+                    view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.item_games_integral_details, null);
+                    holderGames = new ViewGamesHolder();
+                    holderGames.rankImg = view.findViewById(R.id.item_games_integral_rankImg);
+                    holderGames.rankText = view.findViewById(R.id.item_games_integral_rankText);
+                    holderGames.teamLogo = view.findViewById(R.id.item_games_integral_teamImg);
+                    holderGames.teamName = view.findViewById(R.id.item_games_integral_teamName);
+                    holderGames.grade1 = view.findViewById(R.id.item_games_integral_grade1);
+                    holderGames.grade2 = view.findViewById(R.id.item_games_integral_grade2);
+                    holderGames.gradeTotal = view.findViewById(R.id.item_games_integral_gradeTotal);
+                    view.setTag(holderGames);
                 }
             } else {
                 if (type == 0) {
                     holderTotal = (ViewTotalHolder) view.getTag();
-                }else if(type==1){
-                    totalMoreHolder= (ViewTotalMoreHolder) view.getTag();
-                } else if(type==2) {
+                } else if (type == 1) {
+                    totalMoreHolder = (ViewTotalMoreHolder) view.getTag();
+                } else if (type == 2) {
                     holderGames = (ViewGamesHolder) view.getTag();
                 }
             }
@@ -126,7 +129,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     holderTotal.gradeTotal.setText(arrayList.get(i).getTotal_score() + "");
 
                 }
-            } else if(type==1){
+            } else if (type == 1) {
                 if (totalMoreHolder != null) {
                     switch (i) {
                         case 0:
@@ -146,11 +149,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     totalMoreHolder.teamName.setText(arrayList.get(i).getTeam_name());
                     for (int j = 0; j < arrayList.get(i).getList().size(); j++) {
                         TextView textView = new TextView(context);
-                        if (i==arrayList.get(i).getList().size()-1){
-                            textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 45), DeviceUtils.dip2px(context, 21)));
-                        }else{
-                            textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 48), DeviceUtils.dip2px(context, 21)));
-                        }
+                        textView.setLayoutParams(new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 48), DeviceUtils.dip2px(context, 21)));
                         textView.setText(arrayList.get(i).getList().get(j).getBo_score() + "");
                         textView.setTextColor(Color.parseColor("#858585"));
                         textView.setTextSize(8);
@@ -160,7 +159,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
                     totalMoreHolder.gradeTotal.setText(arrayList.get(i).getTotal_score() + "");
 
                 }
-            }else if(type==2){
+            } else if (type == 2) {
                 if (holderGames != null) {
                     switch (i) {
                         case 0:
@@ -184,10 +183,10 @@ public class IntegralDetailAdapter extends BaseAdapter {
                 }
 
             }
-        }catch (Exception e){
-            TLog.e(TAG,"IntegralDetailAdapter getView error is"+e.getMessage());
+        } catch (Exception e) {
+            TLog.e(TAG, "IntegralDetailAdapter getView error is" + e.getMessage());
         }
-            return view;
+        return view;
 
     }
 
@@ -196,7 +195,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
         return false;
     }
 
-    private class ViewTotalHolder{
+    private class ViewTotalHolder {
         private ImageView rankImg;
         private TextView rankText;
         private ImageView teamLogo;
@@ -204,7 +203,8 @@ public class IntegralDetailAdapter extends BaseAdapter {
         private TextView gradeTotal;
         private LinearLayout linearLayout;
     }
-    private class ViewTotalMoreHolder{
+
+    private class ViewTotalMoreHolder {
         private ImageView rankImg;
         private TextView rankText;
         private ImageView teamLogo;
@@ -212,11 +212,12 @@ public class IntegralDetailAdapter extends BaseAdapter {
         private TextView gradeTotal;
         private LinearLayout linearLayout;
     }
-    private class ViewGamesHolder{
+
+    private class ViewGamesHolder {
         private ImageView rankImg;
         private TextView rankText;
         private ImageView teamLogo;
         private TextView teamName;
-        private TextView grade1,grade2,gradeTotal;
+        private TextView grade1, grade2, gradeTotal;
     }
 }

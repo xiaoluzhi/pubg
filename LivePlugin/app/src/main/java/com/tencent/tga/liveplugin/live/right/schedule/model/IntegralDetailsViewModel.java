@@ -75,7 +75,7 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
                                     // 0代表小于或等于五局，1代表大于五局，2代表单局积分
                                     int mType;
                                     if (type==0){
-                                        if (titleList.size()>5){
+                                        if (titleList.size()>6){
                                             mType=1;
                                         }else{
                                             mType=0;
