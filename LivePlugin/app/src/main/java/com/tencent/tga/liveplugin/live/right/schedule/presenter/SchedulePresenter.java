@@ -23,6 +23,8 @@ import com.tencent.tga.liveplugin.base.util.commonadapter.CommonAdapter;
 import com.tencent.tga.liveplugin.base.util.commonadapter.ViewHolder;
 import com.tencent.tga.liveplugin.live.LiveConfig;
 import com.tencent.tga.liveplugin.live.common.bean.ConfigInfo;
+import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent;
+import com.tencent.tga.liveplugin.live.liveView.event.LiveViewEvent;
 import com.tencent.tga.liveplugin.live.right.schedule.ScheduleView;
 import com.tencent.tga.liveplugin.live.right.schedule.ScoreRankWebView;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchCategoryBean;
@@ -288,9 +290,7 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                     return;
                 }
                 try {
-                    /*if (scoreRankWebView == null){
-                        scoreRankWebView = new ScoreRankWebView(getView().mContext,(ViewGroup) getView().getParent().getParent(),rank_url);
-                    }*/
+                    LiveViewEvent.Companion.showRankWebView();
                     //hideRankEntranceRedPot();
                 }catch (Exception e){
                     TLog.e(TAG," error : "+e.getMessage());
@@ -564,8 +564,6 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         }
     }
 
-    public ScoreRankWebView scoreRankWebView;
-    private String rank_url = "www.qq.com";
     private void initRankEntranceView(){
         try {
             getView().mRlyMatchRank.setVisibility(View.VISIBLE);

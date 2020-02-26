@@ -32,6 +32,7 @@ class LiveViewEvent(view: View) : BaseEvent(view) {
             }
             SHOW_SCHEDULE->(mView as LiveView).showSchedule()
             REFRESH_WEBVIEW_TITLE->(mView as LiveView).refreshWebViewTitle(params[0] as String)
+            SHOW_RANK_WEBVIEW->(mView as LiveView).showRankWebView()
 
         }
         return null
@@ -67,6 +68,8 @@ class LiveViewEvent(view: View) : BaseEvent(view) {
         private val SHOW_SCHEDULE  = 16
 
         private val REFRESH_WEBVIEW_TITLE = 17
+
+        private val SHOW_RANK_WEBVIEW = 18
 
 
         fun showTextMsg(entity: ChatMsgEntity) {
@@ -126,6 +129,10 @@ class LiveViewEvent(view: View) : BaseEvent(view) {
 
         fun showSchedule() {
             doExc(SHOW_SCHEDULE)
+        }
+
+        fun showRankWebView(){
+            doExc(SHOW_RANK_WEBVIEW)
         }
 
 

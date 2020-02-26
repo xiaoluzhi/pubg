@@ -23,6 +23,7 @@ import com.tencent.tga.liveplugin.live.player.event.PlayViewEvent;
 import com.tencent.tga.liveplugin.live.right.LiveRightContainer;
 import com.tencent.tga.liveplugin.live.right.chat.ChatView;
 import com.tencent.tga.liveplugin.live.right.schedule.SchduleWebView;
+import com.tencent.tga.liveplugin.live.right.schedule.ScoreRankWebView;
 import com.tencent.tga.liveplugin.live.title.TitleView;
 import com.tencent.tga.liveplugin.networkutil.NetUtils;
 import com.tencent.tga.liveplugin.report.ReportManager;
@@ -272,6 +273,11 @@ public class LiveView extends BaseView<LiveViewPresenter>  implements PlayView.V
                     scheduleWebView.dismiss();
                     return true;
                 }
+
+                if (null != scoreRankWebView && indexOfChild(scoreRankWebView) != -1) {
+                    scoreRankWebView.dismiss();
+                    return true;
+                }
                 if (null != mWebviewLauncher) {
                     boolean result = mWebviewLauncher.handleKeyEvent(event);
                     if (result) return true;
@@ -326,6 +332,15 @@ public class LiveView extends BaseView<LiveViewPresenter>  implements PlayView.V
             scheduleWebView = new SchduleWebView(getContext(), this, ConfigInfo.getmInstance().getStringConfig(ConfigInfo.SCHEDULE_H5_URL));
         } else {
             scheduleWebView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private ScoreRankWebView scoreRankWebView;
+    public void showRankWebView() {
+        if (null == scoreRankWebView) {
+            scoreRankWebView = new ScoreRankWebView(getContext(), this, ConfigInfo.getmInstance().getStringConfig(ConfigInfo.SCORE_RANK_URL));
+        } else {
+            scoreRankWebView.setVisibility(View.VISIBLE);
         }
     }
 
