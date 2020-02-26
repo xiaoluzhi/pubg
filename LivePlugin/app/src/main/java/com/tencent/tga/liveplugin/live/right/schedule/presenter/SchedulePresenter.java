@@ -568,7 +568,6 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         try {
             getView().mRlyMatchRank.setVisibility(View.VISIBLE);
             getView().mIvMatchRankTopBg.setVisibility(View.VISIBLE);
-            rank_url = ConfigInfo.getmInstance().getStringConfig(ConfigInfo.SCORE_RANK_URL);
             /*JSONObject rank_info = new JSONObject(ConfigInfo.getmInstance().getStringConfig(ConfigInfo.TEAM_RANK_CFG));
             rank_url = rank_info.optString("rank_url");
             getView().mTvRankEntranceName.setText(rank_info.optString("rank_name"));
