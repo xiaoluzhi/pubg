@@ -142,7 +142,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
                             totalMoreHolder.rankImg.setImageResource(R.drawable.third_place);
                             break;
                         default:
-                            totalMoreHolder.rankText.setText(i + "");
+                            totalMoreHolder.rankText.setText((i+1) + "");
                             break;
                     }
                     ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), totalMoreHolder.teamLogo);
@@ -172,7 +172,7 @@ public class IntegralDetailAdapter extends BaseAdapter {
                             holderGames.rankImg.setImageResource(R.drawable.third_place);
                             break;
                         default:
-                            holderGames.rankText.setText(i + "");
+                            holderGames.rankText.setText((i+1) + "");
                             break;
                     }
                     ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), holderGames.teamLogo);
