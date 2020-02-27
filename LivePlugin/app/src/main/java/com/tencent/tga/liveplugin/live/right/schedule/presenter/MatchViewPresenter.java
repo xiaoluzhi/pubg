@@ -65,108 +65,112 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
 
     private void initListener(){
         //getView().mTvPlayAndSubscription.setOnClickListener(new View.OnClickListener() {
-          getView().mTvStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(NoDoubleClickUtils.isDoubleClick()){
-                    return;
-                }
-                if(getView().matchListBean.getMatch_state() == MATCH_STATE_NOT_START){
-                    //订阅部分暂用之前的逻辑，通知到主页面调用请求，之后可以切换到MatchViewModel中
-                    if(getView().matchListBean.getSubscribe_state() == 1){
-                        TLog.e(TAG,"取消订阅");
-                        getModel().doSubscribe(getView().mContext, new NetProxy.Callback(){
-                            @Override
-                            public void onSuc(int i) {
-                                if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
-                                    ToastUtil.show(getView().mContext,"取消订阅成功");
-                                    getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,2);
-                                }else {
-                                    TLog.e(TAG,"取消订阅失败");
-                                }
-                            }
-
-                            @Override
-                            public void onFail(int i) {
-                                TLog.e(TAG,"取消订阅-失败-"+i);
-                            }
-                        },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),2);
-                        //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), false);
-                        //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id), SubscribeOperationType.SUB_OP_TYPE_CANCEL.getValue(), EnterType.PpkdcNormal.getValue()));
-                    }else {
-                        //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), true);
-                        //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id),SubscribeOperationType.SUB_OP_TYPE_SUBSCRIBE.getValue(), EnterType.PpkdcNormal.getValue()));
-                        TLog.e(TAG,"订阅");
-                        getModel().doSubscribe(getView().mContext, new NetProxy.Callback() {
-                            @Override
-                            public void onSuc(int i) {
-                                if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
-                                    ToastUtil.show(getView().mContext,"订阅成功");
-                                    getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,1);
-                                }else {
-                                    TLog.e(TAG,"订阅失败");
-                                }
-                            }
-
-                            @Override
-                            public void onFail(int i) {
-                                TLog.e(TAG,"订阅-失败-"+i);
-                            }
-                        },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),1);
+        try {
+            getView().mTvStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(NoDoubleClickUtils.isDoubleClick()){
+                        return;
                     }
-                }else if(getView().matchListBean.getMatch_state() == MATCH_STATE_FINISHED){
-                    if(getView().matchListBean.getRecord_vid_list() != null && getView().matchListBean.getRecord_vid_list().size() > 0){
-                        TLog.e(TAG,"启动播放器");
-                        ArrayList<String> videoList = new ArrayList<String>();
-                        for(int i=0;i<getView().matchListBean.getRecord_vid_list().size();i++){
-                            videoList.add(getView().matchListBean.getRecord_vid_list().get(i));
+                    if(getView().matchListBean.getMatch_state() == MATCH_STATE_NOT_START){
+                        //订阅部分暂用之前的逻辑，通知到主页面调用请求，之后可以切换到MatchViewModel中
+                        if(getView().matchListBean.getSubscribe_state() == 1){
+                            TLog.e(TAG,"取消订阅");
+                            getModel().doSubscribe(getView().mContext, new NetProxy.Callback(){
+                                @Override
+                                public void onSuc(int i) {
+                                    if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
+                                        ToastUtil.show(getView().mContext,"取消订阅成功");
+                                        getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,2);
+                                    }else {
+                                        TLog.e(TAG,"取消订阅失败");
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int i) {
+                                    TLog.e(TAG,"取消订阅-失败-"+i);
+                                }
+                            },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),2);
+                            //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), false);
+                            //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id), SubscribeOperationType.SUB_OP_TYPE_CANCEL.getValue(), EnterType.PpkdcNormal.getValue()));
+                        }else {
+                            //LiveShareUitl.saveUserSubscribtion(getView().getContext(), PBDataUtils.byteString2String(getView().mMatchItem.match_id), true);
+                            //NotificationCenter.defaultCenter().publish(new LiveEvent.reqMatchSubscribe(PBDataUtils.byteString2String(getView().mMatchItem.match_id),SubscribeOperationType.SUB_OP_TYPE_SUBSCRIBE.getValue(), EnterType.PpkdcNormal.getValue()));
+                            TLog.e(TAG,"订阅");
+                            getModel().doSubscribe(getView().mContext, new NetProxy.Callback() {
+                                @Override
+                                public void onSuc(int i) {
+                                    if (getModel().matchSubscribeProxyParam.matchSubscribeRsp.result == 0 ){
+                                        ToastUtil.show(getView().mContext,"订阅成功");
+                                        getView().mScheduleView.updateData(getModel().matchSubscribeProxyParam.match_id,1);
+                                    }else {
+                                        TLog.e(TAG,"订阅失败");
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(int i) {
+                                    TLog.e(TAG,"订阅-失败-"+i);
+                                }
+                            },getView().matchListBean.getMatch_time(),getView().matchListBean.getMatch_id(),1);
                         }
-                        String match_date = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time())*1000L);
-                        String title = String.format("%s %s %s %s %s:%s %s",
-                                match_date,
-                                getView().matchListBean.getMatch_sub_title(),
-                                getView().matchListBean.getMatch_sub_title());
-                        ArrayList<String> videotitle = new ArrayList<>();
-                        videotitle.add(title);
-                        //NotificationCenter.defaultCenter().publish(new LiveEvent.VideoPlay(videoList,title));
-                        LiveViewEvent.Companion.launchVideoView(true, videoList,videotitle, 0, null, true);
-                        //直接调用播放，以及上报
-                        //VideoPlayActivity.launch(that, false, event.vids, null, event.title, -1);
-                        //ReportManager.getInstance().report_TVVideoClick(event.vids.get(0).toString(), ReportManager.BOTTOM_MATCH);
+                    }else if(getView().matchListBean.getMatch_state() == MATCH_STATE_FINISHED){
+                        if(getView().matchListBean.getRecord_vid_list() != null && getView().matchListBean.getRecord_vid_list().size() > 0){
+                            TLog.e(TAG,"启动播放器");
+                            ArrayList<String> videoList = new ArrayList<String>();
+                            for(int i=0;i<getView().matchListBean.getRecord_vid_list().size();i++){
+                                videoList.add(getView().matchListBean.getRecord_vid_list().get(i));
+                            }
+                            String match_date = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time())*1000L);
+                            String title = String.format("%s %s %s",
+                                    match_date,
+                                    getView().matchListBean.getMatch_main_title(),
+                                    getView().matchListBean.getMatch_sub_title());
+                            ArrayList<String> videotitle = new ArrayList<>();
+                            videotitle.add(title);
+                            //NotificationCenter.defaultCenter().publish(new LiveEvent.VideoPlay(videoList,title));
+                            LiveViewEvent.Companion.launchVideoView(true, videoList,videotitle, 0, new ArrayList<>(), true);
+                            //直接调用播放，以及上报
+                            //VideoPlayActivity.launch(that, false, event.vids, null, event.title, -1);
+                            //ReportManager.getInstance().report_TVVideoClick(event.vids.get(0).toString(), ReportManager.BOTTOM_MATCH);
+                        }else {
+                            TLog.e(TAG,"播放列表为空");
+                        }
                     }else {
-                        TLog.e(TAG,"播放列表为空");
-                    }
-                }else {
-                    TLog.e(TAG," 当前 match_state = "+getView().matchListBean.getMatch_state());
-                }
-            }
-        });
-        getView().mTvTeamOrRank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //这里点击事件
-                if (getView().mTvTeamOrRank.getText().equals("参赛队伍")){
-                    try {
-                        //这是 getView().matchListBean.getMatch_id()
-                        TLog.e(TAG,"getView().matchListBean.getMatch_id()"+getView().matchListBean.getMatch_id());
-                        ScheduleTeamView scheduleTeamView = new ScheduleTeamView(getView().getContext()
-                                , getView().matchListBean.getMatch_id(), getView().mScheduleView);
-                        scheduleTeamView.initView();
-                    } catch (Exception e) {
-                        TLog.e(TAG,"ScheduleTeamView error is"+e.getMessage());
-                    }
-                }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
-                    try {
-                        String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) +" "+getView().matchListBean.getMatch_main_title();
-                        IntegralDetailsView integralDetailsView = new IntegralDetailsView(getView().getContext(), getView().matchListBean.getMatch_id()
-                                , getView().matchListBean.getRoomid(), title, getView().mScheduleView);
-                        integralDetailsView.initView();
-                    }catch (Exception e){
-                        TLog.e(TAG,"IntegralDetailsView error is"+e.getMessage());
+                        TLog.e(TAG," 当前 match_state = "+getView().matchListBean.getMatch_state());
                     }
                 }
-            }
-        });
+            });
+            getView().mTvTeamOrRank.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //这里点击事件
+                    if (getView().mTvTeamOrRank.getText().equals("参赛队伍")){
+                        try {
+                            //这是 getView().matchListBean.getMatch_id()
+                            TLog.e(TAG,"getView().matchListBean.getMatch_id()"+getView().matchListBean.getMatch_id());
+                            ScheduleTeamView scheduleTeamView = new ScheduleTeamView(getView().getContext()
+                                    , getView().matchListBean.getMatch_id(), getView().mScheduleView);
+                            scheduleTeamView.initView();
+                        } catch (Exception e) {
+                            TLog.e(TAG,"ScheduleTeamView error is"+e.getMessage());
+                        }
+                    }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
+                        try {
+                            String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) +" "+getView().matchListBean.getMatch_main_title();
+                            IntegralDetailsView integralDetailsView = new IntegralDetailsView(getView().getContext(), getView().matchListBean.getMatch_id()
+                                    , getView().matchListBean.getRoomid(), title, getView().mScheduleView);
+                            integralDetailsView.initView();
+                        }catch (Exception e){
+                            TLog.e(TAG,"IntegralDetailsView error is"+e.getMessage());
+                        }
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     // 赛事未开始 : 1  ; 赛事已取消 : 2  ; 赛事进行中 : 3  ; 赛事已结束 : 4

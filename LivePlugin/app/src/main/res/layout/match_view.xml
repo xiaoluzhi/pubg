@@ -15,11 +15,12 @@
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#2A2E34">
     <TextView
+        android:layout_gravity="center_horizontal"
         android:id="@+id/mTvMatchtitle"
         android:paddingTop="1dp"
         android:paddingBottom="1dp"
@@ -28,7 +29,8 @@
         android:gravity="center"
         android:text=""
         android:textColor="#BDBDBD"
-        android:textSize="9dp" />
+        android:textSize="9dp"
+         />
 
     <View
         android:layout_width="match_parent"
@@ -99,7 +101,9 @@
                     android:layout_marginTop="6dp"
                     android:text=""
                     android:textColor="#bdbdbd"
-                    android:textSize="9dp" />
+                    android:textSize="9dp"
+                    android:singleLine="true"
+                    android:maxEms="8"/>
 
 
                 <LinearLayout
