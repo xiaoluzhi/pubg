@@ -907,11 +907,11 @@ public class VideoPlayView extends FrameLayout {
     public void updateTitle() {
         if (mTitleView == null)
             return;
-//        if (!mFromVideoList) {
-//            mTitleView.setText(mVidTitles.get(0) + String.format("  第%s场", mPlayIndex + 1));
-//        } else {
+        if (isFromSchedule) {
+            mTitleView.setText(mVidTitles.get(0) + String.format("  第%s场", mPlayIndex + 1));
+        } else {
             mTitleView.setText(mPlayIndex < mVidTitles.size() ? mVidTitles.get(mPlayIndex) : "");
-//        }
+        }
     }
 
 
