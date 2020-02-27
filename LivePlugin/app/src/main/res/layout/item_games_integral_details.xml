@@ -13,7 +13,7 @@
         android:id="@+id/item_games_integral_rankText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="16dp"
         android:textSize="10dp"
         android:textColor="#DCDCDC"
         android:layout_centerVertical="true" />
