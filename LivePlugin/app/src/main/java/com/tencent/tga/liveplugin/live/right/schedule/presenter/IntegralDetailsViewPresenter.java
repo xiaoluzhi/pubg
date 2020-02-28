@@ -83,7 +83,7 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
                 getView().mScrollView.setVisibility(View.VISIBLE);
                 getView().normalLinear.setVisibility(View.GONE);
                 getView().detailMoreList.setAdapter(detailAdapter);
-                setListViewHeightBasedOnChildren(getView().detailMoreList);
+                setListViewWidthBasedOnChildren(getView().detailMoreList);
             } else {
                 getView().mScrollView.setVisibility(View.GONE);
                 getView().normalLinear.setVisibility(View.VISIBLE);
@@ -146,17 +146,21 @@ public class IntegralDetailsViewPresenter extends BaseFrameLayoutPresenter<Integ
         }
     }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
-        // 获取ListView对应的Adapter
-        IntegralDetailAdapter listAdapter = (IntegralDetailAdapter) listView.getAdapter();
-        if (listAdapter == null) {
-            return;
+    private void setListViewWidthBasedOnChildren(ListView listView) {
+        try {
+            // 获取ListView对应的Adapter
+            IntegralDetailAdapter listAdapter = (IntegralDetailAdapter) listView.getAdapter();
+            if (listAdapter == null) {
+                return;
+            }
+            View listItem = listAdapter.getView(0, null, listView);
+            listItem.measure(0, 0);
+            int totalWidth = listItem.getMeasuredWidth();
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.width = totalWidth;
+            listView.setLayoutParams(params);
+        } catch (Exception e) {
+            TLog.e(TAG,"setListViewWidthBasedOnChildren error is"+e.getMessage());
         }
-        View listItem = listAdapter.getView(0, null, listView);
-        listItem.measure(0, 0);
-        int totalWidth = listItem.getMeasuredWidth();
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.width = totalWidth;
-        listView.setLayoutParams(params);
     }
 }

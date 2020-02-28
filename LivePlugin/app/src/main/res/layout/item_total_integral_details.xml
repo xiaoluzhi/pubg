@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="395dp"
     android:layout_height="21dp"
-    android:background="#1C1E24">
+    android:background="#1C1E24"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="109dp"
+        android:layout_height="21dp">
     <ImageView
         android:id="@+id/item_total_integral_rankImg"
         android:layout_width="wrap_content"
@@ -33,19 +37,17 @@
         android:textColor="#DCDCDC"
         android:layout_centerVertical="true"
         android:layout_marginLeft="62dp"/>
+    </RelativeLayout>
     <View
         android:id="@+id/item_total_integral_line"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="#2D2F36"
-        android:layout_marginLeft="109dp"/>
+        android:background="#2D2F36" />
     <LinearLayout
         android:id="@+id/item_games_integral_linear"
         android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/item_total_integral_line"/>
+        android:layout_height="21dp"
+        android:orientation="horizontal" />
     <TextView
         android:id="@+id/item_total_integral_gradeTotal"
         android:layout_width="45dp"
@@ -53,7 +55,6 @@
         android:textColor="#DCDCDC"
         android:textSize="8dp"
         android:gravity="center"
-        android:layout_alignParentRight="true"
         android:background="#23252D"/>
 
-</RelativeLayout>
+</LinearLayout>
