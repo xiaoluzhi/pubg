@@ -118,4 +118,12 @@ public class ToastUtil {
         return sNavBarOverride;
     }
 
+
+    public static void cancel(){
+        if (toast!=null){
+            toast.cancel();
+            toast = null;
+        }
+    }
+
 }

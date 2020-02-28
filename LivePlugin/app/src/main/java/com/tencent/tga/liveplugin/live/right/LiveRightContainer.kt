@@ -10,6 +10,7 @@ import com.ryg.dynamicload.internal.DLPluginLayoutInflater
 import com.tencent.tga.liveplugin.base.mvp.BaseView
 import com.tencent.tga.liveplugin.base.util.ToastUtil
 import com.tencent.tga.liveplugin.live.common.bean.ConfigInfo
+import com.tencent.tga.liveplugin.live.common.bean.UnityBean
 import com.tencent.tga.liveplugin.live.liveView.event.LiveViewEvent
 import com.tencent.tga.liveplugin.live.right.chat.ChatView
 import com.tencent.tga.liveplugin.live.right.presenter.RightViewPresenter
@@ -74,12 +75,19 @@ class LiveRightContainer(private val mContext: Context, attrs: AttributeSet):Bas
             ReportManager.getInstance().commonReportFun("TVUserChangeRightTab", true, "1", "2")
             if (null != mChatView.mHotWordDialog) mChatView.mHotWordDialog.dismiss()
 
+            if (!ConfigInfo.getmInstance().getConfig(ConfigInfo.SCHEDULE_SWITCH)){
+                ToastUtil.cancel()
+                ToastUtil.show(mContext, "暂无更多赛程信息，敬请期待")
+                mScheduleCtrol.isSelected = false
+                mChatCtrol.isSelected = true
+                return
+            }
             mChatCtrol.isSelected = false
             mScheduleCtrol.isSelected = true
 
             mChatView.visibility = View.GONE
             mScheduleView!!.visibility = View.VISIBLE
-            mScheduleCtrol.setBackgroundResource(R.drawable.right_tab_background);
+            mScheduleCtrol.setBackgroundResource(R.drawable.right_tab_background)
             mChatCtrol.background = null
 
             mScheduleView!!.initData()

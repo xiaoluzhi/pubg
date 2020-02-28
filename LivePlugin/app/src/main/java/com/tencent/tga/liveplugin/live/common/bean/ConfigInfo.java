@@ -26,6 +26,8 @@ public class ConfigInfo {
     public static final String SCORE_RANK_SWITCH = "score_rank_switch";
     public static final String SCORE_RANK_URL = "score_rank_url";
 
+    public static final String SCHEDULE_SWITCH = "schedule_switch";
+
     private static List<String> mFunctionReqList = new ArrayList<>();
     private HashMap<String, String> mConfigMap = new HashMap();
 
@@ -116,6 +118,7 @@ public class ConfigInfo {
         mFunctionReqList.add(BOX_ANIM_SWITCH);
         mFunctionReqList.add(SCORE_RANK_SWITCH);
         mFunctionReqList.add(SCORE_RANK_URL);
+        mFunctionReqList.add(SCHEDULE_SWITCH);
         return mFunctionReqList;
     }
 
