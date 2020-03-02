@@ -49,6 +49,8 @@ public class ScheduleView extends BaseView<SchedulePresenter>{
     public ImageView mIvPullDownTip;
     public TextView mTvPullDownTip;
 
+    public ImageView mIvGoTodayArrow;
+
     public ScheduleView(Context context) {
         super(context);
         mContext = context;
@@ -83,6 +85,8 @@ public class ScheduleView extends BaseView<SchedulePresenter>{
         mLlyPullDownTip = (LinearLayout) findViewById(R.id.mLlyPullDownTip);
         mIvPullDownTip = (ImageView) findViewById(R.id.mIvPullDownTip);
         mTvPullDownTip = (TextView) findViewById(R.id.mTvPullDownTip);
+
+        mIvGoTodayArrow = findViewById(R.id.mIvGoTodayArrow);
 
         //getPresenter().init();
     }

@@ -107,11 +107,15 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                                 AddDataToList(matchDayInfoBean.getMatch_day_list(), getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.direction);
 
                                 TLog.e(TAG, "getMatchList : " + getModel().mProxyHolder.getHpjyScheduleListHttpProxyParam.data);
+                            }else {
+                                ToastUtil.show(getView().mContext, "暂未发现内容");
                             }
                         } else {
+                            ToastUtil.show(getView().mContext, "暂未发现内容");
                             setEmptyDataView(true, DataErrorView.ERROR_MSG_EMPTY);
                         }
                     } else {
+                        ToastUtil.show(getView().mContext, "暂未发现内容");
                         setEmptyDataView(true, DataErrorView.ERROR_MSG_EMPTY);
                     }
                     getView().mAdapter.notifyDataSetChanged();
@@ -173,8 +177,8 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
         }
         return false;
     }
-
-
+    private boolean scrollFlag = false;// 标记是否滑动
+    private  int lastVisibleItemPosition;//标记上次的显示位置
     private void initAdapter() {
         getView().mList = new ArrayList<>();
         getView().mAdapter = new CommonAdapter<MatchCategoryBean>(getView().mContext,getView().mList, R.layout.list_item) {
@@ -254,13 +258,33 @@ public class SchedulePresenter extends BasePresenter<ScheduleView,ScheduleModel>
                     TLog.e(TAG,"onScrollStateChanged end");
                     isShowGoToday();
                 }
+
+                if (SCROLL_STATE == SCROLL_STATE_TOUCH_SCROLL){
+                    scrollFlag = true;
+                }else {
+                    scrollFlag = false;
+                }
             }
 
             @Override
             public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                TLog.e(TAG,"firstVisibleItem :" + firstVisibleItem + " lastVisibleItemPosition : " + lastVisibleItemPosition);
                 if (firstVisibleItem + visibleItemCount == totalItemCount) {
 
                 }
+
+                if (firstVisibleItem > lastVisibleItemPosition){ // 向上
+                    TLog.e(TAG,"上滑");
+                    getView().mIvGoTodayArrow.setImageResource(R.drawable.schedule_gotoday_small_tip);
+                }else if (firstVisibleItem < lastVisibleItemPosition ){ //向下
+                    TLog.e(TAG,"下滑");
+                    getView().mIvGoTodayArrow.setImageResource(R.drawable.schedule_gotoday_small_tip1);
+                }else {
+                    return;
+                }
+
+                lastVisibleItemPosition =  firstVisibleItem;
             }
         });
 

@@ -144,6 +144,7 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/mIvGoTodayArrow"
                 android:layout_marginRight="2dp"
                 android:layout_width="7dp"
                 android:layout_height="7dp"
