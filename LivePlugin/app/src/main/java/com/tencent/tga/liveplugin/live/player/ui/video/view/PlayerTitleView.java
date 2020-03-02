@@ -82,8 +82,9 @@ public class PlayerTitleView extends LinearLayout {
                 break;
             }
         }
-        mLiveLineSelect.setVisibility(mLineSize>1 ? VISIBLE : GONE);
-        mLiveLineText.setVisibility(mLineSize>1 ? VISIBLE : GONE);
+        boolean isShow = mLineSize>1 || mLineSize == 1 && list.get(0).getRoom_list().size() > 1; //只有一个频道，有多个房间也显示
+        mLiveLineSelect.setVisibility(isShow ? VISIBLE : GONE);
+        mLiveLineText.setVisibility(isShow ? VISIBLE : GONE);
 //        if (!isClickRedPot) {
             if (isMultiRoom && LiveShareUitl.isLiveLineRed(getContext())) {
                 mLiveLineSelect.setRadius(2);
