@@ -8,26 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.loopj.android.tgahttp.httputil.HttpBaseUrlWithParameterProxy;
 import com.tencent.common.log.tga.TLog;
-import com.tencent.protocol.tga.ppkdc_schedule.MatchItem;
 import com.tencent.tga.liveplugin.base.mvp.BasePresenter;
-import com.tencent.tga.liveplugin.base.notification.NotificationCenter;
 import com.tencent.tga.liveplugin.base.util.DeviceUtils;
-import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.base.util.NoDoubleClickUtils;
 import com.tencent.tga.liveplugin.base.util.TimeUtils;
 import com.tencent.tga.liveplugin.base.util.ToastUtil;
-import com.tencent.tga.liveplugin.live.common.broadcast.LiveEvent;
-import com.tencent.tga.liveplugin.live.common.util.LiveShareUitl;
 import com.tencent.tga.liveplugin.live.liveView.event.LiveViewEvent;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.MatchDayInfoBean;
 import com.tencent.tga.liveplugin.live.right.schedule.model.MatchViewModel;
-import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailsView;
+import com.tencent.tga.liveplugin.live.right.schedule.ui.IntegralDetailView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.MatchView;
 import com.tencent.tga.liveplugin.live.right.schedule.ui.ScheduleTeamView;
 import com.tencent.tga.liveplugin.networkutil.NetProxy;
-import com.tencent.tga.liveplugin.networkutil.PBDataUtils;
 import com.tencent.tga.plugin.R;
 
 import java.util.ArrayList;
@@ -159,7 +152,7 @@ public class MatchViewPresenter extends BasePresenter<MatchView,MatchViewModel> 
                     }else if (getView().mTvTeamOrRank.getText().equals("积分详情")){
                         try {
                             String title = TimeUtils.getMatchDate(Long.valueOf(getView().matchListBean.getMatch_time()) * 1000L) +" "+getView().matchListBean.getMatch_main_title();
-                            IntegralDetailsView integralDetailsView = new IntegralDetailsView(getView().getContext(), getView().matchListBean.getMatch_id()
+                            IntegralDetailView integralDetailsView = new IntegralDetailView(getView().getContext(), getView().matchListBean.getMatch_id()
                                     , getView().matchListBean.getRoomid(), title, getView().mScheduleView);
                             integralDetailsView.initView();
                         }catch (Exception e){

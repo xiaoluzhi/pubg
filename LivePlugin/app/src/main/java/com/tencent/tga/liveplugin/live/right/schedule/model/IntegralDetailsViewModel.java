@@ -71,19 +71,7 @@ public class IntegralDetailsViewModel extends BaseFrameLayoutModelInter {
                                     list.add(teamBankBean);
                                 }
                                 if (list.size() > 0) {
-                                    //重新处理type,mType=0,1,2;
-                                    // 0代表小于或等于五局，1代表大于五局，2代表单局积分
-                                    int mType;
-                                    if (type==0){
-                                        if (titleList.size()>6){
-                                            mType=1;
-                                        }else{
-                                            mType=0;
-                                        }
-                                    }else{
-                                        mType=2;
-                                    }
-                                    presenter.setDetailList(list, mType, titleList);
+                                    presenter.setDetailList(list, type, titleList);
                                 }else{
                                     ToastUtil.show(getPresenter().getView().getContext(),"数据异常");
                                 }

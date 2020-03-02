@@ -1,6 +1,7 @@
 package com.tencent.tga.liveplugin.live.right.schedule.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.View;
@@ -16,28 +17,28 @@ import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
 import com.tencent.common.log.tga.TLog;
+import com.tencent.tga.imageloader.utils.L;
 import com.tencent.tga.liveplugin.base.mvp.BaseFrameLayoutView;
 import com.tencent.tga.liveplugin.base.util.DeviceUtils;
 import com.tencent.tga.liveplugin.base.view.BasePopWindow;
 import com.tencent.tga.liveplugin.live.right.schedule.presenter.IntegralDetailsViewPresenter;
 import com.tencent.tga.plugin.R;
 
-public class IntegralDetailsView extends BaseFrameLayoutView<IntegralDetailsViewPresenter> {
+public class IntegralDetailView extends BaseFrameLayoutView<IntegralDetailsViewPresenter> {
     private static final String TAG = "IntegralDetailsView";
     private IntegralDetailsViewPresenter mPresenter;
     private String matchId, roomId;
     private View mRootView;
     private BasePopWindow mPopWindow;
     private ViewGroup mParent;
-    public RelativeLayout mMoreHeaderView,mNormalHeaderView;
-    public ListView totalList, detailMoreList,detailNormalList;
-    public LinearLayout normalLinear;
+    public LinearLayout mHeaderView;
+    public ListView titleListView,leftListView,middleListView,rightListView;
     public HorizontalScrollView mScrollView;
     private TextView mTitle;
     private ImageView mClose;
     private String title;
 
-    public IntegralDetailsView(Context context, String matchId, String roomId, String title, ViewGroup parent) {
+    public IntegralDetailView(Context context, String matchId, String roomId, String title, ViewGroup parent) {
         super(context);
         this.matchId = matchId;
         this.roomId = roomId;
@@ -55,15 +56,14 @@ public class IntegralDetailsView extends BaseFrameLayoutView<IntegralDetailsView
 
     public void initView() {
         mRootView = DLPluginLayoutInflater.getInstance(getContext()).inflate(R.layout.integral_details_view, null);
-        mMoreHeaderView=mRootView.findViewById(R.id.integral_details_more_headerView);
-        mNormalHeaderView=mRootView.findViewById(R.id.integral_details_normal_headerView);
-        normalLinear=mRootView.findViewById(R.id.integral_details_normal_linear);
+        mHeaderView=mRootView.findViewById(R.id.integral_details_headerView);
         mScrollView=mRootView.findViewById(R.id.integral_details_scrollView);
-        totalList = mRootView.findViewById(R.id.integral_details_listView1);
-        detailMoreList = mRootView.findViewById(R.id.integral_details_listView2);
-        detailNormalList=mRootView.findViewById(R.id.integral_details_listView3);
-        mTitle = mRootView.findViewById(R.id.integral_details_view_title);
-        mClose = mRootView.findViewById(R.id.integral_details_view_close);
+        titleListView = mRootView.findViewById(R.id.integral_details_listView);
+        leftListView = mRootView.findViewById(R.id.integral_details_listView1);
+        middleListView = mRootView.findViewById(R.id.integral_details_listView2);
+        rightListView=mRootView.findViewById(R.id.integral_details_listView3);
+        mTitle = mRootView.findViewById(R.id.integral_details_title);
+        mClose = mRootView.findViewById(R.id.integral_details_close);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.width = DeviceUtils.dip2px(getContext(), 476);
         params.height = DeviceUtils.dip2px(getContext(), 275);

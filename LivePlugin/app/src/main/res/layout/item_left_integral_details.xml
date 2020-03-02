@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="21dp"
+    android:background="#1C1E24">
+
+    <RelativeLayout
+        android:layout_width="109dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true">
+
+        <ImageView
+            android:id="@+id/item_left_integral_rankImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp" />
+
+        <TextView
+            android:id="@+id/item_left_integral_rankText"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:textColor="#DCDCDC"
+            android:gravity="center"
+            android:textSize="10dp" />
+
+        <ImageView
+            android:id="@+id/item_left_integral_teamImg"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="41dp" />
+
+        <TextView
+            android:id="@+id/item_left_integral_teamName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="62dp"
+            android:textColor="#DCDCDC"
+            android:textSize="8dp" />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="20dp"
+        android:background="#2D2F36"
+        android:layout_alignParentRight="true"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="110dp"
+        android:layout_height="0.5dp"
+        android:background="#2D2F36"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

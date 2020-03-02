@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.ryg.dynamicload.internal.DLPluginLayoutInflater;
 import com.tencent.common.log.tga.TLog;
-import com.tencent.open.utils.TlsSniSocketFactory;
 import com.tencent.tga.liveplugin.base.util.ImageLoaderUitl;
 import com.tencent.tga.liveplugin.live.right.schedule.bean.TeamBean;
 import com.tencent.tga.plugin.R;
@@ -20,10 +19,12 @@ public class ScheduleTeamAdapter extends BaseAdapter {
     private static final String TAG = "ScheduleTeamAdapter";
     private ArrayList<TeamBean> arrayList;
     private Context context;
-    public ScheduleTeamAdapter(ArrayList<TeamBean> arrayList, Context context){
-        this.arrayList=arrayList;
-        this.context=context;
+
+    public ScheduleTeamAdapter(ArrayList<TeamBean> arrayList, Context context) {
+        this.arrayList = arrayList;
+        this.context = context;
     }
+
     @Override
     public int getCount() {
         return arrayList.size();
@@ -41,21 +42,14 @@ public class ScheduleTeamAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder;
         try {
-        if (view==null){
-            view= DLPluginLayoutInflater.getInstance(context).inflate(R.layout.schedule_team_view_item,null);
-            holder=new ViewHolder();
-            holder.textView=view.findViewById(R.id.team_item_name);
-            holder.imageView=view.findViewById(R.id.team_item_img);
-            view.setTag(holder);
-        }else{
-            holder= (ViewHolder) view.getTag();
-        }
-        holder.textView.setText(arrayList.get(i).getTeam_name());
-        ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(),holder.imageView);
-        }catch (Exception e){
-            TLog.e(TAG,"ScheduleTeamAdapter getView error is"+e.getMessage());
+            view = DLPluginLayoutInflater.getInstance(context).inflate(R.layout.schedule_team_view_item, null);
+            TextView textView = view.findViewById(R.id.team_item_name);
+            ImageView imageView = view.findViewById(R.id.team_item_img);
+            textView.setText(arrayList.get(i).getTeam_name());
+            ImageLoaderUitl.loadimage(arrayList.get(i).getTeam_logo(), imageView);
+        } catch (Exception e) {
+            TLog.e(TAG, "ScheduleTeamAdapter getView error is" + e.getMessage());
         }
         return view;
     }
@@ -63,10 +57,5 @@ public class ScheduleTeamAdapter extends BaseAdapter {
     @Override
     public boolean isEnabled(int position) {
         return false;
-    }
-
-    public class ViewHolder{
-        TextView textView;
-        ImageView imageView;
     }
 }
